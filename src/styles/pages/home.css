@@ -1,0 +1,233 @@
+.home {
+  padding: 0;
+}
+
+/* Основной контейнер с разделением 3/4 и 1/4 */
+.home__content {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 30px;
+  position: relative;
+}
+
+/* Основной контент */
+.home__main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Сайдбар */
+.home__sidebar {
+  position: relative;
+  align-self: start;
+  padding-block-start: 100px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 135px); /* Вычитаем верхний и нижний padding */
+}
+
+/* Сетки для карточек - всегда по 3 в ряд */
+.special-offers__grid,
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Строго 3 колонки */
+  gap: 24px;
+  margin-top: 30px;
+}
+
+/* Общие стили для всех карточек */
+.product-card,
+.special-offer,
+.adsblock {
+  background: white;
+  border: 1px solid var(--color-gray);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.product-card:hover,
+.special-offer:hover,
+.adsblock:hover {
+  transform: translateY(-4px);
+}
+
+.product-card__image,
+.special-offer__image,
+.adsblock__image {
+  position: relative;
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+.product-card__image img,
+.special-offer__image img,
+.adsblock__image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-card__content,
+.special-offer__content,
+.adsblock__content {
+  padding: 16px;
+}
+
+.product-card__title,
+.special-offer__title,
+.adsblock__title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.product-card__description,
+.special-offer__description {
+  margin: 0 0 16px;
+  color: var(--color-gray);
+  font-size: 14px;
+}
+
+.product-card__price,
+.special-offer__price {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.product-card__button,
+.special-offer__button,
+.adsblock__button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
+
+/* Специальные стили для рекламного блока */
+.adsblock {
+  position: sticky;
+  top: 76px;
+  height: fit-content;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.adsblock__free {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+
+/* Секции */
+.hero {
+  margin-bottom: 60px;
+  padding: 60px 0;
+  background-color: var(--color-background);
+  text-align: center;
+}
+
+.special-offers,
+.color-filter-section,
+.price-categories {
+  margin-bottom: 40px;
+}
+
+.price-category {
+  margin-bottom: 60px;
+}
+
+.price-category:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: var(--color-text);
+}
+
+/* Quiz section */
+.quiz-section {
+  margin-bottom: 60px;
+  background: var(--color-background);
+  padding: var(--spacing-xl) 0;
+}
+
+/* Медиа-запросы */
+@media (max-width: 1024px) {
+  .home__content {
+    grid-template-columns: 1fr;
+  }
+  
+  .home__sidebar {
+    padding: 0;
+    height: auto;
+  }
+  
+  .adsblock {
+    position: static;
+    height: auto;
+  }
+
+  .special-offers__grid,
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 40px 0;
+  }
+
+  .hero__title {
+    font-size: 24px;
+  }
+
+  .hero__subtitle {
+    font-size: 16px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .quiz-section {
+    padding: 40px 0;
+  }
+}
+
+/* Промежуточный брейкпоинт для планшетов */
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .special-offers__grid,
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 колонки на планшетах */
+  }
+}
+
+/* Темная тема */
+.theme-dark .adsblock {
+  background: var(--color-card-background);
+  border-color: var(--color-border);
+}
+
+.theme-dark .adsblock:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.theme-dark .quiz-section {
+  background: var(--color-quiz-background);
+} 

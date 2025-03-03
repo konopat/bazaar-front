@@ -1,0 +1,124 @@
+.special-offer {
+  position: relative;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.special-offer:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.special-offer__badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.special-offer__image {
+  position: relative;
+  padding-top: 75%;
+  overflow: hidden;
+}
+
+.special-offer__image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.special-offer:hover .special-offer__image img {
+  transform: scale(1.05);
+}
+
+.special-offer__content {
+  padding: 24px;
+}
+
+.special-offer__title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  color: var(--color-text);
+}
+
+.special-offer__description {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-gray);
+  margin: 0 0 16px;
+}
+
+.special-offer__price {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 20px;
+}
+
+.special-offer__button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .special-offer__content {
+    padding: 16px;
+  }
+
+  .special-offer__title {
+    font-size: 20px;
+  }
+
+  .special-offer__price {
+    font-size: 24px;
+  }
+}
+
+/* Темная тема */
+.theme-dark .special-offer {
+  background: var(--color-card-background);
+  border-color: var(--color-border);
+}
+
+.theme-dark .special-offer__title,
+.theme-dark .special-offer__description {
+  color: var(--color-text);
+}
+
+.theme-dark .special-offer:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.theme-dark .special-offer__badge {
+  background: var(--color-primary);
+  color: var(--color-background);
+} 

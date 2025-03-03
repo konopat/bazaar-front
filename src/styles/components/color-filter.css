@@ -1,0 +1,33 @@
+.color-filter {
+  margin-bottom: 32px;
+}
+
+.color-filter__title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.color-filter__options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.color-filter__option {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.color-filter__option:hover {
+  transform: scale(1.1);
+}
+
+.color-filter__option--active {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
+} 
