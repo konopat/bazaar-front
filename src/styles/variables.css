@@ -6,47 +6,59 @@
   --color-accent: #FFE66D;
   
   /* Нейтральные цвета */
-  --color-text: #2C3E50;
+  --color-text: #333333;
+  --color-text-light: #666666;
   --color-gray: #95A5A6;
   --color-light-gray: #ECF0F1;
   --color-background: #FFFFFF;
-  --color-border: #ECF0F1;
-  --color-card-background: #FFFFFF;
+  --color-background-light: #F9F9F9;
+  --color-border: #EEEEEE;
+  --color-card-background: #2A2A2A;
   --color-quiz-background: #FFFFFF;
   
   /* Состояния */
-  --color-success: #2ECC71;
-  --color-error: #E74C3C;
+  --color-success: #4CAF50;
+  --color-error: #FF4D4D;
   --color-warning: #F1C40F;
   
+  /* Темная тема */
+  --color-background-dark: #1A1A1A;
+  --color-text-dark: #F5F5F5;
+  --color-border-dark: #333333;
+  
   /* Тени */
-  --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-large: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
   
   /* Размеры */
   --container-max-width: 1200px;
   --header-height: 80px;
-  --border-radius: 8px;
+  --border-radius: 0.25rem;
   
   /* Отступы */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-2xl: 3rem;    /* 48px */
   
   /* Шрифты */
-  --font-family: 'Roboto', sans-serif;
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
-  --font-size-md: 16px;
-  --font-size-lg: 18px;
-  --font-size-xl: 24px;
-  --font-size-xxl: 32px;
+  --font-family-primary: 'Local-Geometria', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-family-secondary: 'Local-Didot', Georgia, 'Times New Roman', Times, serif;
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-md: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem;  /* 36px */
+  --font-size-5xl: 3rem;     /* 48px */
   
   /* Анимации */
-  --transition-fast: 0.2s ease;
+  --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
   

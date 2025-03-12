@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@store/store';
 import Navigation from './Navigation';
 import useTheme from '@hooks/useTheme';
+import BazaarLogo from '../common/BazaarLogo';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -76,7 +77,10 @@ const Header: React.FC = () => {
               <span></span>
             </button>
 
-            <Link to="/" className="header__logo">BAZAAR</Link>
+            <Link to="/" className="header__logo" aria-label="BAZAAR (БАЗААР) - Магазин. Цветы в Иркутске">
+              <BazaarLogo />
+              <span className="visually-hidden">BAZAAR</span>
+            </Link>
 
             <div className="header__actions">
               <button 

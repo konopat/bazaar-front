@@ -1,0 +1,61 @@
+.collections {
+  padding: var(--spacing-xl) 0;
+}
+
+.collections__grid {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+.collection {
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-small);
+}
+
+.collection__title {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text);
+}
+
+.collection__items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.collection__button {
+  width: 100%;
+}
+
+/* Темная тема */
+.theme-dark .collection {
+  background-color: var(--color-card-background);
+  border-color: var(--color-border);
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .collection__items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .collections {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .collection__items {
+    grid-template-columns: 1fr;
+  }
+
+  .collection__title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+} 

@@ -4,17 +4,22 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@store/store';
 import BouquetQuiz from '../quiz/BouquetQuiz';
 import ColorFilter from '../catalog/ColorFilter';
+import PriceFilter from '../catalog/PriceFilter';
 import ProductCard from '../catalog/ProductCard';
 import SpecialOfferCard from '../catalog/SpecialOfferCard';
+import Collections from '../collections/Collections';
 import { Product, products } from '../../mocks/products';
 import { specialOffers } from '../../mocks/special-offers';
 
 const HomePage: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedPrice, setSelectedPrice] = useState<{ min: number; max: number | null } | null>(null);
   const [isCardSticky, setIsCardSticky] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const sidebarRef = useRef<HTMLElement>(null);
   const quizRef = useRef<HTMLElement>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -27,6 +32,42 @@ const HomePage: React.FC = () => {
       product.price <= maxPrice &&
       (!selectedColor || product.color === selectedColor)
     );
+  };
+
+  const filterAndSortProducts = () => {
+    let filteredProducts = products;
+
+    // Применяем фильтр по цене
+    if (selectedPrice) {
+      filteredProducts = filteredProducts.filter(product => 
+        product.price >= selectedPrice.min && 
+        (selectedPrice.max === null || product.price <= selectedPrice.max)
+      );
+    }
+
+    // Применяем фильтр по цвету
+    if (selectedColor) {
+      filteredProducts = filteredProducts.filter(product => product.color === selectedColor);
+    }
+
+    // Применяем поиск
+    if (searchQuery) {
+      filteredProducts = filteredProducts.filter(product => 
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Применяем сортировку
+    return filteredProducts.sort((a, b) => 
+      sortOrder === 'asc' ? a.price - b.price : b.price - a.price
+    );
+  };
+
+  const handleResetFilters = () => {
+    setSelectedColor(null);
+    setSelectedPrice(null);
+    setSearchQuery('');
+    setSortOrder('asc');
   };
 
   useEffect(() => {
@@ -104,7 +145,7 @@ const HomePage: React.FC = () => {
         <div className="home__content">
           <div className="home__main">
             <section className="special-offers">
-              <h2 className="section-title">Спецпредложения</h2>
+              <h2 className="section-title">Специальные предложения</h2>
               <div className="special-offers__grid">
                 {specialOffers.map(offer => (
                   <SpecialOfferCard
@@ -115,62 +156,13 @@ const HomePage: React.FC = () => {
               </div>
             </section>
 
-            <section className="color-filter-section">
-              <h2 className="section-title">По цвету</h2>
-              <ColorFilter 
-                selectedColor={selectedColor} 
-                onColorSelect={setSelectedColor} 
-              />
-            </section>
+            <Collections products={products} />
 
-            <section className="price-categories">
-              <article className="price-category">
-                <h2 className="section-title">До 3 000 руб.</h2>
-                <div className="products-grid">
-                  {filterProductsByPrice(0, 3000).map(product => (
-                    <ProductCard
-                      key={product.id}
-                      id={product.id}
-                      name={product.title}
-                      description={product.description}
-                      price={product.price}
-                      image={product.image}
-                    />
-                  ))}
-                </div>
-              </article>
-
-              <article className="price-category">
-                <h2 className="section-title">До 5 000 руб.</h2>
-                <div className="products-grid">
-                  {filterProductsByPrice(3001, 5000).map(product => (
-                    <ProductCard
-                      key={product.id}
-                      id={product.id}
-                      name={product.title}
-                      description={product.description}
-                      price={product.price}
-                      image={product.image}
-                    />
-                  ))}
-                </div>
-              </article>
-
-              <article className="price-category">
-                <h2 className="section-title">До 10 000 руб.</h2>
-                <div className="products-grid">
-                  {filterProductsByPrice(5001, 10000).map(product => (
-                    <ProductCard
-                      key={product.id}
-                      id={product.id}
-                      name={product.title}
-                      description={product.description}
-                      price={product.price}
-                      image={product.image}
-                    />
-                  ))}
-                </div>
-              </article>
+            <section className="quiz-section" ref={quizRef}>
+              <div className="container">
+                <h2 className="section-title">Сложно определиться?</h2>
+                <BouquetQuiz />
+              </div>
             </section>
           </div>
 
@@ -195,13 +187,6 @@ const HomePage: React.FC = () => {
           </aside>
         </div>
       </div>
-
-      <section className="quiz-section" ref={quizRef}>
-        <div className="container">
-          <h2 className="section-title">Сложно определиться?</h2>
-          <BouquetQuiz />
-        </div>
-      </section>
     </main>
   );
 };

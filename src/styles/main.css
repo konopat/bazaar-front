@@ -1,5 +1,11 @@
+/* Импорт шрифтов */
+@import './fonts.css';
+
 /* Импорт переменных */
 @import './variables.css';
+
+/* Импорт базовых стилей */
+@import './base.css';
 
 /* Импорт компонентов */
 @import './components/header.css';
@@ -7,6 +13,7 @@
 @import './components/special-offer.css';
 @import './components/product-card.css';
 @import './components/color-filter.css';
+@import './components/collections.css';
 @import './components/quiz.css';
 @import './components/add-to-cart-animation.css';
 

@@ -1,39 +1,121 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Product, products } from '../../mocks/products';
 import ProductCard from '../catalog/ProductCard';
 import ColorFilter from '../catalog/ColorFilter';
+import PriceFilter from '../catalog/PriceFilter';
+import useScrollToTop from '../../hooks/useScrollToTop';
 
 const CatalogPage: React.FC = () => {
+  useScrollToTop();
+  
+  const [searchParams] = useSearchParams();
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedPrice, setSelectedPrice] = useState<{ min: number; max: number | null } | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortType, setSortType] = useState('default');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
-  const filterProducts = (products: Product[]) => {
-    return products.filter(product => {
-      const matchesColor = !selectedColor || product.color === selectedColor;
-      const matchesSearch = !searchQuery || 
-        product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesColor && matchesSearch;
-    });
+  // Применяем фильтры из URL при загрузке страницы
+  useEffect(() => {
+    const priceMin = searchParams.get('priceMin');
+    const priceMax = searchParams.get('priceMax');
+    
+    if (priceMin) {
+      setSelectedPrice({
+        min: parseInt(priceMin),
+        max: priceMax ? parseInt(priceMax) : null
+      });
+    }
+  }, [searchParams]);
+
+  const filterAndSortProducts = () => {
+    let filteredProducts = products;
+
+    // Применяем фильтр по цене
+    if (selectedPrice) {
+      filteredProducts = filteredProducts.filter(product => 
+        product.price >= selectedPrice.min && 
+        (selectedPrice.max === null || product.price <= selectedPrice.max)
+      );
+    }
+
+    // Применяем фильтр по цвету
+    if (selectedColor) {
+      filteredProducts = filteredProducts.filter(product => product.color === selectedColor);
+    }
+
+    // Применяем поиск
+    if (searchQuery) {
+      filteredProducts = filteredProducts.filter(product => 
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Применяем сортировку
+    return filteredProducts.sort((a, b) => 
+      sortOrder === 'asc' ? a.price - b.price : b.price - a.price
+    );
   };
 
-  const sortProducts = (products: Product[]) => {
-    switch (sortType) {
-      case 'price-asc':
-        return [...products].sort((a, b) => a.price - b.price);
-      case 'price-desc':
-        return [...products].sort((a, b) => b.price - a.price);
-      case 'name-asc':
-        return [...products].sort((a, b) => a.title.localeCompare(b.title));
-      case 'name-desc':
-        return [...products].sort((a, b) => b.title.localeCompare(a.title));
-      default:
-        return products;
+  const handleResetFilters = () => {
+    setSelectedColor(null);
+    setSelectedPrice(null);
+    setSearchQuery('');
+    setSortOrder('asc');
+  };
+
+  // Функция для форматирования цены
+  const formatPriceFilter = (price: { min: number; max: number | null }) => {
+    if (price.max === null) {
+      return `от ₽${price.min}`;
+    } else if (price.min === 0) {
+      return `до ₽${price.max}`;
+    } else {
+      return `₽${price.min} - ₽${price.max}`;
     }
   };
 
-  const filteredAndSortedProducts = sortProducts(filterProducts(products));
+  // Получаем список активных фильтров
+  const getActiveFilters = () => {
+    const filters = [];
+
+    if (selectedColor) {
+      filters.push({
+        id: 'color',
+        label: `Цвет: ${selectedColor}`,
+        onRemove: () => setSelectedColor(null)
+      });
+    }
+
+    if (selectedPrice) {
+      filters.push({
+        id: 'price',
+        label: `Цена: ${formatPriceFilter(selectedPrice)}`,
+        onRemove: () => setSelectedPrice(null)
+      });
+    }
+
+    if (searchQuery) {
+      filters.push({
+        id: 'search',
+        label: `Поиск: ${searchQuery}`,
+        onRemove: () => setSearchQuery('')
+      });
+    }
+
+    if (sortOrder !== 'asc') {
+      filters.push({
+        id: 'sort',
+        label: 'Сначала дороже',
+        onRemove: () => setSortOrder('asc')
+      });
+    }
+
+    return filters;
+  };
+
+  const activeFilters = getActiveFilters();
+  const isAnyFilterActive = activeFilters.length > 0;
 
   return (
     <div className="catalog">
@@ -51,77 +133,69 @@ const CatalogPage: React.FC = () => {
           </div>
         </div>
 
+        {isAnyFilterActive && (
+          <div className="catalog__active-filters">
+            {activeFilters.map(filter => (
+              <button
+                key={filter.id}
+                className="catalog__filter-tag"
+                onClick={filter.onRemove}
+              >
+                {filter.label}
+                <span className="catalog__filter-tag-remove">×</span>
+              </button>
+            ))}
+            <button 
+              className="catalog__reset-all"
+              onClick={handleResetFilters}
+            >
+              Сбросить все фильтры
+            </button>
+          </div>
+        )}
+
         <div className="catalog__content">
-          <div className="catalog__filters">
+          <aside className="catalog__filters">
             <div className="filters">
-              <ColorFilter
-                selectedColor={selectedColor}
-                onColorSelect={setSelectedColor}
-              />
+              <div className="filters__section">
+                <ColorFilter
+                  selectedColor={selectedColor}
+                  onColorSelect={setSelectedColor}
+                />
+              </div>
+              
+              <div className="filters__section">
+                <PriceFilter
+                  selectedPrice={selectedPrice}
+                  onPriceSelect={setSelectedPrice}
+                />
+              </div>
+
               <div className="filters__section">
                 <h3 className="filters__title">Сортировка</h3>
                 <select
                   className="catalog__sort-select"
-                  value={sortType}
-                  onChange={(e) => setSortType(e.target.value)}
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
                 >
-                  <option value="default">По умолчанию</option>
-                  <option value="price-asc">Сначала дешевле</option>
-                  <option value="price-desc">Сначала дороже</option>
-                  <option value="name-asc">По названию (А-Я)</option>
-                  <option value="name-desc">По названию (Я-А)</option>
+                  <option value="asc">Сначала дешевле</option>
+                  <option value="desc">Сначала дороже</option>
                 </select>
-              </div>
-              <div className="filters__section">
-                <h3 className="filters__title">Цена</h3>
-                <div className="filters__price-ranges">
-                  <label className="filters__price-range">
-                    <input
-                      type="radio"
-                      name="price-range"
-                      value="all"
-                      checked={!selectedColor}
-                      onChange={() => setSelectedColor(null)}
-                    />
-                    Все цены
-                  </label>
-                  <label className="filters__price-range">
-                    <input
-                      type="radio"
-                      name="price-range"
-                      value="0-3000"
-                      checked={selectedColor === '0-3000'}
-                      onChange={() => setSelectedColor('0-3000')}
-                    />
-                    До 3000 ₽
-                  </label>
-                  <label className="filters__price-range">
-                    <input
-                      type="radio"
-                      name="price-range"
-                      value="3000-5000"
-                      checked={selectedColor === '3000-5000'}
-                      onChange={() => setSelectedColor('3000-5000')}
-                    />
-                    3000 - 5000 ₽
-                  </label>
-                  <label className="filters__price-range">
-                    <input
-                      type="radio"
-                      name="price-range"
-                      value="5000-10000"
-                      checked={selectedColor === '5000-10000'}
-                      onChange={() => setSelectedColor('5000-10000')}
-                    />
-                    5000 - 10000 ₽
-                  </label>
-                </div>
+
+                {isAnyFilterActive && (
+                  <button 
+                    className="catalog__reset"
+                    onClick={handleResetFilters}
+                  >
+                    Сбросить фильтры
+                  </button>
+                )}
               </div>
             </div>
-          </div>
+          </aside>
 
           <div className="catalog__grid">
-            {filteredAndSortedProducts.map(product => (
+            {filterAndSortProducts().map(product => (
               <ProductCard
                 key={product.id}
                 id={product.id}

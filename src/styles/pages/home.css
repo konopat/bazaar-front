@@ -138,7 +138,7 @@
 }
 
 .special-offers,
-.color-filter-section,
+.catalog-section,
 .price-categories {
   margin-bottom: 40px;
 }
@@ -165,7 +165,126 @@
   padding: var(--spacing-xl) 0;
 }
 
-/* Медиа-запросы */
+/* Каталог */
+.catalog-section__header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.catalog-section__search {
+  margin-bottom: var(--spacing-lg);
+}
+
+.catalog-section__search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: var(--font-size-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-background);
+  color: var(--color-text);
+  transition: all var(--transition-normal);
+}
+
+.catalog-section__search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* Фильтры и сортировка */
+.catalog-section__filters {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+}
+
+.catalog-section__filters-group {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-grow: 1;
+}
+
+.catalog-section__sort {
+  margin-left: auto;
+}
+
+.catalog-section__sort-select {
+  padding: 8px 32px 8px 16px;
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-background);
+  color: var(--color-text);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  height: 36px;
+}
+
+.catalog-section__sort-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.catalog-section__reset {
+  padding: 8px 16px;
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-background);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  height: 36px;
+}
+
+.catalog-section__reset:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Темная тема */
+.theme-dark .adsblock {
+  background: var(--color-card-background);
+  border-color: var(--color-border);
+}
+
+.theme-dark .adsblock:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.theme-dark .quiz-section {
+  background: var(--color-quiz-background);
+}
+
+.theme-dark .catalog-section__search-input,
+.theme-dark .catalog-section__sort-select {
+  background: var(--color-card-background);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.theme-dark .catalog-section__search-input:focus,
+.theme-dark .catalog-section__sort-select:focus {
+  border-color: var(--color-primary);
+}
+
+.theme-dark .price-filter__option {
+  background: var(--color-card-background);
+  border-color: var(--color-border);
+}
+
+.theme-dark .price-filter__option:hover {
+  border-color: var(--color-primary);
+}
+
+.theme-dark .price-filter__option--active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
 @media (max-width: 1024px) {
   .home__content {
     grid-template-columns: 1fr;
@@ -208,6 +327,29 @@
   .quiz-section {
     padding: 40px 0;
   }
+
+  .catalog-section__filters {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .catalog-section__filters-group {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .catalog-section__sort {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .catalog-section__sort-select {
+    width: 100%;
+  }
+
+  .catalog-section__reset {
+    width: 100%;
+  }
 }
 
 /* Промежуточный брейкпоинт для планшетов */
@@ -216,18 +358,4 @@
   .products-grid {
     grid-template-columns: repeat(2, 1fr); /* 2 колонки на планшетах */
   }
-}
-
-/* Темная тема */
-.theme-dark .adsblock {
-  background: var(--color-card-background);
-  border-color: var(--color-border);
-}
-
-.theme-dark .adsblock:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-}
-
-.theme-dark .quiz-section {
-  background: var(--color-quiz-background);
 } 
