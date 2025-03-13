@@ -1,8 +1,12 @@
+/* 
+* Компонент: Хедер
+* Описание: Стили для шапки сайта
+*/
+
+/* Основной контейнер */
 .header {
-  padding: var(--spacing-md) 0 0 0;
   background-color: var(--color-background);
-  position: sticky;
-  top: 0;
+  position: relative; /* Изменено с sticky на relative */
   z-index: 100;
 }
 
@@ -66,39 +70,20 @@
   gap: var(--spacing-md);
 }
 
-/* Темная тема */
-.theme-dark .header {
-  background-color: var(--color-background-dark);
-  border-color: var(--color-border-dark);
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-  .header__content {
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .header__nav {
-    gap: var(--spacing-md);
-  }
-}
-
 /* Верхняя строка - фиксированная */
 .header__top {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--header-height);
   background: var(--color-background);
-  border-bottom: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
   z-index: 100;
-  transition: height var(--transition-normal);
+  transition: block-size var(--transition-normal);
 }
 
 .header__top-content {
-  height: 60px;
+  block-size: var(--header-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -184,13 +169,11 @@
 
 /* Нижняя строка с меню - прокручивается с контентом */
 .header__bottom {
-  margin-top: 54px;
+  margin-block-start: var(--header-height); /* Используем переменную */
   background: var(--color-background);
-  border-bottom: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
   position: static; /* Явно указываем статичное позиционирование */
 }
-
-
 
 @media (min-width: 1025px) {
   .header__bottom {
@@ -200,7 +183,7 @@
   .nav {
     display: flex;
     justify-content: space-between;
-    padding: 16px 0;
+    padding-block: 16px;
   }
 
   .nav__link {
@@ -213,42 +196,21 @@
   .nav__link:hover {
     color: var(--color-primary);
   }
-
-  .header__top {
-    height: 70px;
-  }
-  
-  .header__top-content {
-    height: 70px;
-  }
-
-}
-
-
-@media (max-width: 768px) {
-  .header__top {
-    height: 50px;
-  }
-  
-  .header__top-content {
-    height: 50px;
-  }
-  
 }
 
 /* Мобильное меню */
 .mobile-menu {
   position: fixed;
-  top: var(--header-height);
-  left: 0;
-  width: 33.333%;
-  height: calc(100vh - var(--header-height));
+  inset-block-start: var(--header-height, 60px); /* Используем переменную или значение по умолчанию */
+  inset-inline-start: 0;
+  inline-size: 33.333%;
+  block-size: calc(100vh - var(--header-height, 60px));
   background: var(--color-background);
-  box-shadow: var(--shadow-large);
+  box-shadow: var(--shadow-md);
   transform: translateX(-100%);
   transition: transform var(--transition-normal);
   overflow-y: auto;
-  z-index: 999;
+  z-index: 99;
 }
 
 .mobile-menu--open {
@@ -348,42 +310,12 @@
   }
 }
 
-.theme-dark .header,
-.theme-dark .header__top,
-.theme-dark .header__bottom,
-.theme-dark .mobile-menu {
-  background: var(--color-background);
-  border-color: var(--color-border);
-}
-
-.theme-dark .burger-menu span {
-  background-color: var(--color-text);
-}
-
-.theme-dark .profile-button,
-.theme-dark .cart-button,
-.theme-dark .theme-toggle,
-.theme-dark .mobile-menu__social-link {
-  color: var(--color-text);
-}
-
-.theme-dark .profile-button:hover,
-.theme-dark .cart-button:hover,
-.theme-dark .theme-toggle:hover,
-.theme-dark .mobile-menu__social-link:hover {
-  background-color: var(--color-light-gray);
-}
-
-.theme-dark .mobile-menu__social-link {
-  background-color: var(--color-card-background);
-}
-
 .theme-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  inline-size: 40px;
+  block-size: 40px;
   padding: 0;
   background: none;
   border: none;
@@ -397,17 +329,13 @@
 }
 
 .theme-toggle svg {
-  width: 24px;
-  height: 24px;
+  inline-size: 24px;
+  block-size: 24px;
   color: var(--color-text);
 }
 
-.theme-light .theme-toggle svg {
-  color: var(--color-warning);
-}
-
-.theme-dark .theme-toggle svg {
-  color: var(--color-text);
+.dark .theme-toggle svg {
+  color: var(--color-text-dark);
 }
 
 .profile-button,
@@ -416,8 +344,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  inline-size: 40px;
+  block-size: 40px;
   padding: 0;
   background: none;
   border: none;
@@ -437,8 +365,8 @@
 .cart-button svg,
 .theme-toggle svg,
 .mobile-menu__social-link svg {
-  width: 24px;
-  height: 24px;
+  inline-size: 24px;
+  block-size: 24px;
   fill: currentColor;
 }
 
@@ -446,4 +374,49 @@
 .theme-dark .header__bottom {
   background: var(--color-card-background);
   border-color: var(--color-border);
-} 
+}
+
+/* Темная тема */
+.dark .header,
+.dark .header__top,
+.dark .header__bottom,
+.dark .mobile-menu {
+  background-color: var(--color-background-dark);
+  border-color: var(--color-border-dark);
+}
+
+.dark .burger-menu span {
+  background-color: var(--color-text-dark);
+}
+
+.dark .profile-button,
+.dark .cart-button,
+.dark .theme-toggle,
+.dark .mobile-menu__social-link {
+  color: var(--color-text-dark);
+}
+
+.dark .profile-button:hover,
+.dark .cart-button:hover,
+.dark .theme-toggle:hover,
+.dark .mobile-menu__social-link:hover {
+  background-color: var(--color-background);
+}
+
+.dark .mobile-menu__social-link {
+  background-color: var(--color-background-dark);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .header__content {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .header__nav {
+    gap: var(--spacing-md);
+  }
+}
+
+/* Верхняя строка - фиксированная */ 

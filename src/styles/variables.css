@@ -39,7 +39,7 @@
   
   /* Размеры */
   --container-max-width: 1200px;
-  --header-height: 68px;
+  --header-height: 60px; /* Высота хедера по умолчанию */
   --border-radius: 8px;
   --border-radius-sm: 4px;
   --border-radius-lg: 12px;
@@ -75,4 +75,17 @@
   --breakpoint-mobile: 768px;
   --breakpoint-tablet: 1024px;
   --breakpoint-desktop: 1200px;
+}
+
+/* Медиа-запросы для переменных */
+@media (min-width: 1025px) {
+  :root {
+    --header-height: 70px; /* Высота хедера для десктопа */
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 50px; /* Высота хедера для мобильных */
+  }
 } 

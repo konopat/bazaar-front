@@ -1,0 +1,178 @@
+/* 
+* Компонент: Кнопка
+* Описание: Стили для кнопок различных типов и размеров
+*/
+
+/* Основной стиль кнопки */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-lg);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  border: none;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* Основная кнопка (Primary) */
+.button--primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.button--primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.button--primary:active {
+  transform: translateY(1px);
+}
+
+/* Вторичная кнопка (Secondary) */
+.button--secondary {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+.button--secondary:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.button--secondary:active {
+  transform: translateY(1px);
+}
+
+/* Контурная кнопка (Outline) */
+.button--outline {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.button--outline:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.button--outline:active {
+  transform: translateY(1px);
+}
+
+/* Текстовая кнопка (Text) */
+.button--text {
+  background-color: transparent;
+  color: var(--color-primary);
+  padding-inline: var(--spacing-sm);
+}
+
+.button--text:hover {
+  color: var(--color-primary-dark);
+  background-color: rgba(190, 161, 132, 0.1);
+}
+
+.button--text:active {
+  transform: translateY(1px);
+}
+
+/* Размеры кнопок */
+.button--small {
+  padding-block: var(--spacing-xs);
+  padding-inline: var(--spacing-md);
+  font-size: var(--font-size-xs);
+}
+
+.button--large {
+  padding-block: var(--spacing-md);
+  padding-inline: var(--spacing-xl);
+  font-size: var(--font-size-md);
+}
+
+/* Кнопка на всю ширину */
+.button--full-width {
+  inline-size: 100%;
+}
+
+/* Кнопка с иконкой */
+.button__icon {
+  margin-inline-end: var(--spacing-xs);
+}
+
+.button__icon--end {
+  margin-inline-start: var(--spacing-xs);
+  margin-inline-end: 0;
+}
+
+/* Круглая кнопка (для иконок) */
+.button--icon-only {
+  padding: var(--spacing-sm);
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+}
+
+.button--icon-only.button--small {
+  padding: var(--spacing-xs);
+}
+
+.button--icon-only.button--large {
+  padding: var(--spacing-md);
+}
+
+/* Состояние загрузки */
+.button--loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.button--loading::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: 1em;
+  block-size: 1em;
+  margin-block-start: -0.5em;
+  margin-inline-start: -0.5em;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  animation: button-loading 0.75s infinite linear;
+}
+
+@keyframes button-loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Отключенное состояние */
+.button:disabled,
+.button--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Темная тема */
+.dark .button--outline {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.dark .button--text {
+  color: var(--color-primary);
+}
+
+.dark .button--text:hover {
+  background-color: rgba(190, 161, 132, 0.15);
+} 
