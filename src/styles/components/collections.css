@@ -6,7 +6,6 @@
 /* Основной контейнер */
 .collections {
   padding-block: var(--spacing-2xl);
-  padding-inline: var(--spacing-xl);
   background-color: var(--color-background);
 }
 

@@ -37,17 +37,17 @@ const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({
   };
 
   return (
-    <Link to={`/product/${id}`} className="special-offer">
-      {isHot && <div className="special-offer__badge">Горячее предложение</div>}
-      <div className="special-offer__image">
+    <Link to={`/product/${id}`} className="product-card">
+      {isHot && <div className="product-card__badge">Горячее предложение</div>}
+      <div className="product-card__image">
         <img src={image} alt={title} />
       </div>
-      <div className="special-offer__content">
-        <h3 className="special-offer__title">{title}</h3>
-        <p className="special-offer__description">{description}</p>
-        <div className="special-offer__price">{price} ₽</div>
+      <div className="product-card__content">
+        <h3 className="product-card__title">{title}</h3>
+        <p className="product-card__description">{description}</p>
+        <div className="product-card__price">{price} ₽</div>
         <button 
-          className="button button--primary special-offer__button"
+          className="button button--primary product-card__button"
           onClick={handleAddToCart}
           data-product-id={id}
         >

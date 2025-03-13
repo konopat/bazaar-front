@@ -16,7 +16,7 @@
 @import './components/catalog.css';
 @import './components/quiz.css';
 @import './components/add-to-cart-animation.css';
-@import './components/special-offer.css';
+@import './components/product-card.css';
 @import './components/button.css';
 
 /* Импорт страниц */
@@ -107,6 +107,13 @@
 .container {
   max-width: var(--container-max-width);
   margin: 0 auto;
+  padding-inline: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-inline: var(--spacing-md);
+  }
 }
 
 /* Вспомогательные классы */
