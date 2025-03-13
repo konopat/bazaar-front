@@ -42,7 +42,6 @@ const Collections: React.FC<CollectionProps> = ({ products }) => {
 
   return (
     <section className="collections">
-      <div className="container">
         <h2 className="collections__title">Коллекции по цене</h2>
         <p className="collections__subtitle">Подборки букетов в разных ценовых категориях, чтобы вы могли найти идеальный вариант для любого случая и бюджета</p>
         
@@ -71,7 +70,6 @@ const Collections: React.FC<CollectionProps> = ({ products }) => {
             </div>
           ))}
         </div>
-      </div>
     </section>
   );
 };
