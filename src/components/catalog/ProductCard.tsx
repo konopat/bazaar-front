@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@store/cartSlice';
 import AddToCartAnimation from './AddToCartAnimation';
@@ -9,7 +10,7 @@ interface ProductCardProps {
   description: string;
   price: number;
   image: string;
-  compact?: boolean;
+  isHot?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -18,12 +19,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   description,
   price,
   image,
-  compact = false
+  isHot
 }) => {
   const dispatch = useDispatch();
   const [showAnimation, setShowAnimation] = useState(false);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault(); // Предотвращаем переход по ссылке при клике на кнопку
     dispatch(addToCart({
       id,
       name,
@@ -35,32 +37,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div className={`product-card ${compact ? 'product-card--compact' : ''}`}>
-      <div className="product-card__image-container">
-        <img src={image} alt={name} className="product-card__image" />
+    <Link to={`/product/${id}`} className="special-offer">
+      {isHot && <div className="special-offer__badge">Горячее предложение</div>}
+      <div className="special-offer__image">
+        <img src={image} alt={name} />
       </div>
-      <div className="product-card__content">
-        <h3 className="product-card__title">{name}</h3>
-        {!compact && <p className="product-card__description">{description}</p>}
-        <div className="product-card__footer">
-          <div className="product-card__price">{price} ₽</div>
-          {!compact && (
-            <button 
-              className="product-card__button"
-              onClick={handleAddToCart}
-              data-product-id={id}
-            >
-              В корзину
-            </button>
-          )}
-        </div>
+      <div className="special-offer__content">
+        <h3 className="special-offer__title">{name}</h3>
+        <p className="special-offer__description">{description}</p>
+        <div className="special-offer__price">{price} ₽</div>
+        <button 
+          className="button button--primary special-offer__button"
+          onClick={handleAddToCart}
+          data-product-id={id}
+        >
+          В корзину
+        </button>
       </div>
       <AddToCartAnimation
         productId={id}
         isVisible={showAnimation}
         onAnimationEnd={() => setShowAnimation(false)}
       />
-    </div>
+    </Link>
   );
 };
 

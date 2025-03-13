@@ -187,7 +187,12 @@
 
 @media (max-width: 1024px) {
   .catalog__content {
-    grid-template-columns: 1fr;
+    grid-template-columns: 220px 1fr;
+  }
+  
+  .catalog__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
   }
 
   .catalog__filters {
@@ -206,16 +211,22 @@
     margin-bottom: var(--spacing-lg);
   }
 
+  .catalog__content {
+    grid-template-columns: 1fr;
+  }
+  
+  .catalog__filters {
+    position: static;
+    margin-bottom: var(--spacing-lg);
+  }
+  
   .catalog__grid {
     grid-template-columns: 1fr;
+    gap: var(--spacing-md);
   }
 
   .catalog__search,
-  .catalog__filters {
-    margin-bottom: var(--spacing-lg);
-  }
-
   .catalog__active-filters {
-    margin: var(--spacing-md) 0;
+    margin-bottom: var(--spacing-lg);
   }
 } 

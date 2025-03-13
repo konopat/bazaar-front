@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@store/cartSlice';
 import AddToCartAnimation from './AddToCartAnimation';
@@ -23,7 +24,8 @@ const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({
   const dispatch = useDispatch();
   const [showAnimation, setShowAnimation] = useState(false);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault(); // Предотвращаем переход по ссылке при клике на кнопку
     dispatch(addToCart({
       id,
       name: title,
@@ -35,7 +37,7 @@ const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({
   };
 
   return (
-    <div className="special-offer">
+    <Link to={`/product/${id}`} className="special-offer">
       {isHot && <div className="special-offer__badge">Горячее предложение</div>}
       <div className="special-offer__image">
         <img src={image} alt={title} />
@@ -57,7 +59,7 @@ const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({
         isVisible={showAnimation}
         onAnimationEnd={() => setShowAnimation(false)}
       />
-    </div>
+    </Link>
   );
 };
 

@@ -15,19 +15,19 @@ const Collections: React.FC<CollectionProps> = ({ products }) => {
       id: 'cheap',
       title: 'до ₽3000',
       filter: { min: 0, max: 3000 },
-      items: products.filter(p => p.price <= 3000).slice(0, 3)
+      items: products.filter(p => p.price <= 3000).slice(0, 6)
     },
     { 
       id: 'medium',
       title: 'до ₽5000',
       filter: { min: 3000, max: 5000 },
-      items: products.filter(p => p.price > 3000 && p.price <= 5000).slice(0, 3)
+      items: products.filter(p => p.price > 3000 && p.price <= 5000).slice(0, 6)
     },
     { 
       id: 'expensive',
       title: 'дороже ₽5000',
       filter: { min: 5000, max: null },
-      items: products.filter(p => p.price > 5000).slice(0, 3)
+      items: products.filter(p => p.price > 5000).slice(0, 6)
     }
   ];
 
@@ -59,7 +59,6 @@ const Collections: React.FC<CollectionProps> = ({ products }) => {
                     description={product.description}
                     price={product.price}
                     image={product.image}
-                    compact={true}
                   />
                 ))}
               </div>

@@ -79,24 +79,21 @@ button, input, select, textarea {
 }
 
 .container {
-  width: 100%;
-  max-width: var(--container-max-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--spacing-md);
-  padding-right: var(--spacing-md);
+  inline-size: 100%;
+  max-inline-size: var(--container-max-width);
+  margin-inline: auto;
 }
 
 /* Темная тема */
-.theme-dark {
-  color: var(--color-text-dark);
+.dark {
   background-color: var(--color-background-dark);
+  color: var(--color-text-dark);
 }
 
-.theme-dark a {
+.dark a {
   color: var(--color-primary);
 }
 
-.theme-dark a:hover {
-  color: var(--color-primary);
+.dark a:hover {
+  color: var(--color-primary-dark);
 } 

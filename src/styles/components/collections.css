@@ -1,110 +1,132 @@
+/* 
+* Компонент: Коллекции по цене
+* Описание: Стили для отображения коллекций товаров по ценовым категориям
+*/
+
+/* Основной контейнер */
 .collections {
-  padding: var(--spacing-2xl) 0;
+  padding-block: var(--spacing-2xl);
+  padding-inline: var(--spacing-xl);
   background-color: var(--color-background);
 }
 
+/* Заголовок секции - выравнивание по левому краю */
 .collections__title {
-  font-family: var(--font-family-secondary);
   font-size: var(--font-size-3xl);
   color: var(--color-primary);
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
+  text-align: start; /* Выравнивание по левому краю */
+  margin-block-end: var(--spacing-md);
   font-weight: 400;
   letter-spacing: 0.05em;
 }
 
+/* Описание секции - выравнивание по левому краю */
 .collections__subtitle {
   font-size: var(--font-size-md);
   color: var(--color-text);
-  text-align: center;
-  margin-bottom: var(--spacing-2xl);
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  text-align: start; /* Выравнивание по левому краю */
+  margin-block-end: var(--spacing-xl);
+  max-inline-size: 700px;
+  margin-inline: 0; /* Убираем автоматические отступы */
   font-weight: 300;
   line-height: 1.6;
 }
 
+/* Сетка коллекций - одна коллекция в строку */
 .collections__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-xl);
 }
 
+/* Карточка коллекции */
 .collection {
   background-color: var(--color-background-light);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-md);
   overflow: hidden;
   border: 1px solid var(--color-border);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .collection:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
 
+/* Заголовок коллекции */
 .collection__title {
-  font-family: var(--font-family-secondary);
   font-size: var(--font-size-xl);
   color: var(--color-primary);
-  margin-bottom: var(--spacing-md);
-  padding: var(--spacing-md) var(--spacing-md) 0;
+  margin-block-end: var(--spacing-md);
+  padding-block-start: var(--spacing-lg);
+  padding-inline: var(--spacing-lg);
   font-weight: 400;
   letter-spacing: 0.05em;
 }
 
+/* Сетка товаров в коллекции - 3 карточки в ряд */
 .collection__items {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-sm);
-  padding: 0 var(--spacing-md);
+  gap: var(--spacing-md);
+  padding-inline: var(--spacing-lg);
+  padding-block-end: var(--spacing-md);
 }
 
+/* Кнопка "Показать все" */
 .collection__button {
-  display: block;
-  width: auto;
+  display: inline-block;
   background-color: transparent;
   border: 1px solid var(--color-primary);
   color: var(--color-primary);
   text-align: center;
-  padding: var(--spacing-sm);
-  margin: var(--spacing-md);
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-lg);
+  margin-block: var(--spacing-md);
+  margin-inline-start: var(--spacing-lg);
   text-decoration: none;
   font-size: var(--font-size-sm);
   transition: all var(--transition-normal);
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  border-radius: var(--border-radius-sm);
 }
 
 .collection__button:hover {
   background-color: var(--color-primary);
-  color: var(--color-background);
+  color: white;
 }
 
 /* Темная тема */
-.theme-dark .collection {
-  background-color: var(--color-card-background);
+.dark .collection {
+  background-color: var(--color-background-dark);
   border-color: var(--color-border-dark);
 }
 
 /* Адаптивность */
 @media (max-width: 1024px) {
-  .collections__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
   .collection__items {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
   }
 }
 
 @media (max-width: 768px) {
-  .collections__grid {
-    grid-template-columns: 1fr;
+  .collections {
+    padding-inline: var(--spacing-md);
   }
   
   .collection__title {
     font-size: var(--font-size-lg);
+    padding-inline: var(--spacing-md);
+  }
+  
+  .collection__items {
+    grid-template-columns: 1fr; /* Одна карточка в ряд на мобильных */
+    padding-inline: var(--spacing-md);
+  }
+  
+  .collection__button {
+    margin-inline-start: var(--spacing-md);
   }
 } 

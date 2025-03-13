@@ -122,11 +122,46 @@
   transition: all var(--transition-normal);
 }
 
+.adsblock:hover {
+  transform: translateY(-4px);
+}
+
+.adsblock__image {
+  position: relative;
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+.adsblock__image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.adsblock__content {
+  padding: 16px;
+}
+
+.adsblock__title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .adsblock__free {
   font-size: 20px;
   font-weight: 700;
   color: var(--color-primary);
   margin-bottom: 16px;
+}
+
+.adsblock__button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
 }
 
 /* Секции */
@@ -246,53 +281,23 @@
 }
 
 /* Темная тема */
-.theme-dark .adsblock {
+.dark .adsblock {
   background: var(--color-card-background);
-  border-color: var(--color-border);
+  border-color: var(--color-border-dark);
 }
 
-.theme-dark .adsblock:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+.dark .adsblock__title {
+  color: var(--color-text-dark);
 }
 
-.theme-dark .quiz-section {
-  background: var(--color-quiz-background);
-}
-
-.theme-dark .catalog-section__search-input,
-.theme-dark .catalog-section__sort-select {
-  background: var(--color-card-background);
-  border-color: var(--color-border);
-  color: var(--color-text);
-}
-
-.theme-dark .catalog-section__search-input:focus,
-.theme-dark .catalog-section__sort-select:focus {
-  border-color: var(--color-primary);
-}
-
-.theme-dark .price-filter__option {
-  background: var(--color-card-background);
-  border-color: var(--color-border);
-}
-
-.theme-dark .price-filter__option:hover {
-  border-color: var(--color-primary);
-}
-
-.theme-dark .price-filter__option--active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-}
-
+/* Адаптивность */
 @media (max-width: 1024px) {
   .home__content {
     grid-template-columns: 1fr;
   }
   
   .home__sidebar {
-    padding: 0;
-    height: auto;
+    display: none;
   }
   
   .adsblock {
@@ -308,45 +313,28 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: 90px 0;
-  }
-
-  .hero__title {
-    font-size: 36px;
-  }
-
-  .hero__subtitle {
-    font-size: 16px;
-  }
-
-  .section-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-
-  .quiz-section {
     padding: 40px 0;
   }
-
+  
+  .section-title {
+    font-size: 24px;
+  }
+  
   .catalog-section__filters {
     flex-direction: column;
     gap: var(--spacing-md);
   }
-
+  
   .catalog-section__filters-group {
     flex-direction: column;
     gap: var(--spacing-md);
   }
-
+  
   .catalog-section__sort {
     margin-left: 0;
-    width: 100%;
   }
-
-  .catalog-section__sort-select {
-    width: 100%;
-  }
-
+  
+  .catalog-section__sort-select,
   .catalog-section__reset {
     width: 100%;
   }

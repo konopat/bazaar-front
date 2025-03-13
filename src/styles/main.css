@@ -11,13 +11,13 @@
 @import './components/header.css';
 @import './components/footer.css';
 @import './components/hero.css';
-@import './components/product-card.css';
 @import './components/color-filter.css';
 @import './components/collections.css';
 @import './components/catalog.css';
 @import './components/quiz.css';
 @import './components/add-to-cart-animation.css';
 @import './components/special-offer.css';
+@import './components/button.css';
 
 /* Импорт страниц */
 @import './pages/home.css';
@@ -107,7 +107,6 @@
 .container {
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 var(--spacing-md);
 }
 
 /* Вспомогательные классы */
