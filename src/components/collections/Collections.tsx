@@ -43,7 +43,8 @@ const Collections: React.FC<CollectionProps> = ({ products }) => {
   return (
     <section className="collections">
       <div className="container">
-        <h2 className="section-title">Подборки</h2>
+        <h2 className="collections__title">Коллекции по цене</h2>
+        <p className="collections__subtitle">Подборки букетов в разных ценовых категориях, чтобы вы могли найти идеальный вариант для любого случая и бюджета</p>
         
         <div className="collections__grid">
           {collections.map(collection => (
@@ -58,11 +59,12 @@ const Collections: React.FC<CollectionProps> = ({ products }) => {
                     description={product.description}
                     price={product.price}
                     image={product.image}
+                    compact={true}
                   />
                 ))}
               </div>
               <button 
-                className="button button--secondary collection__button"
+                className="collection__button"
                 onClick={() => handleShowAll(collection.filter)}
               >
                 Показать все

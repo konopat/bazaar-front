@@ -1,7 +1,6 @@
 .header {
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-md) 0 0 0;
   background-color: var(--color-background);
-  border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -169,7 +168,7 @@
 
 .cart-button__count {
   position: absolute;
-  top: -8px;
+  top: -4px;
   right: -8px;
   display: flex;
   align-items: center;
@@ -185,21 +184,17 @@
 
 /* Нижняя строка с меню - прокручивается с контентом */
 .header__bottom {
-  margin-top: 60px;
+  margin-top: 54px;
   background: var(--color-background);
   border-bottom: 1px solid var(--color-border);
   position: static; /* Явно указываем статичное позиционирование */
 }
 
-/* Основной контент */
-.main {
-  padding-top: 60px; /* Компенсация фиксированного header__top */
-}
+
 
 @media (min-width: 1025px) {
   .header__bottom {
     display: block;
-    border-bottom: 1px solid var(--color-gray);
   }
 
   .nav {
@@ -229,6 +224,7 @@
 
 }
 
+
 @media (max-width: 768px) {
   .header__top {
     height: 50px;
@@ -237,10 +233,6 @@
   .header__top-content {
     height: 50px;
   }
-
-  /* .header__logo svg {
-    height: 40%;
-  } */
   
 }
 
@@ -352,18 +344,8 @@
   }
 
   .mobile-menu {
-    width: 90%;
+    width: 100%;
   }
-}
-
-.theme-dark {
-  --color-background: #1a1a1a;
-  --color-text: #ffffff;
-  --color-gray: #666666;
-  --color-light-gray: #333333;
-  --color-border: #333333;
-  --color-card-background: #262626;
-  --color-quiz-background: #333333;
 }
 
 .theme-dark .header,
@@ -460,7 +442,7 @@
   fill: currentColor;
 }
 
-.theme-dark .header__top,
+/* .theme-dark .header__top, */
 .theme-dark .header__bottom {
   background: var(--color-card-background);
   border-color: var(--color-border);

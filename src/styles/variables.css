@@ -1,40 +1,48 @@
 :root {
   /* Основные цвета */
-  --color-primary: #FF6B6B;
-  --color-primary-dark: #FF5252;
-  --color-secondary: #4ECDC4;
+  --color-primary: #BEA184;
+  --color-primary-dark: #A88D70;
+  --color-secondary: #564743;
+  --color-secondary-dark: #3E332F;
   --color-accent: #FFE66D;
   
   /* Нейтральные цвета */
-  --color-text: #333333;
-  --color-text-light: #666666;
+  --color-text: #564743;
+  --color-text-light: #7A6B66;
+  --color-text-lighter: #9D938E;
   --color-gray: #95A5A6;
   --color-light-gray: #ECF0F1;
+  
+  /* Фоны */
   --color-background: #FFFFFF;
   --color-background-light: #F9F9F9;
-  --color-border: #EEEEEE;
+  --color-background-alt: #F5F3F0;
+  --color-border: #E5E0DB;
+  
+  /* Темная тема */
+  --color-background-dark: #1A1A1A;
   --color-card-background: #2A2A2A;
-  --color-quiz-background: #FFFFFF;
+  --color-text-dark: #F5F5F5;
+  --color-text-light-dark: #BBBBBB;
+  --color-border-dark: #333333;
+  --color-quiz-background: #2A2A2A;
   
   /* Состояния */
   --color-success: #4CAF50;
   --color-error: #FF4D4D;
   --color-warning: #F1C40F;
   
-  /* Темная тема */
-  --color-background-dark: #1A1A1A;
-  --color-text-dark: #F5F5F5;
-  --color-border-dark: #333333;
-  
   /* Тени */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
   
   /* Размеры */
   --container-max-width: 1200px;
-  --header-height: 80px;
-  --border-radius: 0.25rem;
+  --header-height: 68px;
+  --border-radius: 8px;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 12px;
   
   /* Отступы */
   --spacing-xs: 0.25rem;  /* 4px */
@@ -43,10 +51,11 @@
   --spacing-lg: 1.5rem;   /* 24px */
   --spacing-xl: 2rem;     /* 32px */
   --spacing-2xl: 3rem;    /* 48px */
+  --spacing-3xl: 4rem;    /* 64px */
   
   /* Шрифты */
-  --font-family-primary: 'Local-Geometria', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --font-family-secondary: 'Local-Didot', Georgia, 'Times New Roman', Times, serif;
+  --font-family-primary:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-family-secondary: Georgia, 'Times New Roman', Times, serif;
   --font-size-xs: 0.75rem;   /* 12px */
   --font-size-sm: 0.875rem;  /* 14px */
   --font-size-md: 1rem;      /* 16px */

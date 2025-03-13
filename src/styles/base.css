@@ -94,7 +94,7 @@ button, input, select, textarea {
 }
 
 .theme-dark a {
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 .theme-dark a:hover {

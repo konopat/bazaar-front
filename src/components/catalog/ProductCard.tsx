@@ -9,6 +9,7 @@ interface ProductCardProps {
   description: string;
   price: number;
   image: string;
+  compact?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -16,7 +17,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   name,
   description,
   price,
-  image
+  image,
+  compact = false
 }) => {
   const dispatch = useDispatch();
   const [showAnimation, setShowAnimation] = useState(false);
@@ -33,21 +35,25 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div className="product-card">
-      <div className="product-card__image">
-        <img src={image} alt={name} />
+    <div className={`product-card ${compact ? 'product-card--compact' : ''}`}>
+      <div className="product-card__image-container">
+        <img src={image} alt={name} className="product-card__image" />
       </div>
       <div className="product-card__content">
         <h3 className="product-card__title">{name}</h3>
-        <p className="product-card__description">{description}</p>
-        <div className="product-card__price">{price} ₽</div>
-        <button 
-          className="button button--primary product-card__button"
-          onClick={handleAddToCart}
-          data-product-id={id}
-        >
-          В корзину
-        </button>
+        {!compact && <p className="product-card__description">{description}</p>}
+        <div className="product-card__footer">
+          <div className="product-card__price">{price} ₽</div>
+          {!compact && (
+            <button 
+              className="product-card__button"
+              onClick={handleAddToCart}
+              data-product-id={id}
+            >
+              В корзину
+            </button>
+          )}
+        </div>
       </div>
       <AddToCartAnimation
         productId={id}

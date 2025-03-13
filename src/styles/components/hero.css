@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-xl);
   background: var(--color-background);
   text-align: center;
   overflow: hidden;
@@ -27,6 +27,7 @@
   padding: 0;
   background: none;
   border: none;
+  border-bottom: 1px solid currentColor;
   color: var(--color-primary);
   font-size: 16px;
   cursor: pointer;
@@ -136,7 +137,7 @@
 
 @media (max-width: 1024px) {
   .hero {
-    padding: 40px 0;
+    padding: 90px 0;
   }
 
   .hero__info {
@@ -178,9 +179,6 @@
 }
 
 /* Темная тема */
-.theme-dark .hero {
-  background: var(--color-light-gray);
-}
 
 .theme-dark .hero__stores-text,
 .theme-dark .hero__phone,
@@ -206,7 +204,6 @@
 }
 
 .theme-dark .hero__stores-button {
-  background: var(--color-card-background);
   color: var(--color-text);
   border-color: var(--color-border);
 }
