@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор изображений коллекций</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        .collection-container {
+            margin-bottom: 30px;
+        }
+        .collection {
+            width: 500px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .collection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        .collection-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        .collection-description {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+        .collection-button {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: white;
+            color: #333;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            align-self: flex-start;
+        }
+        
+        /* Фоны для коллекций */
+        .budget {
+            background: linear-gradient(45deg, #a8e063, #56ab2f);
+        }
+        .medium {
+            background: linear-gradient(45deg, #5c258d, #4389a2);
+        }
+        .premium {
+            background: linear-gradient(45deg, #b24592, #f15f79);
+        }
+        
+        /* Стили для букетов */
+        .bouquet-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0.8;
+        }
+        .mini-bouquet {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .mini-flower {
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .download-btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Бюджетная коллекция -->
+        <div class="collection-container">
+            <div id="budget" class="collection budget">
+                <div class="bouquet-grid">
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 20%; left: 30%;"></div>
+                        <div class="mini-flower" style="top: 40%; left: 50%;"></div>
+                        <div class="mini-flower" style="top: 60%; left: 40%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 30%; left: 40%;"></div>
+                        <div class="mini-flower" style="top: 50%; left: 60%;"></div>
+                        <div class="mini-flower" style="top: 40%; left: 30%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 25%; left: 45%;"></div>
+                        <div class="mini-flower" style="top: 55%; left: 35%;"></div>
+                        <div class="mini-flower" style="top: 35%; left: 55%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 35%; left: 35%;"></div>
+                        <div class="mini-flower" style="top: 45%; left: 55%;"></div>
+                        <div class="mini-flower" style="top: 55%; left: 45%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 40%; left: 40%;"></div>
+                        <div class="mini-flower" style="top: 30%; left: 60%;"></div>
+                        <div class="mini-flower" style="top: 50%; left: 30%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 45%; left: 45%;"></div>
+                        <div class="mini-flower" style="top: 35%; left: 35%;"></div>
+                        <div class="mini-flower" style="top: 55%; left: 55%;"></div>
+                    </div>
+                </div>
+                <div class="collection-overlay">
+                    <div class="collection-title">До 3 000 ₽</div>
+                    <div class="collection-description">Доступные букеты, которые порадуют ваших близких без ущерба для бюджета</div>
+                    <a href="#" class="collection-button">Смотреть коллекцию</a>
+                </div>
+            </div>
+            <button class="download-btn" onclick="downloadImage('budget', 'budget.jpg')">Скачать</button>
+        </div>
+        
+        <!-- Средняя коллекция -->
+        <div class="collection-container">
+            <div id="medium" class="collection medium">
+                <div class="bouquet-grid">
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 20%; left: 30%;"></div>
+                        <div class="mini-flower" style="top: 40%; left: 50%;"></div>
+                        <div class="mini-flower" style="top: 60%; left: 40%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 30%; left: 40%;"></div>
+                        <div class="mini-flower" style="top: 50%; left: 60%;"></div>
+                        <div class="mini-flower" style="top: 40%; left: 30%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 25%; left: 45%;"></div>
+                        <div class="mini-flower" style="top: 55%; left: 35%;"></div>
+                        <div class="mini-flower" style="top: 35%; left: 55%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 35%; left: 35%;"></div>
+                        <div class="mini-flower" style="top: 45%; left: 55%;"></div>
+                        <div class="mini-flower" style="top: 55%; left: 45%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 40%; left: 40%;"></div>
+                        <div class="mini-flower" style="top: 30%; left: 60%;"></div>
+                        <div class="mini-flower" style="top: 50%; left: 30%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 45%; left: 45%;"></div>
+                        <div class="mini-flower" style="top: 35%; left: 35%;"></div>
+                        <div class="mini-flower" style="top: 55%; left: 55%;"></div>
+                    </div>
+                </div>
+                <div class="collection-overlay">
+                    <div class="collection-title">До 5 000 ₽</div>
+                    <div class="collection-description">Элегантные композиции для особых случаев по разумной цене</div>
+                    <a href="#" class="collection-button">Смотреть коллекцию</a>
+                </div>
+            </div>
+            <button class="download-btn" onclick="downloadImage('medium', 'medium.jpg')">Скачать</button>
+        </div>
+        
+        <!-- Премиум коллекция -->
+        <div class="collection-container">
+            <div id="premium" class="collection premium">
+                <div class="bouquet-grid">
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 20%; left: 30%;"></div>
+                        <div class="mini-flower" style="top: 40%; left: 50%;"></div>
+                        <div class="mini-flower" style="top: 60%; left: 40%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 30%; left: 40%;"></div>
+                        <div class="mini-flower" style="top: 50%; left: 60%;"></div>
+                        <div class="mini-flower" style="top: 40%; left: 30%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 25%; left: 45%;"></div>
+                        <div class="mini-flower" style="top: 55%; left: 35%;"></div>
+                        <div class="mini-flower" style="top: 35%; left: 55%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 35%; left: 35%;"></div>
+                        <div class="mini-flower" style="top: 45%; left: 55%;"></div>
+                        <div class="mini-flower" style="top: 55%; left: 45%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 40%; left: 40%;"></div>
+                        <div class="mini-flower" style="top: 30%; left: 60%;"></div>
+                        <div class="mini-flower" style="top: 50%; left: 30%;"></div>
+                    </div>
+                    <div class="mini-bouquet">
+                        <div class="mini-flower" style="top: 45%; left: 45%;"></div>
+                        <div class="mini-flower" style="top: 35%; left: 35%;"></div>
+                        <div class="mini-flower" style="top: 55%; left: 55%;"></div>
+                    </div>
+                </div>
+                <div class="collection-overlay">
+                    <div class="collection-title">От 5 000 ₽</div>
+                    <div class="collection-description">Роскошные букеты для самых важных событий и особенных людей</div>
+                    <a href="#" class="collection-button">Смотреть коллекцию</a>
+                </div>
+            </div>
+            <button class="download-btn" onclick="downloadImage('premium', 'premium.jpg')">Скачать</button>
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        function downloadImage(id, filename) {
+            const element = document.getElementById(id);
+            
+            html2canvas(element).then(canvas => {
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html> 
