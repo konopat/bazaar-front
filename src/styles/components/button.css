@@ -3,82 +3,94 @@
 * Описание: Стили для кнопок различных типов и размеров
 */
 
-/* Основной стиль кнопки */
+/* Базовые стили кнопок */
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding-block: var(--spacing-sm);
-  padding-inline: var(--spacing-lg);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-sm);
-  font-weight: 400;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: all var(--transition-normal);
+  transition: all var(--transition-base);
   border: none;
-  text-align: center;
-  letter-spacing: 0.05em;
+  outline: none;
 }
 
-/* Основная кнопка (Primary) */
+/* Основная кнопка */
 .button--primary {
-  background-color: var(--color-primary);
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-white);
 }
 
 .button--primary:hover {
-  background-color: var(--color-primary-dark);
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
-.button--primary:active {
-  transform: translateY(1px);
-}
-
-/* Вторичная кнопка (Secondary) */
+/* Вторичная кнопка */
 .button--secondary {
-  background-color: var(--color-secondary);
-  color: white;
+  background: var(--color-secondary);
+  color: var(--color-white);
 }
 
 .button--secondary:hover {
-  background-color: var(--color-secondary-dark);
+  background: var(--color-secondary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
-.button--secondary:active {
-  transform: translateY(1px);
-}
-
-/* Контурная кнопка (Outline) */
+/* Контурная кнопка */
 .button--outline {
-  background-color: transparent;
-  border: 1px solid var(--color-primary);
+  background: transparent;
+  border: 2px solid var(--color-primary);
   color: var(--color-primary);
 }
 
 .button--outline:hover {
-  background-color: var(--color-primary);
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
-.button--outline:active {
-  transform: translateY(1px);
+/* Отключенное состояние */
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-/* Текстовая кнопка (Text) */
-.button--text {
-  background-color: transparent;
-  color: var(--color-primary);
-  padding-inline: var(--spacing-sm);
+/* Темная тема */
+.theme-dark .button--primary {
+  background: var(--color-primary-dark);
 }
 
-.button--text:hover {
+.theme-dark .button--primary:hover {
+  background: var(--color-primary);
+}
+
+.theme-dark .button--secondary {
+  background: var(--color-secondary-dark);
+}
+
+.theme-dark .button--secondary:hover {
+  background: var(--color-secondary);
+}
+
+.theme-dark .button--outline {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary-light);
+}
+
+.theme-dark .button--outline:hover {
+  background: var(--color-primary-light);
   color: var(--color-primary-dark);
-  background-color: rgba(190, 161, 132, 0.1);
-}
-
-.button--text:active {
-  transform: translateY(1px);
 }
 
 /* Размеры кнопок */
@@ -155,24 +167,18 @@
   }
 }
 
-/* Отключенное состояние */
-.button:disabled,
-.button--disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* Темная тема */
-.dark .button--outline {
-  border-color: var(--color-primary);
+/* Текстовая кнопка (Text) */
+.button--text {
+  background-color: transparent;
   color: var(--color-primary);
+  padding-inline: var(--spacing-sm);
 }
 
-.dark .button--text {
-  color: var(--color-primary);
+.button--text:hover {
+  color: var(--color-primary-dark);
+  background-color: rgba(190, 161, 132, 0.1);
 }
 
-.dark .button--text:hover {
-  background-color: rgba(190, 161, 132, 0.15);
+.button--text:active {
+  transform: translateY(1px);
 } 

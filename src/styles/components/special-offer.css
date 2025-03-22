@@ -183,4 +183,134 @@
 .dark .product-card__badge {
   background: var(--color-primary);
   color: var(--color-background-dark);
+}
+
+/* Стили секции специальных предложений */
+.special-offers {
+  padding: var(--spacing-2xl) 0;
+  background: var(--color-background);
+}
+
+.special-offers__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.special-offers__title {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.special-offers__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.special-offer-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.special-offer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.special-offer-card__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.special-offer-card__content {
+  padding: var(--spacing-lg);
+}
+
+.special-offer-card__label {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  animation: pulse 2s infinite;
+}
+
+.special-offer-card__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.special-offer-card__description {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.5;
+}
+
+.special-offer-card__price {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.special-offer-card__button {
+  width: 100%;
+}
+
+/* Анимация пульсации */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Медиа-запросы */
+@media (max-width: 1024px) {
+  .special-offers__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .special-offers__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Темная тема */
+.theme-dark .special-offers {
+  background: var(--color-background-dark);
+}
+
+.theme-dark .special-offer-card {
+  background: var(--color-background-darker);
+}
+
+.theme-dark .special-offer-card__title {
+  color: var(--color-text-light);
+}
+
+.theme-dark .special-offer-card__description {
+  color: var(--color-text-light);
+}
+
+.theme-dark .special-offer-card__price {
+  color: var(--color-primary-light);
 } 

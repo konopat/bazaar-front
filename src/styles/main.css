@@ -8,8 +8,8 @@
 @import './base.css';
 
 /* Импорт компонентов */
+@import './components/button.css';
 @import './components/header.css';
-@import './components/footer.css';
 @import './components/hero.css';
 @import './components/color-filter.css';
 @import './components/collections.css';
@@ -17,7 +17,8 @@
 @import './components/quiz.css';
 @import './components/add-to-cart-animation.css';
 @import './components/product-card.css';
-@import './components/button.css';
+@import './components/special-offer.css';
+@import './components/footer.css';
 
 /* Импорт страниц */
 @import './pages/home.css';
@@ -66,11 +67,8 @@
 }
 
 .theme-dark .button--primary {
-  color: var(--color-secondary-dark);
-}
-
-.button--primary:hover {
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-text);
+    color: var(--color-primary);
 }
 
 .button--secondary {
@@ -101,6 +99,7 @@
   margin-bottom: var(--spacing-xl);
   font-weight: 400;
   letter-spacing: 0.05em;
+  text-align: center;
 }
 
 /* Контейнер с максимальной шириной */

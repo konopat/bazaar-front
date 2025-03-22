@@ -63,8 +63,8 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className={`header ${isHeaderSticky ? 'header--sticky' : ''}`}>
-      <div className="header__top">
+    <header className={`header`}>
+      <div className={`header__top ${isHeaderSticky ? 'header--sticky' : ''}`}>
         <div className="container">
           <div className="header__top-content">
             <button 

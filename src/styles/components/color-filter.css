@@ -1,33 +1,101 @@
+/* Стили фильтра по цветам */
 .color-filter {
-  margin-bottom: 32px;
+  padding: var(--spacing-2xl) 0;
+  background: var(--color-background);
+}
+
+.color-filter__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
 }
 
 .color-filter__title {
-  margin: 0 0 16px;
-  font-size: 18px;
-  font-weight: 500;
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
 }
 
-.color-filter__options {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.color-filter__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--spacing-lg);
 }
 
-.color-filter__option {
-  width: 32px;
-  height: 32px;
+.color-circle {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
   border-radius: 50%;
-  border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
-.color-filter__option:hover {
+.color-circle:hover {
   transform: scale(1.1);
+  box-shadow: var(--shadow-md);
 }
 
-.color-filter__option--active {
+.color-circle__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+}
+
+.color-circle--active {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.color-circle--active .color-circle__inner {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
+}
+
+.color-circle__label {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* Медиа-запросы */
+@media (max-width: 1024px) {
+  .color-filter__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .color-filter__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .color-filter__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Темная тема */
+.theme-dark .color-filter {
+  background: var(--color-background-dark);
+}
+
+.theme-dark .color-circle__inner {
+  border-color: var(--color-border-dark);
+}
+
+.theme-dark .color-circle--active .color-circle__inner {
+  border-color: var(--color-primary-light);
+}
+
+.theme-dark .color-circle__label {
+  color: var(--color-text-light);
 } 

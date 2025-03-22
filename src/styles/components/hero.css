@@ -20,7 +20,7 @@
 .hero__stores-text {
   margin: 0 0 8px;
   font-size: 16px;
-  color: var(--color-gray);
+  color: var(--color-text-lighter);
 }
 
 .hero__stores-button {
@@ -98,7 +98,7 @@
 .hero__subtitle {
   font-size: 24px;
   margin: 0 0 32px;
-  color: var(--color-gray);
+  color: var(--color-text-lighter);
 }
 
 .hero__button {
