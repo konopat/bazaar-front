@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+      padding: 20px;
+      color: #333;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      color: #666;
+    }
+    
+    button {
+      background-color: #18A0FB;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    button:hover {
+      background-color: #0D8DE3;
+    }
+    
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .status {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .success {
+      background-color: #E6F4EA;
+      color: #1E7E34;
+    }
+    
+    .error {
+      background-color: #FCE8E6;
+      color: #C5221F;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Экспорт в Figma</h1>
+    <p>Этот плагин создаст структуру главной страницы на основе wireframe.</p>
+    <button id="export">Экспортировать</button>
+    <div id="status" class="status" style="display: none;"></div>
+  </div>
+  
+  <script>
+    document.getElementById('export').onclick = () => {
+      const button = document.getElementById('export');
+      const status = document.getElementById('status');
+      
+      button.disabled = true;
+      status.style.display = 'block';
+      status.className = 'status';
+      status.textContent = 'Экспорт начался...';
+      
+      parent.postMessage({ pluginMessage: { type: 'export-to-figma' } }, '*');
+    };
+    
+    window.onmessage = (event) => {
+      const button = document.getElementById('export');
+      const status = document.getElementById('status');
+      
+      button.disabled = false;
+      
+      if (event.data.pluginMessage.type === 'export-complete') {
+        status.className = 'status success';
+        status.textContent = event.data.pluginMessage.message;
+      } else if (event.data.pluginMessage.type === 'error') {
+        status.className = 'status error';
+        status.textContent = event.data.pluginMessage.message;
+      }
+    };
+  </script>
+</body>
+</html> 

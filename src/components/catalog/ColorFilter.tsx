@@ -12,12 +12,12 @@ interface ColorFilterProps {
 }
 
 const colorOptions: ColorOption[] = [
-  { id: 'red', name: 'Красный', color: '#ff6b6b' },
-  { id: 'pink', name: 'Розовый', color: '#fab1a0' },
-  { id: 'white', name: 'Белый', color: '#ffffff' },
-  { id: 'yellow', name: 'Желтый', color: '#ffeaa7' },
-  { id: 'purple', name: 'Фиолетовый', color: '#a29bfe' },
-  { id: 'blue', name: 'Синий', color: '#74b9ff' },
+  { id: 'red', name: 'Красный', color: '#b22222' },
+  { id: 'pink', name: 'Розовый', color: '#e6b3bf' },
+  { id: 'white', name: 'Белый', color: '#f5f5dc' },
+  { id: 'yellow', name: 'Желтый', color: '#f7dc6f' },
+  { id: 'purple', name: 'Фиолетовый', color: '#8b458b' },
+  { id: 'blue', name: 'Синий', color: '#4682b4' },
 ];
 
 const ColorFilter: React.FC<ColorFilterProps> = ({ selectedColor, onColorSelect }) => {

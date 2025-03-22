@@ -1,0 +1,16 @@
+{
+  "name": "bazaar-figma-integration",
+  "version": "1.0.0",
+  "description": "Figma plugin for Bazaar",
+  "main": "export-to-figma.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch"
+  },
+  "dependencies": {
+    "@figma/plugin-typings": "^1.82.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
