@@ -199,8 +199,7 @@ const CatalogPage: React.FC = () => {
               <ProductCard
                 key={product.id}
                 id={product.id}
-                name={product.title}
-                description={product.description}
+                title={product.title}
                 price={product.price}
                 image={product.image}
               />

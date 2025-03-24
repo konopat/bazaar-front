@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@store/cartSlice';
@@ -6,72 +6,85 @@ import AddToCartAnimation from './AddToCartAnimation';
 
 interface ProductCardProps {
   id: number;
-  name: string;
-  description: string;
+  title: string;
   price: number;
   image: string;
   isHot?: boolean;
 }
 
-const ProductCard = ({
+const ProductCard: React.FC<ProductCardProps> = ({
   id,
-  name,
-  description,
+  title,
   price,
   image,
   isHot
-}: ProductCardProps) => {
+}) => {
   const dispatch = useDispatch();
   const [showAnimation, setShowAnimation] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(addToCart({
-      id,
-      name,
-      price,
-      quantity: 1,
-      image
-    }));
+    e.stopPropagation();
+    
+    console.log('Add to cart clicked for product:', id);
+    
+    // Сохраняем позицию клика мыши
+    setClickPosition({ x: e.clientX, y: e.clientY });
+    
+    // Добавляем эффект нажатия кнопки
+    if (buttonRef.current) {
+      buttonRef.current.classList.add('clicked');
+      setTimeout(() => {
+        buttonRef.current?.classList.remove('clicked');
+      }, 200);
+    }
+    
+    // Запускаем анимацию перед добавлением в корзину
     setShowAnimation(true);
+    
+    // Откладываем фактическое добавление товара до завершения анимации
+    setTimeout(() => {
+      dispatch(addToCart({
+        id,
+        name: title,
+        price,
+        quantity: 1,
+        image
+      }));
+    }, 400); // Обновленная задержка для синхронизации с анимацией
   };
 
   return (
-    <article className="product-card">
-      <Link to={`/product/${id}`} className="product-card__link">
-        {isHot && (
-          <div className="product-card__badge" aria-label="Горячее предложение">
-            Горячее предложение
-          </div>
-        )}
-        <div className="product-card__image">
-          <img src={image} alt={name} loading="lazy" />
-        </div>
-        <div className="product-card__content">
-          <h3 className="product-card__title">{name}</h3>
-          <p className="product-card__description">{description}</p>
-          <div className="product-card__bottom">
-            <div className="product-card__price" aria-label={`Цена: ${price} рублей`}>
-              {price} ₽
-            </div>
-            <button 
-              type="button"
-              className="button button--primary product-card__button"
-              onClick={handleAddToCart}
-              data-product-id={id}
-              aria-label={`Добавить ${name} в корзину`}
-            >
-              В корзину
-            </button>
-          </div>
-        </div>
-      </Link>
-      <AddToCartAnimation
-        productId={id}
-        isVisible={showAnimation}
-        onAnimationEnd={() => setShowAnimation(false)}
-      />
-    </article>
+    <Link to={`/product/${id}`} className="product-card">
+      {isHot && <div className="product-card__badge">Горячее предложение</div>}
+      <div className="product-card__image">
+        <img src={image} alt={title} />
+      </div>
+      <div className="product-card__content">
+        <h3 className="product-card__title">{title}</h3>
+        <div className="product-card__price">{price} ₽</div>
+        <button 
+          ref={buttonRef}
+          className="button button--primary product-card__button"
+          onClick={handleAddToCart}
+          data-product-id={id}
+          aria-label={`Добавить ${title} в корзину`}
+          id={`add-to-cart-${id}`}
+        >
+          В корзину
+        </button>
+      </div>
+      {showAnimation && (
+        <AddToCartAnimation
+          productId={id}
+          isVisible={showAnimation}
+          onAnimationEnd={() => setShowAnimation(false)}
+          clickPosition={clickPosition}
+        />
+      )}
+    </Link>
   );
 };
 

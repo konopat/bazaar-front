@@ -54,8 +54,7 @@ const Collections: React.FC<CollectionProps> = ({ products }) => {
                   <ProductCard
                     key={product.id}
                     id={product.id}
-                    name={product.title}
-                    description={product.description}
+                    title={product.title}
                     price={product.price}
                     image={product.image}
                   />
