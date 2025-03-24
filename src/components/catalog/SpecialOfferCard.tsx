@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@store/cartSlice';
 import AddToCartAnimation from './AddToCartAnimation';
@@ -21,6 +22,7 @@ const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({
   const [showAnimation, setShowAnimation] = useState(false);
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const dispatch = useDispatch();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -28,6 +30,14 @@ const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({
     
     // Запоминаем позицию клика
     setClickPosition({ x: e.clientX, y: e.clientY });
+    
+    // Добавляем эффект нажатия кнопки
+    if (buttonRef.current) {
+      buttonRef.current.classList.add('clicked');
+      setTimeout(() => {
+        buttonRef.current?.classList.remove('clicked');
+      }, 200);
+    }
     
     // Показываем анимацию
     setShowAnimation(true);
@@ -45,30 +55,24 @@ const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({
   };
 
   return (
-    <div className="special-offer-card">
-      <div className="special-offer-card__image-container">
-        <img
-          src={image}
-          alt={title}
-          className="special-offer-card__image"
-        />
+    <Link to={`/product/${id}`} className="product-card">
+      {isHot && <div className="product-card__badge">Горячее предложение</div>}
+      <div className="product-card__image">
+        <img src={image} alt={title} />
       </div>
-      <div className="special-offer-card__content">
-        <h3 className="special-offer-card__title">{title}</h3>
-        <div className="special-offer-card__price-and-action">
-          <div className="special-offer-card__price">
-            {price} ₽
-          </div>
-          <button 
-            className="button button--primary special-offer-card__button"
-            onClick={handleAddToCart}
-            data-product-id={id}
-            aria-label={`Добавить ${title} в корзину`}
-            id={`add-to-cart-special-${id}`}
-          >
-            В корзину
-          </button>
-        </div>
+      <div className="product-card__content">
+        <h3 className="product-card__title">{title}</h3>
+        <div className="product-card__price">{price} ₽</div>
+        <button 
+          ref={buttonRef}
+          className="button button--primary product-card__button"
+          onClick={handleAddToCart}
+          data-product-id={id}
+          aria-label={`Добавить ${title} в корзину`}
+          id={`add-to-cart-special-${id}`}
+        >
+          В корзину
+        </button>
       </div>
       
       <AddToCartAnimation 
@@ -77,7 +81,7 @@ const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({
         onAnimationEnd={() => setShowAnimation(false)}
         clickPosition={clickPosition}
       />
-    </div>
+    </Link>
   );
 };
 
