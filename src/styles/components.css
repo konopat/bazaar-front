@@ -24,7 +24,6 @@
 /* Специальные предложения */
 .special-offers {
   background: var(--color-background);
-  padding: var(--spacing-3xl) 0;
 }
 
 .special-offers__title {

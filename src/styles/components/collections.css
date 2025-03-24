@@ -3,16 +3,12 @@
 * Описание: Стили для отображения коллекций товаров по ценовым категориям
 */
 
-/* Основной контейнер */
-.collections {
-  padding-block: var(--spacing-2xl);
-  background-color: var(--color-background);
-}
+
 
 /* Заголовок секции - выравнивание по левому краю */
 .collections__title {
   font-size: var(--font-size-3xl);
-  color: var(--color-primary);
+  color: var(--color-text);
   text-align: start; /* Выравнивание по левому краю */
   margin-block-end: var(--spacing-md);
   font-weight: 400;
@@ -41,7 +37,7 @@
 /* Карточка коллекции */
 .collection {
   background-color: var(--color-background-light);
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius);
   overflow: hidden;
   border: 1px solid var(--color-border);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
@@ -55,7 +51,7 @@
 /* Заголовок коллекции */
 .collection__title {
   font-size: var(--font-size-xl);
-  color: var(--color-primary);
+  color: var(--color-text);
   margin-block-end: var(--spacing-md);
   padding-block-start: var(--spacing-lg);
   padding-inline: var(--spacing-lg);
@@ -76,8 +72,8 @@
 .collection__button {
   display: inline-block;
   background-color: transparent;
-  border: 1px solid var(--color-primary);
-  color: var(--color-primary);
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
   text-align: center;
   padding-block: var(--spacing-sm);
   padding-inline: var(--spacing-lg);
@@ -93,13 +89,9 @@
 
 .collection__button:hover {
   background-color: var(--color-primary);
-  color: white;
-}
-
-/* Темная тема */
-.dark .collection {
-  background-color: var(--color-background-dark);
-  border-color: var(--color-border-dark);
+  color: var(--color-secondary);
+  border-color: var(--color-primary);
+  cursor: pointer;
 }
 
 /* Адаптивность */
