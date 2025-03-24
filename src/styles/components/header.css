@@ -156,21 +156,26 @@
 /* Верхняя строка - фиксированная */
 .header__top {
   position: fixed;
-  inset-block-start: 0;
-  inset-inline: 0;
-  block-size: var(--header-height);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
   background: var(--color-background);
-  border-block-end: 1px solid var(--color-border);
-  z-index: 100;
-  transition: block-size var(--transition-normal);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1000;
+  transition: all var(--transition-base);
+}
+
+.header__top--sticky {
+  box-shadow: var(--shadow-md);
 }
 
 .header__top-content {
-  block-size: var(--header-height);
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
+  padding: 0 var(--spacing-lg);
 }
 
 /* Бургер-меню */
@@ -250,12 +255,13 @@
   border-radius: 10px;
 }
 
-/* Нижняя строка с меню - прокручивается с контентом */
+/* Нижняя строка - прокручивается с контентом */
 .header__bottom {
-  margin-block-start: var(--header-height); /* Используем переменную */
+  position: relative; /* Явно указываем позиционирование */
+  padding-top: var(--header-height); /* Отступ вместо margin для лучшей совместимости */
   background: var(--color-background);
-  border-block-end: 1px solid var(--color-border);
-  position: static; /* Явно указываем статичное позиционирование */
+  border-bottom: 1px solid var(--color-border);
+  z-index: 100; /* Меньше, чем у header__top */
 }
 
 @media (min-width: 1025px) {
@@ -284,6 +290,7 @@
 /* Мобильное меню */
 .mobile-menu {
   position: fixed;
+  padding-block-start: var(--header-height);
   inset-block-start: var(--header-height, 60px); /* Используем переменную или значение по умолчанию */
   inset-inline-start: 0;
   inline-size: 33.333%;

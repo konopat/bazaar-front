@@ -68,7 +68,8 @@
 
 /* Темная тема */
 .theme-dark .button--primary {
-  background: var(--color-primary-dark);
+  background: var(--color-text);
+  color: var(--color-background);
 }
 
 .theme-dark .button--primary:hover {
