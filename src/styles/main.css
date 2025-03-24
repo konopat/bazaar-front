@@ -19,6 +19,7 @@
 @import './components/product-card.css';
 @import './components/special-offer.css';
 @import './components/footer.css';
+@import './components/social-links.css';
 
 /* Импорт страниц */
 @import './pages/home.css';

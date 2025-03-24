@@ -112,7 +112,7 @@
 
 /* Quiz section */
 .quiz-section {
-  margin-bottom: 60px;
+  margin: 60px 0;
   background: var(--color-background);
   padding: var(--spacing-xl) 0;
 }

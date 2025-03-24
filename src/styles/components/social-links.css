@@ -1,0 +1,22 @@
+.social-links {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.social-links__item {
+  color: var(--color-text);
+  transition: color var(--transition-base);
+}
+
+.social-links__item:hover {
+  color: var(--color-primary);
+}
+
+/* Темная тема */
+.theme-dark .social-links__item {
+  color: var(--color-text-light);
+}
+
+.theme-dark .social-links__item:hover {
+  color: var(--color-primary-light);
+} 

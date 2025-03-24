@@ -1,7 +1,5 @@
 /* Стили футера */
 .footer {
-  background: var(--color-background-dark);
-  color: var(--color-text-light);
   padding: var(--spacing-2xl) 0;
   margin-top: auto;
 }
@@ -20,21 +18,21 @@
 }
 
 .footer__logo {
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-md);
+  display: block;
+  margin-block-end: var(--spacing-xl);
 }
 
-.footer__logo img {
-  height: 40px;
+.footer__logo svg {
+  color: var(--color-text);
+  height: var(--font-size-xl);
   width: auto;
 }
 
 .footer__title {
   font-size: var(--font-size-lg);
   font-weight: 600;
-  color: var(--color-white);
-  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
 }
 
 .footer__nav {
@@ -44,13 +42,13 @@
 }
 
 .footer__nav-link {
-  color: var(--color-text-light);
+  color: var(--color-text);
   text-decoration: none;
   transition: color var(--transition-base);
 }
 
 .footer__nav-link:hover {
-  color: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .footer__contact {
@@ -60,33 +58,22 @@
 }
 
 .footer__contact-item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  color: var(--color-text-light);
+  font-style: normal;
+  color: var(--color-text);
 }
 
 .footer__social {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-md);
-}
-
-.footer__social-link {
-  color: var(--color-text-light);
-  transition: color var(--transition-base);
-}
-
-.footer__social-link:hover {
-  color: var(--color-primary-light);
+  margin-top: var(--spacing-sm);
 }
 
 .footer__bottom {
   margin-top: var(--spacing-2xl);
   padding-top: var(--spacing-xl);
-  border-top: 1px solid var(--color-border-dark);
-  text-align: center;
-  color: var(--color-text-light);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text);
 }
 
 /* Медиа-запросы */
@@ -109,8 +96,10 @@
     justify-content: center;
   }
 
-  .footer__social {
-    justify-content: center;
+  .footer__bottom {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
   }
 }
 

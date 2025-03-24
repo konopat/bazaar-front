@@ -26,6 +26,21 @@ const BouquetQuiz: React.FC = () => {
     phone: '',
   });
 
+  // Проверяем, доступен ли шаг для перехода
+  const isStepAvailable = (stepId: number) => {
+    if (stepId === 1) return true;
+    if (stepId === 2) return formData.budget !== '';
+    if (stepId === 3) return formData.budget !== '' && formData.wishes !== '';
+    return false;
+  };
+
+  // Обработчик клика по шагу
+  const handleStepClick = (stepId: number) => {
+    if (isStepAvailable(stepId) && stepId <= currentStep) {
+      setCurrentStep(stepId);
+    }
+  };
+
   const handleBudgetSelect = (budget: string) => {
     setFormData({ ...formData, budget });
     setCurrentStep(2);
@@ -54,7 +69,14 @@ const BouquetQuiz: React.FC = () => {
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`quiz__step ${currentStep === step.id ? 'quiz__step--active' : ''}`}
+            className={`quiz__step ${currentStep === step.id ? 'quiz__step--active' : ''} ${
+              isStepAvailable(step.id) ? 'quiz__step--available' : ''
+            }`}
+            onClick={() => handleStepClick(step.id)}
+            role="button"
+            tabIndex={isStepAvailable(step.id) ? 0 : -1}
+            aria-current={currentStep === step.id}
+            aria-disabled={!isStepAvailable(step.id)}
           >
             {step.title}
           </div>
