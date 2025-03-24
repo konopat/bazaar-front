@@ -158,12 +158,6 @@ const HomePage: React.FC = () => {
 
             <Collections products={products} />
 
-            <section className="quiz-section" ref={quizRef}>
-              <div className="container">
-                <h2 className="section-title">Сложно определиться?</h2>
-                <BouquetQuiz />
-              </div>
-            </section>
           </div>
 
           <aside className="home__sidebar" ref={sidebarRef}>
@@ -185,7 +179,13 @@ const HomePage: React.FC = () => {
               </div>
             </article>
           </aside>
+          
         </div>
+        <section className="quiz-section" ref={quizRef}>
+          <div className="container">
+            <BouquetQuiz />
+          </div>
+        </section>
       </div>
     </main>
   );

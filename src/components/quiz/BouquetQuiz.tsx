@@ -42,9 +42,14 @@ const BouquetQuiz: React.FC = () => {
     console.log('Form submitted:', formData);
   };
 
+  const handlePrevStep = () => {
+    setCurrentStep((prev) => Math.max(1, prev - 1));
+  };
+
   return (
     <div className="quiz">
       <h2 className="quiz__title">Сложно определиться?</h2>
+      <p>Укажите бюджет, повод или пожелания... и доверьтесь флористу!</p>
       <div className="quiz__steps">
         {steps.map((step) => (
           <div
@@ -80,9 +85,18 @@ const BouquetQuiz: React.FC = () => {
               onChange={(e) => setFormData({ ...formData, wishes: e.target.value })}
               required
             />
-            <button type="submit" className="button button--primary">
-              Далее
-            </button>
+            <div className="quiz__buttons">
+              <button 
+                type="button" 
+                className="button button--outline"
+                onClick={handlePrevStep}
+              >
+                Назад
+              </button>
+              <button type="submit" className="button button--primary">
+                Далее
+              </button>
+            </div>
           </form>
         )}
 
@@ -104,9 +118,18 @@ const BouquetQuiz: React.FC = () => {
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               required
             />
-            <button type="submit" className="button button--primary">
-              Отправить
-            </button>
+            <div className="quiz__buttons">
+              <button 
+                type="button" 
+                className="button button--outline"
+                onClick={handlePrevStep}
+              >
+                Назад
+              </button>
+              <button type="submit" className="button button--primary">
+                Отправить
+              </button>
+            </div>
           </form>
         )}
       </div>

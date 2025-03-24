@@ -1,6 +1,7 @@
 .quiz {
   margin: 0 auto;
   padding: 32px;
+  text-align: center;
   background-color: var(--color-background);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -16,7 +17,7 @@
 .quiz__steps {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin: 32px;
   padding: 0 16px;
 }
 
@@ -54,6 +55,8 @@
 .quiz__budget {
   display: flex;
   flex-direction: column;
+  max-width: 250px;
+  margin: 0 auto;
   gap: 16px;
 }
 

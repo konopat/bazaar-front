@@ -24,7 +24,7 @@
   padding-block-start: 115px;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 90px); /* Вычитаем верхний и нижний padding */
+  height: 100%;
 }
 
 /* Сетки для карточек */
