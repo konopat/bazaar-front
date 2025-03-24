@@ -127,22 +127,6 @@
 
 .product-card__button {
   width: 100%;
-  padding: var(--spacing-sm);
-  font-size: var(--font-size-md);
-  background: var(--gradient-primary);
-  color: white;
-  border: none;
-  border-radius: var(--border-radius-sm);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.product-card__button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-primary);
 }
 
 /* Сетки для специальных предложений и каталога */
@@ -204,10 +188,6 @@
 
 .theme-dark .product-card__price {
   color: var(--color-secondary-light);
-}
-
-.theme-dark .product-card__button {
-  background: var(--gradient-primary);
 }
 
 .theme-dark .product-card:hover {

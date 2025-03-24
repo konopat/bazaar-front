@@ -47,28 +47,6 @@
   flex: 1 0 auto;
 }
 
-/* Общие стили для кнопок */
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-md);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.button--primary {
-  background-color: var(--color-primary);
-  color: white;
-}
-
 /* Заголовки секций */
 .section-title {
   font-family: var(--font-family-secondary);
@@ -90,45 +68,4 @@
   .container {
     padding-inline: var(--spacing-md);
   }
-}
-
-/* Вспомогательные классы */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* Анимация появления элементов */
-.fade-in {
-  animation: fadeIn var(--transition-normal) ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-} 
-
-.theme-dark {
-  --color-background: #1a1a1a;
-  --color-background-light: #191919;
-  --color-card-background: #262626;
-  --color-text: #bea184;
-  --color-gray: #666666;
-  --color-light-gray: #333333;
-  --color-border: #333333;
-  --color-card-background: #262626;
-  --color-quiz-background: #333333;
 }

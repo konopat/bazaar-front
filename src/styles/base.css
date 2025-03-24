@@ -114,15 +114,4 @@ button, input, select, textarea {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Темная тема */
-.theme-dark {
-  --color-background: var(--color-background-dark);
-  --color-text: var(--color-text-dark);
-  --color-gray: var(--color-text-light-dark);
-  --color-light-gray: var(--color-border-dark);
-  --color-border: var(--color-border-dark);
-  --color-card-background: var(--color-card-background);
-  --color-quiz-background: var(--color-quiz-background);
 } 

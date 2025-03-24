@@ -98,6 +98,13 @@
   outline: none;
 }
 
+.quiz__button {
+  margin-top: var(--spacing-lg);
+  width: 100%;
+  max-width: 300px;
+  align-self: center;
+}
+
 /* Темная тема */
 .theme-dark .quiz {
   background-color: var(--color-quiz-background);

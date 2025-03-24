@@ -20,14 +20,16 @@
   --color-background-light: #F7F3EC;
   --color-background-alt: #F5F3F0;
   --color-border: #E5DDD5;
+  --color-card-background: #FDF9F3;
   
-  /* Темная тема */
+  /* Темная тема - базовые переменные */
   --color-background-dark: #1C1C1E;
-  --color-card-background: #fdf9f3;
+  --color-background-light-dark: #191919;
+  --color-card-background-dark: #262626;
   --color-text-dark: #E5DDD5;
   --color-text-light-dark: #BBBBBB;
   --color-border-dark: #333333;
-  --color-quiz-background: #2C2C2E;
+  --color-quiz-background-dark: #2C2C2E;
   
   /* Состояния */
   --color-success: #4CAF50;
@@ -47,9 +49,9 @@
   --gradient-hot: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-primary) 100%);
   
   /* Анимации */
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   --animation-pulse: 2s infinite;
   
   /* Размеры */
@@ -104,9 +106,17 @@
   }
 }
 
-/* Добавить в .theme-dark переменные для Skeleton */
+/* Переменные для темной темы */
 .theme-dark {
-  /* ... существующие переменные для темной темы ... */
+  --color-background: var(--color-background-dark);
+  --color-background-light: var(--color-background-light-dark);
+  --color-card-background: var(--color-card-background-dark);
+  --color-text: var(--color-text-dark);
+  --color-text-light: var(--color-text-light-dark);
+  --color-gray: #666666;
+  --color-light-gray: #333333;
+  --color-border: var(--color-border-dark);
+  --color-quiz-background: var(--color-quiz-background-dark);
   
   /* Цвета для скелетон-компонентов в темной теме */
   --color-skeleton-base: rgba(255, 255, 255, 0.1);

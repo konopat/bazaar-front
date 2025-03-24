@@ -1,12 +1,9 @@
 /* Подключение шрифта Geometria */
 @font-face {
   font-family: 'Local-Geometria';
-  src: url('../fonts/geometria/VYZQXP-Geometria.eot');
-  src: url('../fonts/geometria/VYZQXP-Geometria.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/geometria/VYZQXP-Geometria.woff2') format('woff2'),
+  src: url('../fonts/geometria/VYZQXP-Geometria.woff2') format('woff2'),
        url('../fonts/geometria/VYZQXP-Geometria.woff') format('woff'),
-       url('../fonts/geometria/VYZQXP-Geometria.ttf') format('truetype'),
-       url('../fonts/geometria/VYZQXP-Geometria.svg#Geometria') format('svg');
+       url('../fonts/geometria/VYZQXP-Geometria.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -15,12 +12,9 @@
 /* Подключение шрифта Didot */
 @font-face {
   font-family: 'Local-Didot';
-  src: url('../fonts/didot/Didot.eot');
-  src: url('../fonts/didot/Didot.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/didot/Didot.woff2') format('woff2'),
+  src: url('../fonts/didot/Didot.woff2') format('woff2'),
        url('../fonts/didot/Didot.woff') format('woff'),
-       url('../fonts/didot/Didot.ttf') format('truetype'),
-       url('../fonts/didot/Didot.svg#Didot') format('svg');
+       url('../fonts/didot/Didot.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
