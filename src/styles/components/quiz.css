@@ -1,5 +1,4 @@
 .quiz {
-  max-width: 600px;
   margin: 0 auto;
   padding: 32px;
   background-color: var(--color-background);
@@ -112,11 +111,11 @@
 }
 
 .theme-dark .quiz__step--active {
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
 .theme-dark .quiz__step--active::after {
-  background-color: var(--color-primary);
+  background-color: var(--color-text);
 }
 
 .theme-dark .quiz__input,

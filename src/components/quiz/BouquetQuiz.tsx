@@ -62,7 +62,7 @@ const BouquetQuiz: React.FC = () => {
             {budgetOptions.map((option) => (
               <button
                 key={option.id}
-                className="button quiz__budget-option"
+                className="button button--primary product-card__button"
                 onClick={() => handleBudgetSelect(option.id)}
               >
                 {option.label}
