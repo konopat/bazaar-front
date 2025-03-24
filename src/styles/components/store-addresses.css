@@ -1,0 +1,58 @@
+/* 
+* Компонент: Адреса магазинов (StoreAddresses)
+* Описание: Стилизация блока с адресами магазинов
+*/
+
+.store-addresses {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.store-addresses__item {
+  font-style: normal;
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  position: relative;
+  padding-left: var(--spacing-lg);
+  transition: color var(--transition-normal);
+}
+
+.store-addresses__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  transition: transform var(--transition-normal), background-color var(--transition-normal);
+}
+
+.store-addresses__item:hover {
+  color: var(--color-primary);
+}
+
+.store-addresses__item:hover::before {
+  transform: scale(1.3);
+  background-color: var(--color-primary-light);
+}
+
+/* Темная тема */
+.theme-dark .store-addresses__item {
+  color: var(--color-text-light-dark);
+}
+
+.theme-dark .store-addresses__item:hover {
+  color: var(--color-secondary-light);
+}
+
+.theme-dark .store-addresses__item::before {
+  background-color: var(--color-secondary);
+}
+
+.theme-dark .store-addresses__item:hover::before {
+  background-color: var(--color-secondary-light);
+} 

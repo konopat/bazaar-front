@@ -20,6 +20,8 @@
 @import './components/special-offer.css';
 @import './components/footer.css';
 @import './components/social-links.css';
+@import './components/skeleton.css';
+@import './components/store-addresses.css';
 
 /* Импорт страниц */
 @import './pages/home.css';

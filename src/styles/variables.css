@@ -85,6 +85,10 @@
   --breakpoint-mobile: 768px;
   --breakpoint-tablet: 1024px;
   --breakpoint-desktop: 1200px;
+  
+  /* Цвета для скелетон-компонентов */
+  --color-skeleton-base: rgba(0, 0, 0, 0.1);
+  --color-skeleton-highlight: rgba(0, 0, 0, 0.05);
 }
 
 /* Медиа-запросы для переменных */
@@ -98,4 +102,13 @@
   :root {
     --header-height: 50px; /* Высота хедера для мобильных */
   }
+}
+
+/* Добавить в .theme-dark переменные для Skeleton */
+.theme-dark {
+  /* ... существующие переменные для темной темы ... */
+  
+  /* Цвета для скелетон-компонентов в темной теме */
+  --color-skeleton-base: rgba(255, 255, 255, 0.1);
+  --color-skeleton-highlight: rgba(255, 255, 255, 0.05);
 } 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Icon from '../common/Icon';
 
 interface AddToCartAnimationProps {
   productId: number;
@@ -25,21 +26,23 @@ const AddToCartAnimation: React.FC<AddToCartAnimationProps> = ({
         const productRect = productButton.getBoundingClientRect();
         const cartRect = cartButton.getBoundingClientRect();
 
-        // Устанавливаем начальную позицию
+        // Установка начальной позиции
         setStyle({
           transform: `translate(${productRect.left}px, ${productRect.top}px)`,
           opacity: 1
         });
 
-        // Запускаем анимацию
-        requestAnimationFrame(() => {
-          setStyle({
-            transform: `translate(${cartRect.left}px, ${cartRect.top}px) scale(0.3)`,
-            opacity: 0
+        // Запуск анимации с небольшой задержкой для улучшения восприятия
+        setTimeout(() => {
+          requestAnimationFrame(() => {
+            setStyle({
+              transform: `translate(${cartRect.left}px, ${cartRect.top}px) scale(0.3)`,
+              opacity: 0
+            });
           });
-        });
+        }, 50);
 
-        // Завершаем анимацию
+        // Завершение анимации
         setTimeout(() => {
           onAnimationEnd();
         }, 1000);
@@ -50,11 +53,12 @@ const AddToCartAnimation: React.FC<AddToCartAnimationProps> = ({
   if (!isVisible) return null;
 
   return (
-    <div
+    <div 
       className="add-to-cart-animation"
       style={style}
+      aria-hidden="true"
     >
-      🛍️
+      <Icon name="cart" color="#FFFFFF" size={16} />
     </div>
   );
 };

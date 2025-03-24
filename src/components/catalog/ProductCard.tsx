@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@store/cartSlice';
@@ -13,19 +13,19 @@ interface ProductCardProps {
   isHot?: boolean;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
+const ProductCard = ({
   id,
   name,
   description,
   price,
   image,
   isHot
-}) => {
+}: ProductCardProps) => {
   const dispatch = useDispatch();
   const [showAnimation, setShowAnimation] = useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault(); // Предотвращаем переход по ссылке при клике на кнопку
+    e.preventDefault();
     dispatch(addToCart({
       id,
       name,
@@ -37,29 +37,41 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <Link to={`/product/${id}`} className="product-card">
-      {isHot && <div className="product-card__badge">Горячее предложение</div>}
-      <div className="product-card__image">
-        <img src={image} alt={name} />
-      </div>
-      <div className="product-card__content">
-        <h3 className="product-card__title">{name}</h3>
-        <p className="product-card__description">{description}</p>
-        <div className="product-card__price">{price} ₽</div>
-        <button 
-          className="button button--primary product-card__button"
-          onClick={handleAddToCart}
-          data-product-id={id}
-        >
-          В корзину
-        </button>
-      </div>
+    <article className="product-card">
+      <Link to={`/product/${id}`} className="product-card__link">
+        {isHot && (
+          <div className="product-card__badge" aria-label="Горячее предложение">
+            Горячее предложение
+          </div>
+        )}
+        <div className="product-card__image">
+          <img src={image} alt={name} loading="lazy" />
+        </div>
+        <div className="product-card__content">
+          <h3 className="product-card__title">{name}</h3>
+          <p className="product-card__description">{description}</p>
+          <div className="product-card__bottom">
+            <div className="product-card__price" aria-label={`Цена: ${price} рублей`}>
+              {price} ₽
+            </div>
+            <button 
+              type="button"
+              className="button button--primary product-card__button"
+              onClick={handleAddToCart}
+              data-product-id={id}
+              aria-label={`Добавить ${name} в корзину`}
+            >
+              В корзину
+            </button>
+          </div>
+        </div>
+      </Link>
       <AddToCartAnimation
         productId={id}
         isVisible={showAnimation}
         onAnimationEnd={() => setShowAnimation(false)}
       />
-    </Link>
+    </article>
   );
 };
 

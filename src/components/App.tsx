@@ -1,40 +1,41 @@
-import React from 'react';
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// Компоненты
 import Header from './layout/Header';
 import Footer from './layout/Footer';
+import PageSkeleton from './common/PageSkeleton';
 
-// Страницы
-import HomePage from './pages/HomePage';
-import CatalogPage from './pages/CatalogPage';
-import CartPage from './pages/CartPage';
-import PaymentPage from './pages/PaymentPage';
-import DeliveryPage from './pages/DeliveryPage';
-import AboutPage from './pages/AboutPage';
-import ContactsPage from './pages/ContactsPage';
-import BlogPage from './pages/BlogPage';
-import VacanciesPage from './pages/VacanciesPage';
-import PrivacyPage from './pages/PrivacyPage';
+// Ленивая загрузка страниц
+const HomePage = lazy(() => import('./pages/HomePage'));
+const CatalogPage = lazy(() => import('./pages/CatalogPage'));
+const CartPage = lazy(() => import('./pages/CartPage'));
+const PaymentPage = lazy(() => import('./pages/PaymentPage'));
+const DeliveryPage = lazy(() => import('./pages/DeliveryPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ContactsPage = lazy(() => import('./pages/ContactsPage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const VacanciesPage = lazy(() => import('./pages/VacanciesPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <Router>
       <div className="app">
         <Header />
         <main className="main">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/catalog" element={<CatalogPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/payment" element={<PaymentPage />} />
-            <Route path="/delivery" element={<DeliveryPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/vacancies" element={<VacanciesPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contacts" element={<ContactsPage />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
-          </Routes>
+          <Suspense fallback={<PageSkeleton />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/catalog" element={<CatalogPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/payment" element={<PaymentPage />} />
+              <Route path="/delivery" element={<DeliveryPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/vacancies" element={<VacanciesPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contacts" element={<ContactsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import BazaarLogo from '@components/common/BazaarLogo';
 import SocialLinks from '@components/common/SocialLinks';
 import { Link } from 'react-router-dom';
+import StoreAddresses from '../common/StoreAddresses';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -17,15 +18,7 @@ const Footer: React.FC = () => {
           <section className="footer__section">
             <div className="footer__contact">
               <h3 className="footer__title">Наши магазины</h3>
-              <address className="footer__contact-item">
-                Иркутск, Маршала Жукова (пр) 15А
-              </address>
-              <address className="footer__contact-item">
-                Иркутск, Байкальская 180/2
-              </address>
-              <address className="footer__contact-item">
-                Иркутск, Николая Гаврилова 4
-              </address>
+              <StoreAddresses className="footer__addresses" />
             </div>
           </section>
 

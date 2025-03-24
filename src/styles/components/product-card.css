@@ -1,6 +1,6 @@
 /* 
-* Компонент: Карточка товара
-* Описание: Универсальный компонент карточки товара для каталога и специальных предложений
+* Компонент: Карточка товара (ProductCard)
+* Описание: Стилизация карточки товара для каталога и специальных предложений
 */
 
 .product-card {
@@ -12,41 +12,62 @@
   transition: all var(--transition-normal);
   display: flex;
   flex-direction: column;
-  text-decoration: none;
   height: 100%;
+  box-shadow: var(--shadow-sm);
 }
 
+/* Эффект при наведении */
 .product-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
 }
 
+/* Метка "Горячее предложение" */
 .product-card__badge {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  background: var(--color-primary);
-  color: var(--color-text-dark);
-  padding: 8px 16px;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: var(--gradient-hot);
+  background-size: 200% 200%;
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-md);
   border-radius: 20px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
   z-index: 1;
-  animation: pulse 2s infinite;
+  animation: pulse var(--animation-pulse) ease-in-out, gradientShift 3s ease infinite;
 }
 
+/* Анимация пульсации для бейджа */
 @keyframes pulse {
   0% {
     transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(139, 31, 65, 0.7);
   }
-  50% {
+  70% {
     transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(139, 31, 65, 0);
   }
   100% {
     transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(139, 31, 65, 0);
   }
 }
 
+/* Анимация градиента */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Контейнер для изображения */
 .product-card__image {
   position: relative;
   padding-top: 75%;
@@ -60,114 +81,135 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal);
 }
 
 .product-card:hover .product-card__image img {
   transform: scale(1.05);
 }
 
+/* Основной контент карточки */
 .product-card__content {
-  padding: 24px;
+  padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .product-card__title {
-  font-size: 16px;
+  font-size: var(--font-size-lg);
   font-weight: 600;
-  margin: 0 0 12px;
+  margin: 0 0 var(--spacing-sm);
   color: var(--color-text);
 }
 
 .product-card__description {
-  font-size: 16px;
+  font-size: var(--font-size-md);
   line-height: 1.5;
-  color: var(--color-gray);
+  color: var(--color-text-lighter);
   margin: 0;
   flex: 1;
 }
 
+/* Нижняя часть карточки с ценой и кнопкой */
 .product-card__bottom {
   margin-top: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card__price {
-  font-size: 22px;
+  font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--color-primary);
-  margin: 0 0 20px;
+  margin: 0 0 var(--spacing-md);
 }
 
 .product-card__button {
   width: 100%;
-  padding: 12px;
-  font-size: 16px;
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-md);
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.product-card__button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-primary);
 }
 
 /* Сетки для специальных предложений и каталога */
 .special-offers__grid,
 .catalog__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 карточки в ряд на десктопе */
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: var(--spacing-xl);
 }
 
 /* Адаптивность */
 @media (max-width: 1024px) {
-  .special-offers__grid,
-  .catalog__grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 карточки в ряд на планшетах */
-    gap: 16px;
-  }
-  
   .product-card__content {
-    padding: 16px;
-  }
-
-  .product-card__title {
-    font-size: 20px;
+    padding: var(--spacing-md);
   }
 
   .product-card__price {
-    font-size: 24px;
+    font-size: var(--font-size-lg);
   }
 }
 
 @media (max-width: 768px) {
   .special-offers__grid,
   .catalog__grid {
-    grid-template-columns: 1fr; /* 1 карточка в ряд на мобильных */
-    gap: 16px;
+    gap: var(--spacing-md);
   }
   
-  .product-card__content {
-    padding: 16px;
-  }
-
   .product-card__title {
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-size: var(--font-size-md);
   }
   
   .product-card__description {
-    font-size: 14px;
-    margin-bottom: 12px;
+    font-size: var(--font-size-sm);
   }
 
   .product-card__price {
-    font-size: 22px;
-    margin-bottom: 16px;
+    margin-bottom: var(--spacing-sm);
   }
   
   .product-card__button {
-    padding: 10px;
-    font-size: 14px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
   }
 }
 
 /* Темная тема */
-.theme-dark  .product-card__price {
-  color: var(--color-text);
+.theme-dark .product-card {
+  background: var(--color-card-background);
+  border-color: var(--color-border-dark);
+}
+
+.theme-dark .product-card__title {
+  color: var(--color-text-dark);
+}
+
+.theme-dark .product-card__description {
+  color: var(--color-text-light-dark);
+}
+
+.theme-dark .product-card__price {
+  color: var(--color-secondary-light);
+}
+
+.theme-dark .product-card__button {
+  background: var(--gradient-primary);
+}
+
+.theme-dark .product-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
