@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import PageSkeleton from './common/PageSkeleton';
+import ScrollToTop from './common/ScrollToTop';
 
 // Ленивая загрузка страниц
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -19,6 +20,7 @@ const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const App = () => {
   return (
     <Router>
+      <ScrollToTop />
       <div className="app">
         <Header />
         <main className="main">
