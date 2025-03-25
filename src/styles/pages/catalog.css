@@ -34,6 +34,7 @@
   background: var(--color-primary-dark-theme);
 }
 
+/* Поиск */
 .catalog__search {
   width: 100%;
   margin-bottom: var(--spacing-xl);
@@ -67,10 +68,23 @@
   pointer-events: none;
 }
 
-.catalog__content {
+/* Новый контейнер для фильтров и основного контента */
+.catalog__filter-sort-row {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: var(--spacing-xl);
+}
+
+/* Основной контент с сортировкой и товарами */
+.catalog__main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Обертка для сортировки */
+.catalog__sort-wrapper {
+  margin-bottom: var(--spacing-xl);
+  align-self: flex-end;
 }
 
 /* Блок сортировки */
@@ -310,6 +324,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-xl);
+  align-content: flex-start; /* Предотвращает растягивание по вертикали */
 }
 
 .catalog__active-filters {
@@ -441,7 +456,7 @@
 }
 
 @media (max-width: 1024px) {
-  .catalog__content {
+  .catalog__filter-sort-row {
     grid-template-columns: 220px 1fr;
     gap: var(--spacing-lg);
   }
@@ -456,9 +471,8 @@
     align-items: stretch;
   }
 
-  .catalog__sort {
+  .catalog__sort-wrapper {
     margin-bottom: var(--spacing-md);
-    justify-content: flex-end;
   }
 }
 
@@ -472,7 +486,7 @@
     margin-bottom: var(--spacing-lg);
   }
 
-  .catalog__content {
+  .catalog__filter-sort-row {
     grid-template-columns: 1fr;
   }
   
@@ -491,7 +505,7 @@
     margin-bottom: var(--spacing-lg);
   }
 
-  .catalog__sort {
-    justify-content: flex-start;
+  .catalog__sort-wrapper {
+    align-self: flex-start;
   }
 } 

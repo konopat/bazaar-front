@@ -23,19 +23,20 @@ const colorOptions: ColorOption[] = [
 const ColorFilter: React.FC<ColorFilterProps> = ({ selectedColor, onColorSelect }) => {
   return (
     <div className="color-filter">
-      <div className="filters__checkbox-group">
+      <div className="color-filter__buttons">
         {colorOptions.map((option) => (
-          <label key={option.id} className="filters__checkbox-label">
-            <input
-              type="checkbox"
-              className="filters__checkbox-input"
-              checked={selectedColor === option.id}
-              onChange={() => onColorSelect(selectedColor === option.id ? null : option.id)}
-            />
-            <span className="filters__checkbox-custom"></span>
-            <span className="color-filter__color" style={{ backgroundColor: option.color }}></span>
-            {option.name}
-          </label>
+          <button 
+            key={option.id}
+            className={`color-filter__button ${selectedColor === option.id ? 'color-filter__button--active' : ''}`}
+            onClick={() => onColorSelect(selectedColor === option.id ? null : option.id)}
+            title={option.name}
+          >
+            <span 
+              className="color-filter__color-circle" 
+              style={{ backgroundColor: option.color }}
+            ></span>
+            <span className="color-filter__name">{option.name}</span>
+          </button>
         ))}
       </div>
     </div>

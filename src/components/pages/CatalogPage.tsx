@@ -114,18 +114,6 @@ const CatalogPage: React.FC = () => {
       <div className="container">
         <div className="catalog__header">
           <h1 className="catalog__title">Каталог букетов</h1>
-          
-          <div className="catalog__sort">
-            <span className="catalog__sort-label">Сортировка:</span>
-            <select
-              className="catalog__sort-select"
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-            >
-              <option value="asc">Сначала дешевле</option>
-              <option value="desc">Сначала дороже</option>
-            </select>
-          </div>
         </div>
         
         <div className="catalog__search">
@@ -159,7 +147,7 @@ const CatalogPage: React.FC = () => {
           </div>
         )}
 
-        <div className="catalog__content">
+        <div className="catalog__filter-sort-row">
           <aside className="catalog__filters">
             <h2 className="filters__title">Фильтры</h2>
             <div className="filters">
@@ -190,16 +178,32 @@ const CatalogPage: React.FC = () => {
             </div>
           </aside>
 
-          <div className="catalog__grid">
-            {filterAndSortProducts().map(product => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                title={product.title}
-                price={product.price}
-                image={product.image}
-              />
-            ))}
+          <div className="catalog__main-content">
+            <div className="catalog__sort-wrapper">
+              <div className="catalog__sort">
+                <span className="catalog__sort-label">Сортировка:</span>
+                <select
+                  className="catalog__sort-select"
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+                >
+                  <option value="asc">Сначала дешевле</option>
+                  <option value="desc">Сначала дороже</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="catalog__grid">
+              {filterAndSortProducts().map(product => (
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  title={product.title}
+                  price={product.price}
+                  image={product.image}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
