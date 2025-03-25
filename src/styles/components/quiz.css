@@ -1,10 +1,17 @@
+/* 
+* Компонент: Квиз
+* Описание: Стили для интерактивных опросов
+*/
+
+/* Контейнер квиза */
 .quiz {
   margin: 0 auto;
-  padding: 32px;
   text-align: center;
-  background-color: var(--color-background);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-quiz-background, var(--color-background-light));
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
 }
 
 .quiz__title {
@@ -98,17 +105,38 @@
   outline: none;
 }
 
+/* Кнопки в квизе */
 .quiz__button {
   margin-top: var(--spacing-lg);
   width: 100%;
   max-width: 300px;
   align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.quiz__button:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(-2px);
 }
 
 /* Темная тема */
 .theme-dark .quiz {
-  background-color: var(--color-quiz-background);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-quiz-background-dark);
+  box-shadow: var(--shadow-md);
 }
 
 .theme-dark .quiz__title,
@@ -143,4 +171,15 @@
 .theme-dark .quiz__input::placeholder,
 .theme-dark .quiz__textarea::placeholder {
   color: var(--color-gray);
+}
+
+.theme-dark .quiz__button {
+  border-color: var(--color-primary-dark-theme);
+  color: var(--color-primary-dark-theme);
+  background: transparent;
+}
+
+.theme-dark .quiz__button:hover {
+  background: var(--color-primary-dark-theme);
+  color: var(--color-background-dark);
 } 

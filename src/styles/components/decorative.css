@@ -214,7 +214,6 @@
   font-size: var(--font-size-3xl);
   font-weight: 400;
   letter-spacing: 0.05em;
-  text-align: center;
   margin-bottom: var(--spacing-2xl);
   padding-bottom: var(--spacing-md);
 }
@@ -223,11 +222,19 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   width: 60px;
   height: 2px;
   background: var(--color-primary);
+}
+
+.section-title--centered {
+  text-align: center;
+}
+
+.section-title--centered::after {
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .theme-dark .section-title::after {

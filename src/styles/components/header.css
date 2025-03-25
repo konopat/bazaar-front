@@ -27,6 +27,21 @@
   padding: 0 var(--spacing-xl);
 }
 
+/* Левая часть хедера (для баланса логотипа) */
+.header__left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Правая часть хедера */
+.header__right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+}
+
 .header__logo {
   display: flex;
   align-items: center;
@@ -35,6 +50,9 @@
   font-weight: 500;
   letter-spacing: 0.05em;
   color: var(--color-text);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .header__logo svg {
