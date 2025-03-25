@@ -103,14 +103,6 @@ const CatalogPage: React.FC = () => {
       });
     }
 
-    if (sortOrder !== 'asc') {
-      filters.push({
-        id: 'sort',
-        label: 'Сначала дороже',
-        onRemove: () => setSortOrder('asc')
-      });
-    }
-
     return filters;
   };
 
@@ -122,15 +114,28 @@ const CatalogPage: React.FC = () => {
       <div className="container">
         <div className="catalog__header">
           <h1 className="catalog__title">Каталог букетов</h1>
-          <div className="catalog__search">
-            <input
-              type="text"
-              className="catalog__search-input"
-              placeholder="Поиск букетов..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          
+          <div className="catalog__sort">
+            <span className="catalog__sort-label">Сортировка:</span>
+            <select
+              className="catalog__sort-select"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+            >
+              <option value="asc">Сначала дешевле</option>
+              <option value="desc">Сначала дороже</option>
+            </select>
           </div>
+        </div>
+        
+        <div className="catalog__search">
+          <input
+            type="text"
+            className="catalog__search-input"
+            placeholder="Поиск букетов..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
 
         {isAnyFilterActive && (
@@ -156,8 +161,10 @@ const CatalogPage: React.FC = () => {
 
         <div className="catalog__content">
           <aside className="catalog__filters">
+            <h2 className="filters__title">Фильтры</h2>
             <div className="filters">
               <div className="filters__section">
+                <h3 className="filters__section-title">Цвет</h3>
                 <ColorFilter
                   selectedColor={selectedColor}
                   onColorSelect={setSelectedColor}
@@ -165,32 +172,21 @@ const CatalogPage: React.FC = () => {
               </div>
               
               <div className="filters__section">
+                <h3 className="filters__section-title">Цена</h3>
                 <PriceFilter
                   selectedPrice={selectedPrice}
                   onPriceSelect={setSelectedPrice}
                 />
               </div>
 
-              <div className="filters__section">
-                <h3 className="filters__title">Сортировка</h3>
-                <select
-                  className="catalog__sort-select"
-                  value={sortOrder}
-                  onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+              {isAnyFilterActive && (
+                <button 
+                  className="catalog__reset"
+                  onClick={handleResetFilters}
                 >
-                  <option value="asc">Сначала дешевле</option>
-                  <option value="desc">Сначала дороже</option>
-                </select>
-
-                {isAnyFilterActive && (
-                  <button 
-                    className="catalog__reset"
-                    onClick={handleResetFilters}
-                  >
-                    Сбросить фильтры
-                  </button>
-                )}
-              </div>
+                  Сбросить фильтры
+                </button>
+              )}
             </div>
           </aside>
 

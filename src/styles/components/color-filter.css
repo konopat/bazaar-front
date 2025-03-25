@@ -2,6 +2,7 @@
 .color-filter {
   padding: var(--spacing-2xl) 0;
   background: var(--color-background);
+  margin-bottom: var(--spacing-md);
 }
 
 .color-filter__container {
@@ -64,6 +65,16 @@
   white-space: nowrap;
 }
 
+.color-filter__color {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
 /* Медиа-запросы */
 @media (max-width: 1024px) {
   .color-filter__grid {
@@ -98,4 +109,8 @@
 
 .theme-dark .color-circle__label {
   color: var(--color-text-light);
+}
+
+.theme-dark .color-filter__color {
+  border-color: var(--color-border-dark);
 } 

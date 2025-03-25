@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface PriceOption {
   id: string;
@@ -19,27 +19,60 @@ const priceOptions: PriceOption[] = [
 ];
 
 const PriceFilter: React.FC<PriceFilterProps> = ({ selectedPrice, onPriceSelect }) => {
+  const [minPrice, setMinPrice] = useState<string>(selectedPrice?.min?.toString() || '');
+  const [maxPrice, setMaxPrice] = useState<string>(selectedPrice?.max?.toString() || '');
+
+  const handleApplyCustomPrice = () => {
+    const min = parseInt(minPrice) || 0;
+    const max = maxPrice ? parseInt(maxPrice) : null;
+    onPriceSelect({ min, max });
+  };
+
   return (
     <div className="price-filter">
-      <h3 className="color-filter__title">По цене</h3>
-      <div className="price-filter__options">
+      <div className="filters__checkbox-group">
         {priceOptions.map((option) => (
-          <button
-            key={option.id}
-            className={`price-filter__option ${
-              selectedPrice?.min === option.min && selectedPrice?.max === option.max 
-                ? 'price-filter__option--active' 
-                : ''
-            }`}
-            onClick={() => onPriceSelect(
-              selectedPrice?.min === option.min && selectedPrice?.max === option.max
-                ? null 
-                : { min: option.min, max: option.max }
-            )}
-          >
+          <label key={option.id} className="filters__checkbox-label">
+            <input
+              type="checkbox"
+              className="filters__checkbox-input"
+              checked={selectedPrice?.min === option.min && selectedPrice?.max === option.max}
+              onChange={() => onPriceSelect(
+                selectedPrice?.min === option.min && selectedPrice?.max === option.max
+                  ? null 
+                  : { min: option.min, max: option.max }
+              )}
+            />
+            <span className="filters__checkbox-custom"></span>
             {option.label}
-          </button>
+          </label>
         ))}
+      </div>
+
+      <div className="filters__price-range">
+        <div className="filters__price-inputs">
+          <input
+            type="number"
+            className="filters__price-input"
+            placeholder="От"
+            value={minPrice}
+            onChange={(e) => setMinPrice(e.target.value)}
+          />
+          <input
+            type="number"
+            className="filters__price-input"
+            placeholder="До"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(e.target.value)}
+          />
+        </div>
+        <button 
+          className="button button--outline button--small" 
+          onClick={handleApplyCustomPrice}
+          style={{ width: '100%' }}
+        >
+          Применить
+        </button>
       </div>
     </div>
   );
