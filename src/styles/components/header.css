@@ -3,6 +3,11 @@
 * Описание: Стили для шапки сайта
 */
 
+a .profile-button {
+  display: block;
+  height: 24px;
+}
+
 /* Основной контейнер */
 .header {
   position: fixed;

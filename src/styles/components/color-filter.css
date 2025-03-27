@@ -5,7 +5,7 @@
 
 .color-filter__buttons {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: var(--spacing-sm);
 }
 
