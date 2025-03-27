@@ -3,7 +3,7 @@
 * Описание: Стили для шапки сайта
 */
 
-a .profile-button {
+a.profile-button {
   display: block;
   height: 24px;
 }

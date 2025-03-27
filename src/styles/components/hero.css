@@ -200,12 +200,3 @@
 .theme-dark .hero__social-link:hover svg {
   fill: var(--color-secondary);
 }
-
-.theme-dark .hero__stores-button {
-  color: var(--color-text);
-  border-color: var(--color-border);
-}
-
-.theme-dark .hero__stores-button:hover {
-  background: var(--color-light-gray);
-} 

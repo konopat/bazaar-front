@@ -102,7 +102,7 @@ const HomePage: React.FC = () => {
           <div className="hero__info">
             <div className="hero__stores">
               <p className="hero__stores-text">3 магазина в Иркутске – есть самовывоз</p>
-              <button className="hero__stores-button" onClick={toggleMobileMenu}>
+              <button className="hero__stores-button button--underline" onClick={toggleMobileMenu}>
                 Показать адреса
               </button>
             </div>
