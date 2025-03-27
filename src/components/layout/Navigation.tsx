@@ -1,9 +1,9 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import type { MouseEvent } from 'react';
 
 interface NavigationProps {
   className?: string;
-  onLinkClick?: (e: React.MouseEvent) => void;
+  onLinkClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const navigationItems = [

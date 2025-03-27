@@ -1,4 +1,3 @@
-import React from 'react';
 import BazaarLogo from '@components/common/BazaarLogo';
 import SocialLinks from '@components/common/SocialLinks';
 import { Link } from 'react-router-dom';

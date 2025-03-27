@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store/store';
+import type { MouseEvent } from 'react';
 import Navigation from './Navigation';
 import useTheme from '@hooks/useTheme';
 import BazaarLogo from '../common/BazaarLogo';
@@ -58,7 +59,7 @@ const Header: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
 
-  const toggleMobileMenu = useCallback((e: React.MouseEvent) => {
+  const toggleMobileMenu = useCallback((e: MouseEvent) => {
     e.stopPropagation();
     setIsMobileMenuOpen(prev => !prev);
   }, []);
