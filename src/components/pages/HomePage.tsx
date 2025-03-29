@@ -11,12 +11,14 @@ import Collections from '../collections/Collections';
 import { Product, products } from '../../mocks/products';
 import { specialOffers } from '../../mocks/special-offers';
 import SocialLinks from '@components/common/SocialLinks';
+import StoresModal from '../map/StoresModal';
 
 const HomePage: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedPrice, setSelectedPrice] = useState<{ min: number; max: number | null } | null>(null);
   const [isCardSticky, setIsCardSticky] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isStoresModalOpen, setIsStoresModalOpen] = useState(false);
   const sidebarRef = useRef<HTMLElement>(null);
   const quizRef = useRef<HTMLElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -102,7 +104,10 @@ const HomePage: React.FC = () => {
           <div className="hero__info">
             <div className="hero__stores">
               <p className="hero__stores-text">3 магазина в Иркутске – есть самовывоз</p>
-              <button className="hero__stores-button button--underline" onClick={toggleMobileMenu}>
+              <button 
+                className="hero__stores-button button--underline" 
+                onClick={() => setIsStoresModalOpen(true)}
+              >
                 Показать адреса
               </button>
             </div>
@@ -172,6 +177,11 @@ const HomePage: React.FC = () => {
           </div>
         </section>
       </div>
+
+      <StoresModal 
+        isOpen={isStoresModalOpen} 
+        onClose={() => setIsStoresModalOpen(false)} 
+      />
     </main>
   );
 };

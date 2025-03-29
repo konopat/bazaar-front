@@ -1,0 +1,160 @@
+.stores-map {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 600px;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.stores-map--visible {
+  opacity: 1;
+}
+
+.stores-map__container {
+  flex: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(212, 169, 119, 0.1);
+  border: 1px solid #E8D6C6;
+  min-height: 400px;
+  width: 100%;
+}
+
+.stores-map__error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(255, 251, 246, 0.9);
+  color: #4A433B;
+  z-index: 2;
+}
+
+.stores-map__error p {
+  max-width: 300px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.stores-map__list {
+  width: 100%;
+  overflow-y: auto;
+  padding-right: 4px;
+  max-height: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.stores-map__store-button {
+  flex: 1;
+  min-width: 200px;
+  text-align: left;
+  padding: 16px;
+  border: 1px solid #E8D6C6;
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stores-map__store-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #D4A977, rgba(212, 169, 119, 0.5));
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+}
+
+.stores-map__store-button:hover {
+  border-color: #D4A977;
+  background-color: rgba(212, 169, 119, 0.03);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.1);
+}
+
+.stores-map__store-button:hover::before {
+  transform: scaleY(1);
+}
+
+.stores-map__store-button--active {
+  border-color: #D4A977;
+  background-color: rgba(212, 169, 119, 0.06);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.15);
+}
+
+.stores-map__store-button--active::before {
+  transform: scaleY(1);
+}
+
+.stores-map__store-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: #4A433B;
+  margin: 0 0 8px;
+}
+
+.stores-map__store-address {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* Стили для OpenLayers */
+.ol-control {
+  background: none;
+}
+
+.ol-zoom {
+  top: 16px;
+  right: 16px;
+  left: auto;
+}
+
+.ol-zoom button {
+  background-color: rgba(255, 251, 246, 0.9);
+  color: #4A433B;
+  border: 1px solid #D4A977;
+  margin: 2px;
+  transition: all 0.2s ease;
+}
+
+.ol-zoom button:hover {
+  background-color: #D4A977;
+  color: #FFFBF6;
+}
+
+/* Адаптивные стили */
+@media (min-width: 768px) {
+  .stores-map {
+    flex-direction: row;
+  }
+  
+  .stores-map__list {
+    width: 300px;
+    max-height: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  
+  .stores-map__store-button {
+    min-width: auto;
+    margin-bottom: 12px;
+    flex: none;
+  }
+} 
