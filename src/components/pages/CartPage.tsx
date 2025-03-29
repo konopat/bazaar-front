@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../common/Icon';
+import ProductCard from '../common/ProductCard';
+import '../../styles/cart.css';
 
 interface CartItem {
   id: number;
@@ -40,24 +42,28 @@ const CartPage = () => {
   const [promoApplied, setPromoApplied] = useState(false);
   const [promoDiscount, setPromoDiscount] = useState(0);
 
-  // Обработчик изменения количества товара
-  const handleQuantityChange = (id: number, newQuantity: number) => {
-    if (newQuantity < 1) return;
+  // Обработчик изменения количества товара (оптимизирован с useCallback)
+  const handleQuantityChange = useCallback((id: number, newQuantity: number) => {
+    if (newQuantity < 1) {
+      // Если количество становится меньше 1, удаляем товар из корзины
+      handleRemoveItem(id);
+      return;
+    }
     
     setCartItems(prevItems => 
       prevItems.map(item => 
         item.id === id ? { ...item, quantity: newQuantity } : item
       )
     );
-  };
+  }, []);
 
-  // Обработчик удаления товара из корзины
-  const handleRemoveItem = (id: number) => {
+  // Обработчик удаления товара из корзины (оптимизирован с useCallback)
+  const handleRemoveItem = useCallback((id: number) => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== id));
-  };
+  }, []);
 
-  // Обработчик применения промокода
-  const handleApplyPromo = () => {
+  // Обработчик применения промокода (оптимизирован с useCallback)
+  const handleApplyPromo = useCallback(() => {
     // Моковая логика проверки промокода
     if (promoCode.toUpperCase() === 'DISCOUNT') {
       setPromoApplied(true);
@@ -65,12 +71,16 @@ const CartPage = () => {
     } else {
       alert('Промокод недействителен');
     }
-  };
+  }, [promoCode]);
 
-  // Расчет суммы корзины
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const deliveryCost = 500;
-  const total = subtotal + deliveryCost - promoDiscount;
+  // Расчет суммы корзины (оптимизирован с useMemo)
+  const { subtotal, deliveryCost, total } = useMemo(() => {
+    const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const deliveryCost = 500;
+    const total = subtotal + deliveryCost - promoDiscount;
+    
+    return { subtotal, deliveryCost, total };
+  }, [cartItems, promoDiscount]);
 
   // Форматирование цены
   const formatPrice = (price: number) => {
@@ -78,54 +88,58 @@ const CartPage = () => {
   };
 
   return (
-    <div className="cart">
+    <div className="cart-page">
       <div className="container">
         <h1 className="section-title section-title--centered">Корзина</h1>
         
         {cartItems.length > 0 ? (
-          <div className="cart__content">
-            <div className="cart__items">
+          <div className="cart-page__content">
+            <div className="cart-page__items">
               {cartItems.map(item => (
                 <div key={item.id} className="cart-item">
-                  <div className="cart-item__image-container">
-                    <img src={item.image} alt={item.name} className="cart-item__image" />
+                  <div className="cart-item__product">
+                    <ProductCard
+                      id={item.id.toString()}
+                      name={item.name}
+                      price={item.price}
+                      image={item.image}
+                      inCart={true}
+                    />
                   </div>
-                  <div className="cart-item__details">
-                    <h3 className="cart-item__name">{item.name}</h3>
-                    <div className="cart-item__price">{formatPrice(item.price)}</div>
-                  </div>
-                  <div className="cart-item__quantity">
+                  <div className="cart-item__controls">
+                    <div className="cart-item__quantity">
+                      <button 
+                        className="cart-item__quantity-btn"
+                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                        aria-label="Уменьшить количество"
+                      >
+                        —
+                      </button>
+                      <span className="cart-item__quantity-value">{item.quantity}</span>
+                      <button 
+                        className="cart-item__quantity-btn"
+                        onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                        aria-label="Увеличить количество"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div className="cart-item__total">
+                      {formatPrice(item.price * item.quantity)}
+                    </div>
                     <button 
-                      className="cart-item__quantity-btn"
-                      onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                      aria-label="Уменьшить количество"
+                      className="cart-item__remove"
+                      onClick={() => handleRemoveItem(item.id)}
+                      aria-label="Удалить товар"
                     >
-                      —
-                    </button>
-                    <span className="cart-item__quantity-value">{item.quantity}</span>
-                    <button 
-                      className="cart-item__quantity-btn"
-                      onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                      aria-label="Увеличить количество"
-                    >
-                      +
+                      ✕
                     </button>
                   </div>
-                  <div className="cart-item__total">
-                    {formatPrice(item.price * item.quantity)}
-                  </div>
-                  <button 
-                    className="cart-item__remove"
-                    onClick={() => handleRemoveItem(item.id)}
-                    aria-label="Удалить товар"
-                  >
-                    ✕
-                  </button>
                 </div>
               ))}
             </div>
             
-            <div className="cart__sidebar">
+            <div className="cart-page__sidebar">
               <div className="cart-summary">
                 <h2 className="cart-summary__title">Сумма заказа</h2>
                 
@@ -185,7 +199,7 @@ const CartPage = () => {
             </div>
           </div>
         ) : (
-          <div className="cart__empty">
+          <div className="cart-page__empty">
             <div className="cart-empty">
               <div className="cart-empty__icon">
                 <Icon name="cart" size={64} />
@@ -203,8 +217,8 @@ const CartPage = () => {
           </div>
         )}
         
-        <div className="cart__continue-shopping">
-          <Link to="/catalog" className="cart__continue-link">
+        <div className="cart-page__continue-shopping">
+          <Link to="/catalog" className="cart-page__continue-link">
             ← Продолжить покупки
           </Link>
         </div>

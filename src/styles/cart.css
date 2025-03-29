@@ -1,0 +1,328 @@
+/* Стили для страницы корзины */
+
+/* Основные стили */
+.cart-page {
+  padding: 40px 0;
+}
+
+.cart-page__content {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+@media (max-width: 992px) {
+  .cart-page__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cart-page__items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart-page__continue-shopping {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.cart-page__continue-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.cart-page__continue-link:hover {
+  color: var(--accent-color);
+}
+
+/* Стили для элемента корзины */
+.cart-item {
+  display: flex;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.cart-item__product {
+  flex: 1;
+}
+
+.cart-item__controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 15px;
+  margin-left: 20px;
+}
+
+.cart-item__quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cart-item__quantity-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cart-item__quantity-btn:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--inverted-text-color);
+}
+
+.cart-item__quantity-value {
+  font-weight: 600;
+  font-size: 18px;
+  min-width: 30px;
+  text-align: center;
+}
+
+.cart-item__total {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--accent-color);
+}
+
+.cart-item__remove {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  font-size: 18px;
+}
+
+.cart-item__remove:hover {
+  color: var(--error-color);
+}
+
+/* Стили для карточки товара в корзине */
+.product-card--in-cart {
+  padding: 0;
+  box-shadow: none;
+}
+
+.product-card--in-cart .product-card__link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.product-card--in-cart .product-card__image-container {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.product-card--in-cart .product-card__name {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.product-card--in-cart .product-card__price {
+  font-size: 16px;
+}
+
+/* Стили для боковой панели с суммой заказа */
+.cart-page__sidebar {
+  position: sticky;
+  top: 30px;
+}
+
+.cart-summary {
+  padding: 25px;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.cart-summary__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.cart-summary__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.cart-summary__label {
+  color: var(--text-muted);
+}
+
+.cart-summary__value {
+  font-weight: 600;
+}
+
+.cart-summary__row--discount .cart-summary__value {
+  color: var(--success-color);
+}
+
+.cart-summary__row--total {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
+.cart-summary__row--total .cart-summary__label,
+.cart-summary__row--total .cart-summary__value {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.cart-summary__divider {
+  margin: 20px 0;
+}
+
+.cart-summary__promo {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.cart-summary__promo-input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  transition: border-color 0.2s ease;
+}
+
+.cart-summary__promo-input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.cart-summary__checkout-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
+
+/* Стили для блока помощи */
+.cart-help {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.cart-help__text {
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.cart-help__phone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--accent-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cart-help__phone:hover {
+  color: var(--accent-hover-color);
+}
+
+/* Стили для пустой корзины */
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.cart-empty__icon {
+  margin-bottom: 20px;
+  color: var(--text-muted);
+}
+
+.cart-empty__message {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.cart-empty__submessage {
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+.cart-empty__button {
+  min-width: 200px;
+}
+
+/* Переменные для светлой и темной темы */
+:root {
+  /* Светлая тема (по умолчанию) */
+  --card-bg: #FFFFFF;
+  --input-bg: #FFFFFF;
+  --border-color: #E8D6C6;
+  --text-color: #4A433B;
+  --text-muted: #8A7D71;
+  --accent-color: #D4A977;
+  --accent-hover-color: #B89F7A;
+  --inverted-text-color: #FFFFFF;
+  --success-color: #5CB85C;
+  --error-color: #D9534F;
+}
+
+/* Настройки для темной темы */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-bg: #232323;
+    --input-bg: #1E1E1E;
+    --border-color: #3A3A3A;
+    --text-color: #F4E8DD;
+    --text-muted: #A8A8A8;
+    --accent-color: #D4A977;
+    --accent-hover-color: #E8C68A;
+    --inverted-text-color: #121212;
+    --success-color: #5CB85C;
+    --error-color: #D9534F;
+  }
+} 

@@ -10,6 +10,7 @@ interface ProductCardProps {
   category?: string;
   isNew?: boolean;
   isBestseller?: boolean;
+  inCart?: boolean; // Флаг, показывающий что карточка отображается в корзине
 }
 
 const ProductCard = ({
@@ -20,7 +21,8 @@ const ProductCard = ({
   image,
   category,
   isNew = false,
-  isBestseller = false
+  isBestseller = false,
+  inCart = false
 }: ProductCardProps) => {
   // Форматирование цены
   const formatPrice = (price: number) => {
@@ -28,7 +30,7 @@ const ProductCard = ({
   };
 
   return (
-    <div className="product-card">
+    <div className={`product-card ${inCart ? 'product-card--in-cart' : ''}`}>
       <Link to={`/products/${id}`} className="product-card__link">
         <div className="product-card__image-container">
           {/* Использование компонента LazyImage для оптимизации загрузки */}
@@ -42,30 +44,35 @@ const ProductCard = ({
             key={`product-image-${id}`} // Уникальный ключ для корректного обновления
           />
           
-          {/* Бейджи */}
-          <div className="product-card__badges">
-            {isNew && <span className="product-card__badge product-card__badge--new">Новинка</span>}
-            {isBestseller && <span className="product-card__badge product-card__badge--bestseller">Хит</span>}
-            {oldPrice && <span className="product-card__badge product-card__badge--sale">
-              -{Math.round((1 - price / oldPrice) * 100)}%
-            </span>}
-          </div>
+          {/* Бейджи показываем только если не в корзине */}
+          {!inCart && (
+            <div className="product-card__badges">
+              {isNew && <span className="product-card__badge product-card__badge--new">Новинка</span>}
+              {isBestseller && <span className="product-card__badge product-card__badge--bestseller">Хит</span>}
+              {oldPrice && <span className="product-card__badge product-card__badge--sale">
+                -{Math.round((1 - price / oldPrice) * 100)}%
+              </span>}
+            </div>
+          )}
         </div>
 
         <div className="product-card__content">
-          {category && <div className="product-card__category">{category}</div>}
+          {category && !inCart && <div className="product-card__category">{category}</div>}
           <h3 className="product-card__name">{name}</h3>
           
           <div className="product-card__price-container">
             <span className="product-card__price">{formatPrice(price)}</span>
-            {oldPrice && <span className="product-card__old-price">{formatPrice(oldPrice)}</span>}
+            {oldPrice && !inCart && <span className="product-card__old-price">{formatPrice(oldPrice)}</span>}
           </div>
         </div>
       </Link>
       
-      <button className="product-card__add-to-cart button button--outline">
-        В корзину
-      </button>
+      {/* Кнопку добавления в корзину показываем только если не в корзине */}
+      {!inCart && (
+        <button className="product-card__add-to-cart button button--outline">
+          В корзину
+        </button>
+      )}
     </div>
   );
 };
