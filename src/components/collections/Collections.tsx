@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../../mocks/products';
-import ProductCard from '../catalog/ProductCard';
+import ProductCard from '../common/ProductCard';
 
 interface CollectionProps {
   products: Product[];

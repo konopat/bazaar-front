@@ -5,11 +5,9 @@ import { RootState } from '@store/store';
 import BouquetQuiz from '../quiz/BouquetQuiz';
 import ColorFilter from '../catalog/ColorFilter';
 import PriceFilter from '../catalog/PriceFilter';
-import ProductCard from '../catalog/ProductCard';
-import SpecialOfferCard from '../catalog/SpecialOfferCard';
+import ProductCard from '../common/ProductCard';
 import Collections from '../collections/Collections';
 import { Product, products } from '../../mocks/products';
-import { specialOffers } from '../../mocks/special-offers';
 import SocialLinks from '@components/common/SocialLinks';
 import StoresModal from '../map/StoresModal';
 import { PHONE_NUMBER, STORES } from '../../constants/contacts';
@@ -99,6 +97,9 @@ const HomePage: React.FC = () => {
     }
   };
 
+  // Получаем специальные предложения из общего списка продуктов
+  const specialOffers = products.filter(product => product.isSpecialOffer);
+
   return (
     <main className="home">
       <section className="hero">
@@ -140,9 +141,16 @@ const HomePage: React.FC = () => {
               <h2 className="section-title">Специальные предложения</h2>
               <div className="special-offers__grid">
                 {specialOffers.map(offer => (
-                  <SpecialOfferCard
+                  <ProductCard
                     key={offer.id}
-                    {...offer}
+                    id={offer.id}
+                    title={offer.title}
+                    price={offer.price}
+                    image={offer.image}
+                    isHot={offer.isHot}
+                    isSpecialOffer={true}
+                    description={offer.description}
+                    color={offer.color}
                   />
                 ))}
               </div>

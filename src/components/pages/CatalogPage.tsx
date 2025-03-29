@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Product, products } from '../../mocks/products';
-import ProductCard from '../catalog/ProductCard';
+import { products } from '../../mocks/products';
+import ProductCard from '../common/ProductCard';
 import ColorFilter from '../catalog/ColorFilter';
 import PriceFilter from '../catalog/PriceFilter';
 import SearchField from '../common/SearchField';

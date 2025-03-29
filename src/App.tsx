@@ -1,12 +1,12 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import CatalogPage from './pages/CatalogPage';
-import ProductPage from './pages/ProductPage';
-import CartPage from './pages/CartPage';
-import AboutPage from './pages/AboutPage';
-import ContactsPage from './pages/ContactsPage';
-import NotFoundPage from './pages/NotFoundPage';
+import HomePage from './components/pages/HomePage';
+import CatalogPage from './components/pages/CatalogPage';
+import ProductPage from './components/pages/ProductPage';
+import CartPage from './components/pages/CartPage';
+import AboutPage from './components/pages/AboutPage';
+import ContactsPage from './components/pages/ContactsPage';
+import NotFoundPage from './components/pages/NotFoundPage';
 
 const App: React.FC = () => {
   return (

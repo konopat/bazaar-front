@@ -7,6 +7,7 @@ import {
 } from '../../constants/contacts';
 import StoresModal from '../map/StoresModal';
 import Icon from '../common/Icon';
+import LazyImage from '@components/common/LazyImage';
 
 interface ContactFormData {
   name: string;
@@ -101,7 +102,7 @@ const ContactsPage: React.FC = () => {
                   </div>
                 </div>
                 <div className="store-card__photo">
-                  <img src={store.photo} alt={store.name} />
+                  <LazyImage src={store.photo} alt={store.name} objectFit="cover"/>
                 </div>
               </div>
             ))}

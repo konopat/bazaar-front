@@ -52,7 +52,7 @@ export const STORES: Store[] = [
     id: '1',
     name: 'Центральный магазин',
     address: 'Иркутск, Маршала Жукова 15А',
-    coordinates: [104.280094, 52.287430],
+    coordinates: [52.247377, 104.360790],
     phone: '+7 (3952) 48-66-77',
     workSchedule: {
       monday: { open: '10:00', close: '19:00', dayOff: false },
@@ -69,7 +69,7 @@ export const STORES: Store[] = [
     id: '2',
     name: 'Магазин на Байкальской',
     address: 'Иркутск, Байкальская 180/2',
-    coordinates: [104.281763, 52.289056],
+    coordinates: [52.258128, 104.319171],
     phone: '+7 (3952) 48-77-88',
     workSchedule: {
       monday: { open: '09:00', close: '20:00', dayOff: false },
@@ -86,7 +86,7 @@ export const STORES: Store[] = [
     id: '3',
     name: 'Магазин на Гаврилова',
     address: 'Иркутск, Николая Гаврилова 4',
-    coordinates: [104.285513, 52.286052],
+    coordinates: [52.288591, 104.271129],
     phone: '+7 (3952) 48-99-00',
     workSchedule: {
       monday: { open: '09:00', close: '19:00', dayOff: false },

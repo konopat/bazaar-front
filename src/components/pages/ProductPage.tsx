@@ -5,7 +5,7 @@ import { addToCart } from '../../store/cartSlice';
 import LazyImage from '../common/LazyImage';
 import Icon from '../common/Icon';
 import { Product, products } from '../../mocks/products';
-import ProductCard from '../catalog/ProductCard';
+import ProductCard from '../common/ProductCard';
 import AddToCartAnimation from '../catalog/AddToCartAnimation';
 import Skeleton from '../common/Skeleton';
 import '../../styles/pages/product.css';

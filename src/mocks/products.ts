@@ -5,9 +5,12 @@ export interface Product {
   price: number;
   image: string;
   color: string;
+  isSpecialOffer?: boolean;
+  isHot?: boolean;
 }
 
-export const products: Product[] = [
+// Все обычные товары
+const regularProducts: Product[] = [
   // До 3000 рублей
   {
     id: 1,
@@ -253,4 +256,39 @@ export const products: Product[] = [
     image: '/images/bouquets/purple-luxury.jpg',
     color: 'purple'
   }
-]; 
+];
+
+// Добавляем специальные предложения
+const specialOffers: Product[] = [
+  {
+    id: 101,
+    title: 'Экспресс-букет',
+    description: 'Уникальный сборный букет на вкус нашего флориста',
+    price: 1500,
+    image: '/images/special/express.jpg',
+    color: 'mixed',
+    isSpecialOffer: true
+  },
+  {
+    id: 102,
+    title: 'Букет для учителя',
+    description: 'Большой букет, собранный специально к 1 сентября',
+    price: 3740,
+    image: '/images/special/teacher.jpg',
+    color: 'red',
+    isSpecialOffer: true,
+    isHot: true
+  },
+  {
+    id: 103,
+    title: 'Миллион алых роз',
+    description: 'Монобукет из роз. Сосчитаете сколько их на самом деле?',
+    price: 3900,
+    image: '/images/special/roses.jpg',
+    color: 'red',
+    isSpecialOffer: true
+  }
+];
+
+// Объединяем обычные товары и специальные предложения
+export const products: Product[] = [...regularProducts, ...specialOffers]; 
