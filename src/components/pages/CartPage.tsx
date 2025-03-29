@@ -44,7 +44,7 @@ const CartPage: React.FC = () => {
         <div className="container">
           <h1 className="cart__title">Корзина пуста</h1>
           <p className="cart__message">
-            Добавьте товары в корзину, чтобы оформить заказ
+            Какой отличный день, чтоб подарить цветок!
           </p>
           <a href="/catalog" className="button button--primary">
             Перейти в каталог
