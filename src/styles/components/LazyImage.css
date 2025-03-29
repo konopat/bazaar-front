@@ -1,63 +1,81 @@
 /* Стили для компонента LazyImage */
 
-.lazy-image-container {
+.lazy-image__container {
   position: relative;
   overflow: hidden;
-  border-radius: var(--border-radius);
+  display: block;
   background-color: var(--color-skeleton-start);
+  border-radius: var(--border-radius, 8px);
 }
 
-.lazy-image {
+.lazy-image__skeleton {
+  position: absolute;
   width: 100%;
   height: 100%;
-  display: block;
-  transition: opacity 0.3s ease;
-}
-
-.lazy-image:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
-}
-
-.lazy-image-skeleton {
-  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
+  z-index: 1;
   border-radius: inherit;
-  overflow: hidden;
-  background-color: var(--color-skeleton-start);
 }
 
-.lazy-image-skeleton__animation {
+.lazy-image__skeleton-animation {
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton-start),
+    var(--color-skeleton-end),
+    var(--color-skeleton-start)
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  height: 100%;
+  width: 100%;
+}
+
+.lazy-image__img {
+  display: block;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, 
-    var(--color-skeleton-start) 0%, 
-    var(--color-skeleton-end) 50%, 
-    var(--color-skeleton-start) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.2s infinite linear;
+  transition: opacity 0.2s ease-in-out;
+  position: relative;
+  z-index: 2;
 }
 
-@keyframes shimmer {
+.lazy-image__img--hidden {
+  opacity: 0;
+}
+
+@keyframes skeleton-loading {
   0% {
-    background-position: 200% 0;
+    background-position: -100% 0;
   }
   100% {
-    background-position: -200% 0;
+    background-position: 100% 0;
   }
 }
 
-/* Задаем стили для скелетона в разных контейнерах */
-.product-card__image-wrapper .lazy-image-skeleton {
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
+/* Специальные стили для темной темы */
+.theme-dark .lazy-image__container {
+  background-color: var(--color-background-dark);
 }
 
-.store-details__photo-wrapper .lazy-image-skeleton {
-  border-radius: var(--border-radius);
+.theme-dark .lazy-image__skeleton-animation {
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton-start-dark),
+    var(--color-skeleton-end-dark),
+    var(--color-skeleton-start-dark)
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading-dark 1.5s infinite;
+}
+
+@keyframes skeleton-loading-dark {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* Варианты соотношения сторон */
@@ -104,8 +122,8 @@
 }
 
 /* Улучшение производительности с помощью hardware acceleration */
-.lazy-image, 
-.lazy-image-skeleton {
+.lazy-image__img, 
+.lazy-image__skeleton {
   transform: translateZ(0);
   backface-visibility: hidden;
   will-change: opacity, transform;
@@ -113,7 +131,7 @@
 
 /* Оптимизация для браузеров на базе WebKit */
 @supports (-webkit-overflow-scrolling: touch) {
-  .lazy-image-skeleton__animation {
+  .lazy-image__skeleton-animation {
     /* Улучшение производительности на iOS */
     -webkit-transform: translateZ(0);
   }

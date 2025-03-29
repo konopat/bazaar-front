@@ -1,43 +1,16 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store/store';
+import { removeFromCart, updateQuantity } from '../../store/cartSlice';
 import Icon from '../common/Icon';
 import ProductCard from '../common/ProductCard';
 import '../../styles/cart.css';
 
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
-
 const CartPage = () => {
-  // Моковые данные корзины
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: 'Букет "Весеннее настроение"',
-      price: 3200,
-      quantity: 1,
-      image: '/images/bouquets/bouquet1.jpg'
-    },
-    {
-      id: 2,
-      name: 'Композиция "Нежность"',
-      price: 2800,
-      quantity: 2,
-      image: '/images/bouquets/bouquet2.jpg'
-    },
-    {
-      id: 3,
-      name: 'Букет "Яркий день"',
-      price: 3500,
-      quantity: 1,
-      image: '/images/bouquets/bouquet3.jpg'
-    }
-  ]);
-
+  const { items: cartItems } = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
+  
   const [promoCode, setPromoCode] = useState('');
   const [promoApplied, setPromoApplied] = useState(false);
   const [promoDiscount, setPromoDiscount] = useState(0);
@@ -45,22 +18,17 @@ const CartPage = () => {
   // Обработчик изменения количества товара (оптимизирован с useCallback)
   const handleQuantityChange = useCallback((id: number, newQuantity: number) => {
     if (newQuantity < 1) {
-      // Если количество становится меньше 1, удаляем товар из корзины
-      handleRemoveItem(id);
+      dispatch(removeFromCart(id));
       return;
     }
     
-    setCartItems(prevItems => 
-      prevItems.map(item => 
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  }, []);
+    dispatch(updateQuantity({ id, quantity: newQuantity }));
+  }, [dispatch]);
 
   // Обработчик удаления товара из корзины (оптимизирован с useCallback)
   const handleRemoveItem = useCallback((id: number) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
-  }, []);
+    dispatch(removeFromCart(id));
+  }, [dispatch]);
 
   // Обработчик применения промокода (оптимизирован с useCallback)
   const handleApplyPromo = useCallback(() => {
@@ -204,11 +172,11 @@ const CartPage = () => {
               <div className="cart-empty__icon">
                 <Icon name="cart" size={64} />
               </div>
-              <p className="cart-empty__message">
+              <p className="cart-empty__message cart-empty__message--highlighted">
                 Ваша корзина пуста
               </p>
-              <p className="cart-empty__submessage">
-                Добавьте товары в корзину, чтобы оформить заказ
+              <p className="cart-empty__submessage cart-empty__submessage--highlighted">
+                Какой хороший день, чтобы подарить цветок
               </p>
               <Link to="/catalog" className="button button--primary cart-empty__button">
                 Перейти в каталог
@@ -218,7 +186,7 @@ const CartPage = () => {
         )}
         
         <div className="cart-page__continue-shopping">
-          <Link to="/catalog" className="cart-page__continue-link">
+          <Link to="/catalog" className="cart-page__continue-link cart-page__continue-link--highlighted">
             ← Продолжить покупки
           </Link>
         </div>

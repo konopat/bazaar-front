@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Skeleton from './Skeleton';
-import './LazyImage.css';
+import '../../styles/components/LazyImage.css';
 
 interface LazyImageProps {
   src: string;

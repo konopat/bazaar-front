@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../store/cartSlice';
 import LazyImage from './LazyImage';
 
 interface ProductCardProps {
@@ -24,9 +26,22 @@ const ProductCard = ({
   isBestseller = false,
   inCart = false
 }: ProductCardProps) => {
+  const dispatch = useDispatch();
+  
   // Форматирование цены
   const formatPrice = (price: number) => {
     return price.toLocaleString('ru-RU') + ' ₽';
+  };
+
+  // Обработчик добавления в корзину
+  const handleAddToCart = () => {
+    dispatch(addToCart({
+      id: parseInt(id),
+      name,
+      price,
+      quantity: 1,
+      image
+    }));
   };
 
   return (
@@ -69,7 +84,10 @@ const ProductCard = ({
       
       {/* Кнопку добавления в корзину показываем только если не в корзине */}
       {!inCart && (
-        <button className="product-card__add-to-cart button button--outline">
+        <button 
+          className="product-card__add-to-cart button button--outline"
+          onClick={handleAddToCart}
+        >
           В корзину
         </button>
       )}

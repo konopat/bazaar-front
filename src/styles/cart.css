@@ -296,6 +296,22 @@
   min-width: 200px;
 }
 
+/* Улучшение контрастности в светлой теме */
+.cart-empty__message--highlighted {
+  color: #4A433B;
+  font-weight: 600;
+}
+
+.cart-empty__submessage--highlighted {
+  color: #4A433B;
+  opacity: 0.8;
+}
+
+.cart-page__continue-link--highlighted {
+  color: #4A433B;
+  font-weight: 500;
+}
+
 /* Переменные для светлой и темной темы */
 :root {
   /* Светлая тема (по умолчанию) */
@@ -309,6 +325,34 @@
   --inverted-text-color: #FFFFFF;
   --success-color: #5CB85C;
   --error-color: #D9534F;
+
+  /* Цвета для светлой темы */
+  --color-background-light: #FFFBF6;
+  --color-text-light: #4A433B;
+  --color-skeleton-start-light: #f0e6d8;
+  --color-skeleton-end-light: #fffaf2;
+  
+  /* Цвета для темной темы */
+  --color-background-dark: #121212;
+  --color-text-dark: #F4E8DD;
+  --color-skeleton-start-dark: rgba(32, 32, 32, 0.9);
+  --color-skeleton-end-dark: rgba(70, 60, 50, 0.6);
+}
+
+/* Базовые цвета по умолчанию (для светлой темы) */
+:root {
+  --color-background: var(--color-background-light);
+  --color-text: var(--color-text-light);
+  --color-skeleton-start: var(--color-skeleton-start-light);
+  --color-skeleton-end: var(--color-skeleton-end-light);
+}
+
+/* Переопределение для темной темы */
+.theme-dark {
+  --color-background: var(--color-background-dark);
+  --color-text: var(--color-text-dark);
+  --color-skeleton-start: var(--color-skeleton-start-dark);
+  --color-skeleton-end: var(--color-skeleton-end-dark);
 }
 
 /* Настройки для темной темы */
