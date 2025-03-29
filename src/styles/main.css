@@ -23,6 +23,7 @@
 @import './components/skeleton.css';
 @import './components/store-addresses.css';
 @import './components/decorative.css';
+@import './components/product-detail.css';
 
 /* Импорт страниц */
 @import './pages/home.css';

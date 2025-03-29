@@ -9,6 +9,8 @@ import ProductCard from '../catalog/ProductCard';
 import AddToCartAnimation from '../catalog/AddToCartAnimation';
 import Skeleton from '../common/Skeleton';
 import '../../styles/pages/product.css';
+// Импортируем CSS для компонента ProductDetail
+import '../../styles/components/product-detail.css';
 
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
