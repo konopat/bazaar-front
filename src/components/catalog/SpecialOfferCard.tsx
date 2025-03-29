@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@store/cartSlice';
 import AddToCartAnimation from './AddToCartAnimation';
+import LazyImage from '../common/LazyImage';
 
 interface SpecialOfferCardProps {
   id: number;
@@ -58,7 +59,16 @@ const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({
     <Link to={`/product/${id}`} className="product-card">
       {isHot && <div className="product-card__badge">Горячее предложение</div>}
       <div className="product-card__image">
-        <img src={image} alt={title} />
+        <LazyImage
+          src={image}
+          alt={title}
+          fallbackSrc="/images/product-placeholder.jpg"
+          className="product-card__image-content"
+          containerClassName="product-card__image-wrapper"
+          objectFit="cover"
+          aspectRatio={1}
+          key={`special-offer-image-${id}`}
+        />
       </div>
       <div className="product-card__content">
         <h3 className="product-card__title">{title}</h3>

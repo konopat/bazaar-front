@@ -55,7 +55,15 @@
   overflow: hidden;
 }
 
-.adsblock__image img {
+.adsblock__img-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.adsblock__img {
   position: absolute;
   top: 0;
   left: 0;

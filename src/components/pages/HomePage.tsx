@@ -13,6 +13,7 @@ import { specialOffers } from '../../mocks/special-offers';
 import SocialLinks from '@components/common/SocialLinks';
 import StoresModal from '../map/StoresModal';
 import { PHONE_NUMBER, STORES } from '../../constants/contacts';
+import LazyImage from '@components/common/LazyImage';
 
 const HomePage: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -154,9 +155,12 @@ const HomePage: React.FC = () => {
           <aside className="home__sidebar" ref={sidebarRef}>
             <article className={`adsblock ${isCardSticky ? 'sticky' : ''}`}>
               <div className="adsblock__image">
-                <img 
+                <LazyImage 
                   src="/images/masterclass.jpg" 
                   alt="Мастер-класс флористики"
+                  containerClassName="adsblock__img-wrapper"
+                  className="adsblock__img"
+                  objectFit="cover"
                 />
               </div>
               <div className="adsblock__content">
