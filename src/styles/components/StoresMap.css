@@ -1,11 +1,11 @@
 .stores-map {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--spacing-xl);
   height: 600px;
-  margin-top: 8px;
+  margin-top: var(--spacing-sm);
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity var(--transition-slow);
 }
 
 .stores-map--visible {
@@ -14,13 +14,18 @@
 
 .stores-map__container {
   flex: 1;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   overflow: hidden;
   position: relative;
-  box-shadow: 0 4px 12px rgba(212, 169, 119, 0.1);
-  border: 1px solid #E8D6C6;
+  box-shadow: var(--shadow-primary);
+  border: 1px solid var(--color-border);
   min-height: 400px;
   width: 100%;
+}
+
+[data-theme="dark"] .stores-map__container {
+  box-shadow: 0 4px 12px rgba(212, 169, 119, 0.2);
+  border: 1px solid rgba(212, 169, 119, 0.4);
 }
 
 .stores-map__error {
@@ -32,41 +37,131 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: var(--spacing-lg);
   text-align: center;
-  background-color: rgba(255, 251, 246, 0.9);
-  color: #4A433B;
+  background-color: var(--color-background);
+  color: var(--color-text);
   z-index: 2;
+}
+
+[data-theme="dark"] .stores-map__error {
+  background-color: rgba(18, 18, 18, 0.9);
+  color: #F4E8DD;
 }
 
 .stores-map__error p {
   max-width: 300px;
-  font-size: 16px;
+  font-size: var(--font-size-md);
   line-height: 1.5;
+}
+
+.stores-map__skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+  z-index: 10;
+  padding: var(--spacing-xl);
+}
+
+[data-theme="dark"] .stores-map__skeleton,
+:root[data-theme="dark"] .stores-map__skeleton,
+html[data-theme="dark"] .stores-map__skeleton,
+body[data-theme="dark"] .stores-map__skeleton {
+  background-color: #121212;
+}
+
+.stores-map__skeleton-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.stores-map__skeleton-title {
+  margin-bottom: var(--spacing-md);
+}
+
+.stores-map__skeleton-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.stores-map__skeleton-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.stores-map__skeleton-main {
+  min-height: 200px;
+  margin-bottom: var(--spacing-md);
+}
+
+.stores-map__skeleton-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.stores-map__skeleton-points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+.stores-map__skeleton-point {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Удаляем старые стили для спиннера */
+.stores-map__loading-icon {
+  display: none;
+}
+
+.stores-map__loading-text {
+  display: none;
 }
 
 .stores-map__list {
   width: 100%;
   overflow-y: auto;
-  padding-right: 4px;
+  padding-right: var(--spacing-xs);
   max-height: 200px;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--spacing-md);
 }
 
 .stores-map__store-button {
   flex: 1;
   min-width: 200px;
   text-align: left;
-  padding: 16px;
-  border: 1px solid #E8D6C6;
-  border-radius: 8px;
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
   background: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
+}
+
+[data-theme="dark"] .stores-map__store-button {
+  border-color: rgba(212, 169, 119, 0.4);
+  background-color: rgba(18, 18, 18, 0.3);
 }
 
 .stores-map__store-button::before {
@@ -76,16 +171,21 @@
   left: 0;
   width: 3px;
   height: 100%;
-  background: linear-gradient(180deg, #D4A977, rgba(212, 169, 119, 0.5));
+  background: var(--gradient-primary);
   transform: scaleY(0);
   transform-origin: bottom;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal);
 }
 
 .stores-map__store-button:hover {
-  border-color: #D4A977;
-  background-color: rgba(212, 169, 119, 0.03);
-  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.1);
+  border-color: var(--color-primary);
+  background-color: rgba(var(--primary-rgb), 0.03);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .stores-map__store-button:hover {
+  background-color: rgba(212, 169, 119, 0.1);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.2);
 }
 
 .stores-map__store-button:hover::before {
@@ -93,9 +193,14 @@
 }
 
 .stores-map__store-button--active {
-  border-color: #D4A977;
-  background-color: rgba(212, 169, 119, 0.06);
-  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.15);
+  border-color: var(--color-primary);
+  background-color: rgba(var(--primary-rgb), 0.06);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .stores-map__store-button--active {
+  background-color: rgba(212, 169, 119, 0.2);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.3);
 }
 
 .stores-map__store-button--active::before {
@@ -103,16 +208,24 @@
 }
 
 .stores-map__store-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  color: #4A433B;
-  margin: 0 0 8px;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm);
+}
+
+[data-theme="dark"] .stores-map__store-name {
+  color: #F4E8DD;
 }
 
 .stores-map__store-address {
-  font-size: 14px;
-  color: #666;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
   margin: 0;
+}
+
+[data-theme="dark"] .stores-map__store-address {
+  color: #D4A977;
 }
 
 /* Стили для OpenLayers */
@@ -121,22 +234,42 @@
 }
 
 .ol-zoom {
-  top: 16px;
-  right: 16px;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
   left: auto;
 }
 
 .ol-zoom button {
-  background-color: rgba(255, 251, 246, 0.9);
-  color: #4A433B;
-  border: 1px solid #D4A977;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-primary);
   margin: 2px;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
+}
+
+[data-theme="dark"] .ol-zoom button {
+  background-color: rgba(18, 18, 18, 0.8);
+  color: #F4E8DD;
+  border-color: #D4A977;
 }
 
 .ol-zoom button:hover {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .ol-zoom button:hover {
   background-color: #D4A977;
-  color: #FFFBF6;
+  color: #121212;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Адаптивные стили */
@@ -154,7 +287,116 @@
   
   .stores-map__store-button {
     min-width: auto;
-    margin-bottom: 12px;
+    margin-bottom: var(--spacing-md);
     flex: none;
   }
+}
+
+.stores-map__hidden {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.stores-map__skeleton-container {
+  width: 100%;
+  height: 300px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+}
+
+.stores-modal-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.stores-modal-content .stores-map__container {
+  min-height: 300px;
+  height: 300px;
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-primary);
+  border: 1px solid var(--color-border);
+}
+
+.stores-modal-content .stores-map__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-height: none;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  flex-wrap: nowrap;
+}
+
+/* На мобильных - отображаем в столбик */
+@media (max-width: 767px) {
+  .stores-modal-content .stores-map__list {
+    flex-direction: column;
+  }
+
+  .stores-modal-content .stores-map__store-button {
+    width: 100%;
+  }
+}
+
+/* На планшетах и выше можно отобразить в ряд */
+@media (min-width: 768px) {
+  .stores-modal-content .stores-map__list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .stores-modal-content .stores-map__store-button {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+.stores-map__skeleton-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+
+/* Отменим стандартные стили для контейнера карты в модальном окне */
+.stores-modal-content .stores-map {
+  height: auto;
+  opacity: 1;
+}
+
+.stores-section-title {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm);
+  position: relative;
+  padding-left: var(--spacing-md);
+}
+
+.stores-section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 70%;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+[data-theme="dark"] .stores-section-title {
+  color: #F4E8DD;
 } 

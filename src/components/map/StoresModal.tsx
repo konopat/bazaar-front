@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Modal from '../common/Modal';
 import StoresMap from './StoresMap';
+import Skeleton from '../common/Skeleton';
 
 interface Store {
   id: string;
@@ -38,44 +39,89 @@ const stores: Store[] = [
 
 const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
   const [selectedStoreId, setSelectedStoreId] = useState<string>();
-  const [isRendered, setIsRendered] = useState(false);
+  const [isMapLoading, setIsMapLoading] = useState(true);
+  const [showMap, setShowMap] = useState(false);
   
-  // Устанавливаем флаг, что модальное окно отрендерено
+  // Сбрасываем состояния при закрытии и открытии модального окна
   useEffect(() => {
     if (isOpen) {
-      // Убеждаемся, что модальное окно полностью открыто перед инициализацией карты
+      // Сначала устанавливаем состояние загрузки
+      setIsMapLoading(true);
+      
+      // Даем модальному окну время для появления, затем показываем карту
       const timeout = setTimeout(() => {
         console.log('Модальное окно открыто, инициализируем карту');
-        setIsRendered(true);
-      }, 500); // Увеличиваем задержку до 500мс
-      
-      return () => clearTimeout(timeout);
-    } else {
-      setIsRendered(false);
-    }
-  }, [isOpen]);
-  
-  // Сбрасываем выбранный магазин при закрытии модального окна
-  useEffect(() => {
-    if (!isOpen) {
-      // Небольшая задержка для анимации закрытия
-      const timeout = setTimeout(() => {
-        setSelectedStoreId(undefined);
+        setShowMap(true);
       }, 300);
       
       return () => clearTimeout(timeout);
+    } else {
+      // При закрытии сбрасываем состояния
+      setShowMap(false);
+      setSelectedStoreId(undefined);
     }
   }, [isOpen]);
+  
+  // Обработчик события, когда карта готова и загружена
+  const handleMapReady = useCallback(() => {
+    console.log('Карта загружена, скрываем скелетон');
+    setIsMapLoading(false);
+  }, []);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Наши магазины">
-      {(isOpen || isRendered) && (
-        <StoresMap
-          stores={stores}
-          selectedStoreId={selectedStoreId}
-          onStoreSelect={setSelectedStoreId}
-        />
-      )}
+    <Modal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      title="Наши магазины"
+      isLoading={false}
+    >
+      <div className="stores-modal-content">
+        <h3 className="stores-section-title">Выберите магазин:</h3>
+        
+        {/* Показываем список магазинов сразу */}
+        <div className="stores-map__list">
+          {stores.map(store => (
+            <button
+              key={store.id}
+              className={`stores-map__store-button ${
+                store.id === selectedStoreId ? 'stores-map__store-button--active' : ''
+              }`}
+              onClick={() => setSelectedStoreId(store.id)}
+            >
+              <h3 className="stores-map__store-name">{store.name}</h3>
+              <p className="stores-map__store-address">{store.address}</p>
+            </button>
+          ))}
+        </div>
+        
+        <h3 className="stores-section-title">Карта:</h3>
+        
+        {/* Контейнер карты со скелетоном */}
+        <div className="stores-map__container">
+          {isMapLoading && (
+            <div className="stores-map__skeleton-container">
+              <Skeleton height={300} width="100%" />
+            </div>
+          )}
+          
+          {/* Карта появится здесь, когда модалка полностью открыта */}
+          {showMap && (
+            <div style={{ 
+              opacity: isMapLoading ? 0 : 1, 
+              transition: 'opacity 0.3s ease-in-out',
+              height: '100%'
+            }}>
+              <StoresMap
+                stores={stores}
+                selectedStoreId={selectedStoreId}
+                onStoreSelect={setSelectedStoreId}
+                onMapReady={handleMapReady}
+                hideStoresList={true}
+              />
+            </div>
+          )}
+        </div>
+      </div>
     </Modal>
   );
 };
