@@ -15,7 +15,7 @@ const CartPage = () => {
   const [promoApplied, setPromoApplied] = useState(false);
   const [promoDiscount, setPromoDiscount] = useState(0);
 
-  // Обработчик изменения количества товара (оптимизирован с useCallback)
+  // Обработчик изменения количества товара
   const handleQuantityChange = useCallback((id: number, newQuantity: number) => {
     if (newQuantity < 1) {
       dispatch(removeFromCart(id));
@@ -25,12 +25,12 @@ const CartPage = () => {
     dispatch(updateQuantity({ id, quantity: newQuantity }));
   }, [dispatch]);
 
-  // Обработчик удаления товара из корзины (оптимизирован с useCallback)
+  // Обработчик удаления товара из корзины
   const handleRemoveItem = useCallback((id: number) => {
     dispatch(removeFromCart(id));
   }, [dispatch]);
 
-  // Обработчик применения промокода (оптимизирован с useCallback)
+  // Обработчик применения промокода
   const handleApplyPromo = useCallback(() => {
     // Моковая логика проверки промокода
     if (promoCode.toUpperCase() === 'DISCOUNT') {
@@ -41,7 +41,16 @@ const CartPage = () => {
     }
   }, [promoCode]);
 
-  // Расчет суммы корзины (оптимизирован с useMemo)
+  // Обработчики изменения количества (оптимизированы)
+  const handleDecrease = useCallback((id: number, quantity: number) => {
+    handleQuantityChange(id, quantity - 1);
+  }, [handleQuantityChange]);
+
+  const handleIncrease = useCallback((id: number, quantity: number) => {
+    handleQuantityChange(id, quantity + 1);
+  }, [handleQuantityChange]);
+
+  // Расчет суммы корзины
   const { subtotal, deliveryCost, total } = useMemo(() => {
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const deliveryCost = 500;
@@ -51,9 +60,9 @@ const CartPage = () => {
   }, [cartItems, promoDiscount]);
 
   // Форматирование цены
-  const formatPrice = (price: number) => {
+  const formatPrice = useCallback((price: number) => {
     return price.toLocaleString('ru-RU') + ' ₽';
-  };
+  }, []);
 
   return (
     <div className="cart-page">
@@ -78,7 +87,7 @@ const CartPage = () => {
                     <div className="cart-item__quantity">
                       <button 
                         className="cart-item__quantity-btn"
-                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                        onClick={() => handleDecrease(item.id, item.quantity)}
                         aria-label="Уменьшить количество"
                       >
                         —
@@ -86,7 +95,7 @@ const CartPage = () => {
                       <span className="cart-item__quantity-value">{item.quantity}</span>
                       <button 
                         className="cart-item__quantity-btn"
-                        onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                        onClick={() => handleIncrease(item.id, item.quantity)}
                         aria-label="Увеличить количество"
                       >
                         +
@@ -100,7 +109,7 @@ const CartPage = () => {
                       onClick={() => handleRemoveItem(item.id)}
                       aria-label="Удалить товар"
                     >
-                      ✕
+                      <Icon name="check" size={14} />
                     </button>
                   </div>
                 </div>
@@ -109,7 +118,7 @@ const CartPage = () => {
             
             <div className="cart-page__sidebar">
               <div className="cart-summary">
-                <h2 className="cart-summary__title">Сумма заказа</h2>
+                <h2 className="section-title cart-summary__title">Сумма заказа</h2>
                 
                 <div className="cart-summary__row">
                   <span className="cart-summary__label">Товары</span>
@@ -172,10 +181,10 @@ const CartPage = () => {
               <div className="cart-empty__icon">
                 <Icon name="cart" size={64} />
               </div>
-              <p className="cart-empty__message cart-empty__message--highlighted">
+              <p className="cart-empty__message">
                 Ваша корзина пуста
               </p>
-              <p className="cart-empty__submessage cart-empty__submessage--highlighted">
+              <p className="cart-empty__submessage">
                 Какой хороший день, чтобы подарить цветок
               </p>
               <Link to="/catalog" className="button button--primary cart-empty__button">
@@ -186,7 +195,7 @@ const CartPage = () => {
         )}
         
         <div className="cart-page__continue-shopping">
-          <Link to="/catalog" className="cart-page__continue-link cart-page__continue-link--highlighted">
+          <Link to="/catalog" className="cart-page__continue-link">
             ← Продолжить покупки
           </Link>
         </div>
