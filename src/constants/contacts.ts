@@ -99,4 +99,50 @@ export const STORES: Store[] = [
     },
     photo: '/images/stores/store-gavrilova.jpg'
   },
+];
+
+// Интерфейс для формы контактов
+export interface ContactFormField {
+  id: string;
+  name: string;
+  label: string;
+  type: string;
+  required: boolean;
+  placeholder?: string;
+}
+
+// Поля формы обратной связи
+export const CONTACT_FORM_FIELDS: ContactFormField[] = [
+  {
+    id: 'name',
+    name: 'name',
+    label: 'Ваше имя',
+    type: 'text',
+    required: true,
+    placeholder: 'Введите ваше имя'
+  },
+  {
+    id: 'email',
+    name: 'email',
+    label: 'Email',
+    type: 'email',
+    required: true,
+    placeholder: 'Введите ваш email'
+  },
+  {
+    id: 'phone',
+    name: 'phone',
+    label: 'Телефон',
+    type: 'tel',
+    required: true,
+    placeholder: 'Введите ваш номер телефона'
+  },
+  {
+    id: 'message',
+    name: 'message',
+    label: 'Сообщение',
+    type: 'textarea',
+    required: true,
+    placeholder: 'Введите ваше сообщение'
+  }
 ]; 

@@ -1,195 +1,200 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@store/store';
-import { removeFromCart, updateQuantity } from '@store/cartSlice';
+import { Link } from 'react-router-dom';
+
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
 
 const CartPage: React.FC = () => {
-  const [deliveryType, setDeliveryType] = useState<'delivery' | 'pickup'>('delivery');
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    address: '',
-    comment: '',
-  });
+  // Моковые данные корзины
+  const [cartItems, setCartItems] = useState<CartItem[]>([
+    {
+      id: 1,
+      name: 'Букет "Весеннее настроение"',
+      price: 3200,
+      quantity: 1,
+      image: '/images/bouquets/bouquet1.jpg'
+    },
+    {
+      id: 2,
+      name: 'Композиция "Нежность"',
+      price: 2800,
+      quantity: 2,
+      image: '/images/bouquets/bouquet2.jpg'
+    },
+    {
+      id: 3,
+      name: 'Букет "Яркий день"',
+      price: 3500,
+      quantity: 1,
+      image: '/images/bouquets/bouquet3.jpg'
+    }
+  ]);
 
-  const cartItems = useSelector((state: RootState) => state.cart.items);
-  const total = useSelector((state: RootState) => state.cart.total);
-  const dispatch = useDispatch();
+  const [promoCode, setPromoCode] = useState('');
+  const [promoApplied, setPromoApplied] = useState(false);
+  const [promoDiscount, setPromoDiscount] = useState(0);
 
-  const handleQuantityChange = (id: number, quantity: number) => {
-    if (quantity > 0) {
-      dispatch(updateQuantity({ id, quantity }));
+  // Обработчик изменения количества товара
+  const handleQuantityChange = (id: number, newQuantity: number) => {
+    if (newQuantity < 1) return;
+    
+    setCartItems(prevItems => 
+      prevItems.map(item => 
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+  // Обработчик удаления товара из корзины
+  const handleRemoveItem = (id: number) => {
+    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+  };
+
+  // Обработчик применения промокода
+  const handleApplyPromo = () => {
+    // Моковая логика проверки промокода
+    if (promoCode.toUpperCase() === 'DISCOUNT') {
+      setPromoApplied(true);
+      setPromoDiscount(500);
+    } else {
+      alert('Промокод недействителен');
     }
   };
 
-  const handleRemoveItem = (id: number) => {
-    dispatch(removeFromCart(id));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Здесь будет логика отправки заказа
-    console.log('Order submitted:', {
-      items: cartItems,
-      total,
-      deliveryType,
-      ...formData,
-    });
-  };
-
-  if (cartItems.length === 0) {
-    return (
-      <div className="cart cart--empty">
-        <div className="container">
-          <h1 className="cart__title">Корзина пуста</h1>
-          <p className="cart__message">
-            Какой отличный день, чтоб подарить цветок!
-          </p>
-          <a href="/catalog" className="button button--primary">
-            Перейти в каталог
-          </a>
-        </div>
-      </div>
-    );
-  }
+  // Расчет суммы корзины
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const deliveryCost = 500;
+  const total = subtotal + deliveryCost - promoDiscount;
 
   return (
     <div className="cart">
       <div className="container">
-        <h1 className="cart__title">Корзина</h1>
+        <h1 className="section-title section-title--centered">Корзина</h1>
         
-        <div className="cart__content">
-          <div className="cart__items">
-            {cartItems.map((item) => (
-              <div key={item.id} className="cart-item">
-                <div className="cart-item__image">
-                  <img src={item.image} alt={item.name} />
-                </div>
-                <div className="cart-item__info">
-                  <h3 className="cart-item__title">{item.name}</h3>
-                  <div className="cart-item__price">{item.price} ₽</div>
-                </div>
-                <div className="cart-item__quantity">
-                  <button
-                    className="cart-item__quantity-btn"
-                    onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+        {cartItems.length > 0 ? (
+          <div className="cart__content">
+            <div className="cart__items">
+              {cartItems.map(item => (
+                <div key={item.id} className="cart-item">
+                  <div className="cart-item__image-container">
+                    <img src={item.image} alt={item.name} className="cart-item__image" />
+                  </div>
+                  <div className="cart-item__details">
+                    <h3 className="cart-item__name">{item.name}</h3>
+                    <div className="cart-item__price">{item.price} ₽</div>
+                  </div>
+                  <div className="cart-item__quantity">
+                    <button 
+                      className="cart-item__quantity-btn"
+                      onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                    >
+                      -
+                    </button>
+                    <span className="cart-item__quantity-value">{item.quantity}</span>
+                    <button 
+                      className="cart-item__quantity-btn"
+                      onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <div className="cart-item__total">
+                    {item.price * item.quantity} ₽
+                  </div>
+                  <button 
+                    className="cart-item__remove"
+                    onClick={() => handleRemoveItem(item.id)}
                   >
-                    -
-                  </button>
-                  <span className="cart-item__quantity-value">{item.quantity}</span>
-                  <button
-                    className="cart-item__quantity-btn"
-                    onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                  >
-                    +
+                    ✕
                   </button>
                 </div>
-                <div className="cart-item__total">
-                  {item.price * item.quantity} ₽
-                </div>
-                <button
-                  className="cart-item__remove"
-                  onClick={() => handleRemoveItem(item.id)}
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div className="cart__sidebar">
-            <div className="cart__summary">
-              <div className="cart__summary-row">
-                <span>Товары ({cartItems.length})</span>
-                <span>{total} ₽</span>
-              </div>
-              <div className="cart__summary-row">
-                <span>Доставка</span>
-                <span>{deliveryType === 'delivery' ? '300 ₽' : 'Бесплатно'}</span>
-              </div>
-              <div className="cart__summary-total">
-                <span>Итого</span>
-                <span>{total + (deliveryType === 'delivery' ? 300 : 0)} ₽</span>
-              </div>
+              ))}
             </div>
-
-            <form onSubmit={handleSubmit} className="cart__form">
-              <div className="cart__form-section">
-                <h3 className="cart__form-title">Способ получения</h3>
-                <div className="cart__delivery-type">
-                  <label className="radio">
-                    <input
-                      type="radio"
-                      name="deliveryType"
-                      value="delivery"
-                      checked={deliveryType === 'delivery'}
-                      onChange={() => setDeliveryType('delivery')}
-                    />
-                    <span>Доставка</span>
-                  </label>
-                  <label className="radio">
-                    <input
-                      type="radio"
-                      name="deliveryType"
-                      value="pickup"
-                      checked={deliveryType === 'pickup'}
-                      onChange={() => setDeliveryType('pickup')}
-                    />
-                    <span>Самовывоз</span>
-                  </label>
+            
+            <div className="cart__sidebar">
+              <div className="cart-summary">
+                <h2 className="cart-summary__title">Сумма заказа</h2>
+                
+                <div className="cart-summary__row">
+                  <span className="cart-summary__label">Товары</span>
+                  <span className="cart-summary__value">{subtotal} ₽</span>
                 </div>
-              </div>
-
-              <div className="cart__form-section">
-                <h3 className="cart__form-title">Контактные данные</h3>
-                <input
-                  type="text"
-                  placeholder="Ваше имя"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                  className="cart__input"
-                />
-                <input
-                  type="tel"
-                  placeholder="Телефон"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  required
-                  className="cart__input"
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                  className="cart__input"
-                />
-                {deliveryType === 'delivery' && (
+                
+                <div className="cart-summary__row">
+                  <span className="cart-summary__label">Доставка</span>
+                  <span className="cart-summary__value">{deliveryCost} ₽</span>
+                </div>
+                
+                {promoApplied && (
+                  <div className="cart-summary__row cart-summary__row--discount">
+                    <span className="cart-summary__label">Скидка по промокоду</span>
+                    <span className="cart-summary__value">-{promoDiscount} ₽</span>
+                  </div>
+                )}
+                
+                <div className="cart-summary__divider"></div>
+                
+                <div className="cart-summary__row cart-summary__row--total">
+                  <span className="cart-summary__label">Итого</span>
+                  <span className="cart-summary__value">{total} ₽</span>
+                </div>
+                
+                <div className="cart-summary__promo">
                   <input
                     type="text"
-                    placeholder="Адрес доставки"
-                    value={formData.address}
-                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    required
-                    className="cart__input"
+                    placeholder="Введите промокод"
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value)}
+                    className="cart-summary__promo-input"
                   />
-                )}
-                <textarea
-                  placeholder="Комментарий к заказу"
-                  value={formData.comment}
-                  onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-                  className="cart__textarea"
-                />
+                  <button 
+                    className="button button--apply-promo" 
+                    onClick={handleApplyPromo}
+                  >
+                    Применить
+                  </button>
+                </div>
+                
+                <Link to="/checkout" className="button button--primary cart-summary__checkout-btn">
+                  Оформить заказ
+                </Link>
               </div>
-
-              <button type="submit" className="button button--primary cart__submit">
-                Оформить заказ
-              </button>
-            </form>
+              
+              <div className="cart-help">
+                <p className="cart-help__text">
+                  Нужна помощь с заказом? Позвоните нам:
+                </p>
+                <a href="tel:+79991234567" className="cart-help__phone">
+                  +7 (999) 123-45-67
+                </a>
+              </div>
+            </div>
           </div>
+        ) : (
+          <div className="cart__empty">
+            <div className="cart-empty">
+              <p className="cart-empty__message">
+                Ваша корзина пуста
+              </p>
+              <p className="cart-empty__submessage">
+                Добавьте товары в корзину, чтобы оформить заказ
+              </p>
+              <Link to="/catalog" className="button button--primary cart-empty__button">
+                Перейти в каталог
+              </Link>
+            </div>
+          </div>
+        )}
+        
+        <div className="cart__continue-shopping">
+          <Link to="/catalog" className="cart__continue-link">
+            ← Продолжить покупки
+          </Link>
         </div>
       </div>
     </div>

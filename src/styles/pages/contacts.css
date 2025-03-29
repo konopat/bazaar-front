@@ -1,5 +1,10 @@
+/* 
+* Стили страницы Контакты
+* Описание: Стилизация страницы контактной информации с учетом светлой и темной темы
+*/
+
 .contacts {
-  padding: 40px 0;
+  padding: var(--spacing-2xl) 0;
 }
 
 .contacts__title {
@@ -30,196 +35,284 @@
   color: var(--color-text);
 }
 
-/* Store cards */
+/* Магазины */
 .contacts__stores {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
 }
 
 .store-card {
-  padding: 24px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-lg);
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  overflow: hidden;
 }
 
 .store-card:hover {
   transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
-.store-card__title {
-  margin: 0 0 16px;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-text);
+.store-card__name {
+  margin: 0 0 var(--spacing-md);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  text-align: center;
 }
 
 .store-card__info {
-  display: grid;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 
 .store-card__row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: var(--color-gray);
+  gap: var(--spacing-md);
 }
 
 .store-card__icon {
-  font-size: 20px;
-}
-
-.store-card__phone {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.store-card__phone:hover {
-  color: var(--color-text);
-}
-
-/* Map section */
-.contacts__section--map {
-  padding: 0;
-  overflow: hidden;
-}
-
-.contacts__map {
-  height: 400px;
-  background: #f8f9fa;
-}
-
-.contacts__map-placeholder {
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-gray);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: var(--font-size-lg);
+  flex-shrink: 0;
 }
 
-/* Form section */
-.contacts__section--form {
-  background: linear-gradient(to right bottom, var(--color-primary), var(--color-secondary));
-  color: white;
+.store-card__address {
+  font-size: var(--font-size-md);
+  color: var(--color-text);
 }
 
-.contacts__section--form .contacts__subtitle {
-  color: white;
+.store-card__hours {
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
 }
 
+.store-card__today {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+  margin-top: 2px;
+}
+
+.store-card__phone {
+  font-size: var(--font-size-md);
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.store-card__phone:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+.theme-dark .store-card__phone {
+  color: var(--color-primary-dark-theme);
+}
+
+.theme-dark .store-card__phone:hover {
+  color: var(--color-primary-light-dark-theme);
+}
+
+.store-card__photo {
+  margin-top: auto;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.store-card__photo img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.store-card:hover .store-card__photo img {
+  transform: scale(1.05);
+}
+
+.contacts__map-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-xl);
+}
+
+/* Форма обратной связи */
 .contacts__form {
-  max-width: 800px;
-  margin: 0 auto;
+  margin-top: var(--spacing-xl);
 }
 
 .contacts__form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
 }
 
 .contacts__form-field {
-  display: grid;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .contacts__form-field--full {
-  grid-column: 1 / -1;
+  grid-column: span 2;
 }
 
 .contacts__form-label {
-  font-size: 14px;
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-md);
   font-weight: 500;
+  color: var(--color-text);
 }
 
 .contacts__form-input,
 .contacts__form-textarea {
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: white;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
-}
-
-.contacts__form-input::placeholder,
-.contacts__form-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  padding: var(--spacing-md);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .contacts__form-input:focus,
 .contacts__form-textarea:focus {
   outline: none;
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
 }
 
 .contacts__form-textarea {
-  height: 120px;
+  min-height: 150px;
   resize: vertical;
 }
 
 .contacts__form-submit {
-  width: 100%;
-  padding: 16px;
-  background: white;
-  color: var(--color-primary);
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-md);
+  display: block;
+  margin: 0 auto;
 }
 
-.contacts__form-submit:hover {
-  transform: translateY(-2px);
-  background: #f8f9fa;
-}
-
-/* Social section */
-.contacts__section--social {
-  text-align: center;
-}
-
-.contacts__social {
+/* Сообщение об успешной отправке */
+.contacts__form-success {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+  text-align: center;
+  animation: fadeIn var(--transition-normal) ease-in-out;
+}
+
+.contacts__form-success-icon {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 32px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.contacts__form-success-title {
+  margin: 0 0 var(--spacing-md);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+}
+
+.contacts__form-success-text {
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  line-height: 1.5;
+  max-width: 500px;
+}
+
+/* Социальные сети */
+.contacts__social {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
 }
 
 .social-link {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
+  padding: var(--spacing-lg);
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
   text-decoration: none;
-  color: var(--color-text);
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .social-link:hover {
   transform: translateY(-4px);
-  color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
 }
 
 .social-link__icon {
-  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: var(--font-size-2xl);
+  margin-right: var(--spacing-md);
 }
 
 .social-link__name {
-  font-size: 14px;
+  font-size: var(--font-size-lg);
   font-weight: 500;
 }
 
-/* Responsive styles */
+.contacts__main-phone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--spacing-2xl);
+  text-align: center;
+}
+
+.contacts__phone-label {
+  font-size: var(--font-size-md);
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+.contacts__phone {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-2xl);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.contacts__phone:hover {
+  text-decoration: underline;
+}
+
+/* Адаптивные стили */
 @media (max-width: 768px) {
   .contacts {
-    padding: 24px 0;
+    padding: var(--spacing-xl) 0;
   }
 
   .contacts__title {
@@ -244,8 +337,54 @@
     grid-template-columns: 1fr;
   }
 
-  .contacts__social {
-    flex-wrap: wrap;
-    gap: 24px;
+  .contacts__form-field--full {
+    grid-column: span 1;
   }
+
+  .social-link {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .social-link__icon {
+    margin-right: 0;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .contacts__phone {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-normal) ease-in-out;
+}
+
+/* Темная тема - дополнительные стили */
+.theme-dark .contacts section {
+  background-color: var(--color-background-light-dark);
+}
+
+.theme-dark .store-card,
+.theme-dark .social-link,
+.theme-dark .contacts__form-input,
+.theme-dark .contacts__form-textarea {
+  background-color: var(--color-card-background-dark);
+}
+
+.theme-dark .contacts__form-input,
+.theme-dark .contacts__form-textarea {
+  border-color: var(--color-border-dark);
 } 

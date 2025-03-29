@@ -4,313 +4,220 @@ interface Vacancy {
   id: number;
   title: string;
   location: string;
-  type: string;
+  type: string; // full-time, part-time
   salary: string;
-  description: string[];
-  requirements: string[];
-}
-
-interface Benefit {
-  id: number;
-  icon: string;
-  title: string;
   description: string;
+  responsibilities: string[];
+  requirements: string[];
+  benefits: string[];
 }
 
-const benefits: Benefit[] = [
-  {
-    id: 1,
-    icon: '🌱',
-    title: 'Профессиональный рост',
-    description: 'Обучение у ведущих флористов, участие в мастер-классах и конкурсах'
-  },
-  {
-    id: 2,
-    icon: '💰',
-    title: 'Достойная оплата',
-    description: 'Конкурентная зарплата, премии за успехи и продажи'
-  },
-  {
-    id: 3,
-    icon: '🤝',
-    title: 'Дружный коллектив',
-    description: 'Поддерживающая атмосфера и совместные мероприятия'
-  },
-  {
-    id: 4,
-    icon: '📅',
-    title: 'Гибкий график',
-    description: 'Возможность выбора удобного графика работы'
-  }
-];
-
-const vacancies: Vacancy[] = [
+const VACANCIES: Vacancy[] = [
   {
     id: 1,
     title: 'Флорист',
-    location: 'ТЦ "Карамель"',
-    type: 'Полный день',
-    salary: 'от 45 000 ₽',
-    description: [
-      'Создание букетов и композиций',
-      'Консультирование клиентов',
-      'Работа с кассой',
-      'Уход за цветами'
+    location: 'Москва',
+    type: 'Полная занятость',
+    salary: 'от 40 000 ₽',
+    description: 'Ищем талантливого флориста с художественным вкусом и любовью к цветам в наш магазин в центре города',
+    responsibilities: [
+      'Создание букетов и композиций по каталогу',
+      'Разработка авторских композиций',
+      'Консультирование клиентов по выбору цветов и уходу за ними',
+      'Оформление витрины и рабочего пространства'
     ],
     requirements: [
       'Опыт работы флористом от 1 года',
       'Знание основ флористики',
-      'Творческий подход',
-      'Клиентоориентированность'
+      'Умение работать в команде',
+      'Ответственность и пунктуальность',
+      'Креативное мышление'
+    ],
+    benefits: [
+      'Официальное трудоустройство',
+      'График работы 2/2',
+      'Профессиональное развитие',
+      'Дружная команда',
+      'Скидки на продукцию'
     ]
   },
   {
     id: 2,
-    title: 'Помощник флориста',
-    location: 'ТЦ "Сильвер Молл"',
-    type: 'Сменный график',
-    salary: 'от 35 000 ₽',
-    description: [
-      'Помощь в создании букетов',
-      'Уход за растениями',
-      'Поддержание порядка',
-      'Работа с клиентами'
+    title: 'Курьер',
+    location: 'Москва',
+    type: 'Гибкий график',
+    salary: 'от 30 000 ₽',
+    description: 'Приглашаем ответственных и пунктуальных курьеров для доставки цветочных композиций по городу',
+    responsibilities: [
+      'Доставка букетов и композиций клиентам',
+      'Прием оплаты',
+      'Отчетность по выполненным заказам',
+      'Поддержание презентабельного вида заказа'
     ],
     requirements: [
-      'Желание учиться флористике',
-      'Ответственность',
-      'Аккуратность',
-      'Позитивный настрой'
+      'Наличие личного автомобиля (желательно)',
+      'Знание города',
+      'Вежливость и коммуникабельность',
+      'Ответственность и пунктуальность'
+    ],
+    benefits: [
+      'Гибкий график работы',
+      'Компенсация расходов на топливо',
+      'Чаевые от клиентов',
+      'Дружный коллектив'
     ]
   },
   {
     id: 3,
-    title: 'Курьер',
-    location: 'Все магазины',
-    type: 'Гибкий график',
-    salary: 'от 40 000 ₽',
-    description: [
-      'Доставка букетов клиентам',
-      'Работа с документами',
-      'Прием оплаты',
-      'Фотоотчет о доставке'
+    title: 'Менеджер по продажам',
+    location: 'Москва',
+    type: 'Полная занятость',
+    salary: 'от 50 000 ₽',
+    description: 'Требуется энергичный менеджер по продажам для работы с корпоративными клиентами и организации мероприятий',
+    responsibilities: [
+      'Поиск и привлечение новых клиентов',
+      'Работа с существующей клиентской базой',
+      'Подготовка коммерческих предложений',
+      'Проведение переговоров',
+      'Заключение договоров'
     ],
     requirements: [
-      'Наличие автомобиля',
-      'Опыт вождения от 2 лет',
-      'Знание города',
-      'Пунктуальность'
+      'Опыт работы в продажах от 1 года',
+      'Навыки ведения переговоров',
+      'Уверенный пользователь ПК',
+      'Грамотная речь',
+      'Ориентированность на результат'
+    ],
+    benefits: [
+      'Официальное трудоустройство',
+      'График 5/2 с 9:00 до 18:00',
+      'Оклад + % от продаж',
+      'Корпоративное обучение',
+      'Карьерный рост'
     ]
   }
 ];
 
 const VacanciesPage: React.FC = () => {
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    resume: null as File | null,
-    cover: ''
-  });
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFormData(prev => ({
-        ...prev,
-        resume: e.target.files![0]
-      }));
-    }
+  const handleVacancyClick = (vacancy: Vacancy) => {
+    setSelectedVacancy(vacancy);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Здесь будет логика отправки формы
-    console.log('Form submitted:', formData);
+  const handleBack = () => {
+    setSelectedVacancy(null);
   };
 
   return (
     <div className="vacancies">
       <div className="container">
-        <section className="vacancies__hero">
-          <h1 className="vacancies__title">Вакансии</h1>
-          <p className="vacancies__subtitle">
-            Присоединяйтесь к команде BAZAAR и станьте частью успешной компании
-          </p>
-        </section>
-
-        <section className="vacancies__benefits">
-          <h2 className="vacancies__section-title">Почему стоит работать с нами</h2>
-          <div className="benefits__grid">
-            {benefits.map(benefit => (
-              <div key={benefit.id} className="benefit-card">
-                <div className="benefit-card__icon">{benefit.icon}</div>
-                <h3 className="benefit-card__title">{benefit.title}</h3>
-                <p className="benefit-card__description">{benefit.description}</p>
+        <h1 className="section-title section-title--centered">Вакансии</h1>
+        
+        {!selectedVacancy ? (
+          <>
+            <p className="vacancies__intro">
+              Мы всегда в поиске талантливых и увлеченных своим делом людей. 
+              Если вы хотите стать частью нашей команды и развиваться в сфере флористики, 
+              ознакомьтесь с нашими открытыми вакансиями.
+            </p>
+            
+            <div className="vacancies__list">
+              {VACANCIES.map(vacancy => (
+                <div 
+                  key={vacancy.id} 
+                  className="vacancy-card" 
+                  onClick={() => handleVacancyClick(vacancy)}
+                >
+                  <h2 className="vacancy-card__title">{vacancy.title}</h2>
+                  <div className="vacancy-card__details">
+                    <span className="vacancy-card__location">{vacancy.location}</span>
+                    <span className="vacancy-card__type">{vacancy.type}</span>
+                  </div>
+                  <div className="vacancy-card__salary">{vacancy.salary}</div>
+                  <p className="vacancy-card__description">{vacancy.description}</p>
+                  <button className="button button--primary vacancy-card__button">
+                    Подробнее
+                  </button>
+                </div>
+              ))}
+            </div>
+            
+            <div className="vacancies__contact">
+              <h2 className="section-title">Не нашли подходящую вакансию?</h2>
+              <p className="vacancies__contact-text">
+                Отправьте нам ваше резюме, и мы свяжемся с вами, когда появится подходящая позиция.
+              </p>
+              <a href="mailto:hr@bazaar.ru" className="button button--primary">
+                Отправить резюме
+              </a>
+            </div>
+          </>
+        ) : (
+          <div className="vacancy-details">
+            <button 
+              className="vacancy-details__back-button"
+              onClick={handleBack}
+            >
+              ← Назад к списку вакансий
+            </button>
+            
+            <h2 className="vacancy-details__title">{selectedVacancy.title}</h2>
+            
+            <div className="vacancy-details__header">
+              <div className="vacancy-details__info">
+                <span className="vacancy-details__location">{selectedVacancy.location}</span>
+                <span className="vacancy-details__type">{selectedVacancy.type}</span>
+                <span className="vacancy-details__salary">{selectedVacancy.salary}</span>
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="vacancies__list">
-          <h2 className="vacancies__section-title">Открытые вакансии</h2>
-          <div className="vacancies__grid">
-            {vacancies.map(vacancy => (
-              <div
-                key={vacancy.id}
-                className={`vacancy-card ${selectedVacancy?.id === vacancy.id ? 'vacancy-card--active' : ''}`}
-                onClick={() => setSelectedVacancy(vacancy)}
+            </div>
+            
+            <p className="vacancy-details__description">{selectedVacancy.description}</p>
+            
+            <div className="vacancy-details__section">
+              <h3 className="vacancy-details__section-title">Обязанности:</h3>
+              <ul className="vacancy-details__list">
+                {selectedVacancy.responsibilities.map((item, index) => (
+                  <li key={index} className="vacancy-details__list-item">{item}</li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="vacancy-details__section">
+              <h3 className="vacancy-details__section-title">Требования:</h3>
+              <ul className="vacancy-details__list">
+                {selectedVacancy.requirements.map((item, index) => (
+                  <li key={index} className="vacancy-details__list-item">{item}</li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="vacancy-details__section">
+              <h3 className="vacancy-details__section-title">Что мы предлагаем:</h3>
+              <ul className="vacancy-details__list">
+                {selectedVacancy.benefits.map((item, index) => (
+                  <li key={index} className="vacancy-details__list-item">{item}</li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="vacancy-details__apply">
+              <h3 className="vacancy-details__apply-title">Откликнуться на вакансию</h3>
+              <p className="vacancy-details__apply-text">
+                Отправьте ваше резюме на почту <a href="mailto:hr@bazaar.ru">hr@bazaar.ru</a> с указанием вакансии в теме письма.
+              </p>
+              <p className="vacancy-details__apply-text">
+                Или позвоните нам по телефону: <a href="tel:+79991234567">+7 (999) 123-45-67</a>
+              </p>
+              <a 
+                href={`mailto:hr@bazaar.ru?subject=Вакансия: ${selectedVacancy.title}`} 
+                className="button button--primary vacancy-details__apply-button"
               >
-                <div className="vacancy-card__header">
-                  <h3 className="vacancy-card__title">{vacancy.title}</h3>
-                  <span className="vacancy-card__salary">{vacancy.salary}</span>
-                </div>
-                <div className="vacancy-card__meta">
-                  <span className="vacancy-card__location">
-                    <span className="vacancy-card__icon">📍</span>
-                    {vacancy.location}
-                  </span>
-                  <span className="vacancy-card__type">
-                    <span className="vacancy-card__icon">🕒</span>
-                    {vacancy.type}
-                  </span>
-                </div>
-                <div className="vacancy-card__content">
-                  <div className="vacancy-card__section">
-                    <h4 className="vacancy-card__section-title">Обязанности:</h4>
-                    <ul className="vacancy-card__list">
-                      {vacancy.description.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="vacancy-card__section">
-                    <h4 className="vacancy-card__section-title">Требования:</h4>
-                    <ul className="vacancy-card__list">
-                      {vacancy.requirements.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            ))}
+                Отправить резюме
+              </a>
+            </div>
           </div>
-        </section>
-
-        {selectedVacancy && (
-          <section className="vacancies__form">
-            <h2 className="vacancies__section-title">
-              Откликнуться на вакансию {selectedVacancy.title}
-            </h2>
-            <form className="application-form" onSubmit={handleSubmit}>
-              <div className="application-form__grid">
-                <div className="application-form__field">
-                  <label htmlFor="name" className="application-form__label">
-                    Ваше имя
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="application-form__input"
-                    required
-                  />
-                </div>
-
-                <div className="application-form__field">
-                  <label htmlFor="phone" className="application-form__label">
-                    Телефон
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="application-form__input"
-                    required
-                  />
-                </div>
-
-                <div className="application-form__field">
-                  <label htmlFor="email" className="application-form__label">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="application-form__input"
-                    required
-                  />
-                </div>
-
-                <div className="application-form__field application-form__field--full">
-                  <label htmlFor="resume" className="application-form__label">
-                    Резюме
-                  </label>
-                  <input
-                    type="file"
-                    id="resume"
-                    name="resume"
-                    onChange={handleFileChange}
-                    className="application-form__file"
-                    accept=".pdf,.doc,.docx"
-                    required
-                  />
-                  <span className="application-form__file-hint">
-                    Поддерживаемые форматы: PDF, DOC, DOCX
-                  </span>
-                </div>
-
-                <div className="application-form__field application-form__field--full">
-                  <label htmlFor="cover" className="application-form__label">
-                    Сопроводительное письмо
-                  </label>
-                  <textarea
-                    id="cover"
-                    name="cover"
-                    value={formData.cover}
-                    onChange={(e) => setFormData({ ...formData, cover: e.target.value })}
-                    className="application-form__textarea"
-                    rows={5}
-                    required
-                  />
-                </div>
-              </div>
-
-              <button type="submit" className="button button--primary application-form__submit">
-                Отправить заявку
-              </button>
-            </form>
-          </section>
         )}
-
-        <section className="vacancies__culture">
-          <h2 className="vacancies__section-title">Наша корпоративная культура</h2>
-          <div className="culture__content">
-            <div className="culture__text">
-              <p>
-                В BAZAAR мы создаем не просто букеты – мы создаем настроение и дарим эмоции. 
-                Наша команда – это увлеченные своим делом профессионалы, которые любят 
-                свою работу и постоянно развиваются.
-              </p>
-              <p>
-                Мы поддерживаем инициативу, ценим креативность и стремимся создать 
-                комфортную атмосферу для каждого сотрудника. У нас регулярно проводятся 
-                корпоративные мероприятия, мастер-классы и тренинги.
-              </p>
-            </div>
-            <div className="culture__image">
-              <img src="/images/team/culture.jpg" alt="Корпоративная культура" />
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   );

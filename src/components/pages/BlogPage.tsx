@@ -3,158 +3,226 @@ import React, { useState } from 'react';
 interface BlogPost {
   id: number;
   title: string;
-  category: string;
-  preview: string;
+  excerpt: string;
   image: string;
   date: string;
-  readTime: number;
+  category: string;
+  slug: string;
 }
 
 interface Category {
-  id: string;
+  id: number;
   name: string;
-  count: number;
+  slug: string;
 }
 
-const categories: Category[] = [
-  { id: 'all', name: 'Все статьи', count: 12 },
-  { id: 'care', name: 'Уход за цветами', count: 4 },
-  { id: 'decoration', name: 'Декор', count: 3 },
-  { id: 'events', name: 'Мероприятия', count: 2 },
-  { id: 'trends', name: 'Тренды', count: 3 }
-];
-
-const mockPosts: BlogPost[] = [
+const BLOG_POSTS: BlogPost[] = [
   {
     id: 1,
-    title: 'Как продлить жизнь срезанным цветам',
-    category: 'care',
-    preview: 'Простые советы, которые помогут вашим букетам радовать вас дольше. От правильной воды до температурного режима.',
-    image: '/images/blog/flowers-care.jpg',
-    date: '15 марта 2024',
-    readTime: 5
+    title: 'Как сохранить букет свежим дольше',
+    excerpt: 'Узнайте простые и эффективные способы продлить жизнь срезанных цветов в домашних условиях',
+    image: '/images/blog/blog-1.jpg',
+    date: '15 мая 2023',
+    category: 'Советы',
+    slug: 'keep-flowers-fresh'
   },
   {
     id: 2,
-    title: 'Тренды свадебной флористики 2024',
-    category: 'trends',
-    preview: 'Какие цветы и композиции будут популярны на свадьбах в этом году? Разбираем основные тенденции.',
-    image: '/images/blog/wedding-trends.jpg',
-    date: '10 марта 2024',
-    readTime: 7
+    title: 'Тренды флористики 2023',
+    excerpt: 'Обзор самых популярных цветочных композиций, цветовых сочетаний и стилей в этом сезоне',
+    image: '/images/blog/blog-2.jpg',
+    date: '3 апреля 2023',
+    category: 'Тренды',
+    slug: 'floral-trends-2023'
   },
   {
     id: 3,
-    title: 'Мастер-класс: создаем весенний букет',
-    category: 'decoration',
-    preview: 'Пошаговая инструкция по созданию красивой цветочной композиции из сезонных цветов.',
-    image: '/images/blog/spring-bouquet.jpg',
-    date: '5 марта 2024',
-    readTime: 10
+    title: 'Язык цветов: что означают разные цветы',
+    excerpt: 'История флориографии и значения популярных цветов в разных культурах',
+    image: '/images/blog/blog-3.jpg',
+    date: '21 марта 2023',
+    category: 'История',
+    slug: 'flower-language'
+  },
+  {
+    id: 4,
+    title: 'Букет на свадьбу: как выбрать идеальный',
+    excerpt: 'Советы по выбору свадебного букета, который идеально дополнит образ невесты',
+    image: '/images/blog/blog-4.jpg',
+    date: '15 февраля 2023',
+    category: 'Свадьба',
+    slug: 'wedding-bouquet'
+  },
+  {
+    id: 5,
+    title: 'Растения для офиса: топ-10 неприхотливых видов',
+    excerpt: 'Какие растения выбрать для офисного пространства, чтобы создать уютную атмосферу',
+    image: '/images/blog/blog-5.jpg',
+    date: '10 января 2023',
+    category: 'Комнатные растения',
+    slug: 'office-plants'
+  },
+  {
+    id: 6,
+    title: 'Сезонные цветы: что цветет зимой',
+    excerpt: 'Обзор зимних цветов и растений, которые помогут создать праздничное настроение',
+    image: '/images/blog/blog-6.jpg',
+    date: '5 декабря 2022',
+    category: 'Сезонные цветы',
+    slug: 'winter-flowers'
   }
-  // Добавьте больше статей здесь
 ];
+
+const CATEGORIES: Category[] = [
+  { id: 1, name: 'Все', slug: 'all' },
+  { id: 2, name: 'Советы', slug: 'tips' },
+  { id: 3, name: 'Тренды', slug: 'trends' },
+  { id: 4, name: 'История', slug: 'history' },
+  { id: 5, name: 'Свадьба', slug: 'wedding' },
+  { id: 6, name: 'Комнатные растения', slug: 'indoor-plants' },
+  { id: 7, name: 'Сезонные цветы', slug: 'seasonal-flowers' }
+];
+
+const POSTS_PER_PAGE = 4;
 
 const BlogPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const postsPerPage = 6;
-
-  const filteredPosts = mockPosts.filter(post => {
-    const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.preview.toLowerCase().includes(searchQuery.toLowerCase());
+  
+  // Фильтрация постов по категории и поисковому запросу
+  const filteredPosts = BLOG_POSTS.filter(post => {
+    const matchesCategory = selectedCategory === 'all' || post.category.toLowerCase() === selectedCategory;
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                           post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-  const currentPosts = filteredPosts.slice(
-    (currentPage - 1) * postsPerPage,
-    currentPage * postsPerPage
-  );
+  
+  // Пагинация
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const indexOfLastPost = currentPage * POSTS_PER_PAGE;
+  const indexOfFirstPost = indexOfLastPost - POSTS_PER_PAGE;
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  
+  const handleCategoryChange = (categorySlug: string) => {
+    setSelectedCategory(categorySlug);
+    setCurrentPage(1); // Сбрасываем страницу при смене категории
+  };
+  
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); // Сбрасываем страницу при поиске
+  };
+  
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="blog">
       <div className="container">
-        <div className="blog__header">
-          <h1 className="blog__title">Блог о цветах</h1>
-          <div className="blog__search">
+        <h1 className="section-title section-title--centered">Блог</h1>
+        
+        <div className="blog__search">
+          <div className="search-field">
             <input
               type="text"
               placeholder="Поиск по статьям..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="blog__search-input"
+              onChange={handleSearchChange}
+              className="search-field__input"
             />
+            <button className="search-field__button">
+              🔍
+            </button>
           </div>
         </div>
-
+        
         <div className="blog__content">
           <aside className="blog__sidebar">
             <div className="blog__categories">
-              <h2 className="blog__categories-title">Категории</h2>
-              <div className="blog__categories-list">
-                {categories.map(category => (
-                  <button
-                    key={category.id}
-                    className={`blog__category ${selectedCategory === category.id ? 'blog__category--active' : ''}`}
-                    onClick={() => setSelectedCategory(category.id)}
+              <h2 className="blog__sidebar-title">Категории</h2>
+              <ul className="categories-list">
+                {CATEGORIES.map(category => (
+                  <li 
+                    key={category.id} 
+                    className={`categories-list__item ${selectedCategory === category.slug ? 'categories-list__item--active' : ''}`}
                   >
-                    <span className="blog__category-name">{category.name}</span>
-                    <span className="blog__category-count">{category.count}</span>
-                  </button>
+                    <button
+                      onClick={() => handleCategoryChange(category.slug)}
+                      className="categories-list__button"
+                    >
+                      {category.name}
+                    </button>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </aside>
-
+          
           <main className="blog__main">
-            <div className="blog__grid">
-              {currentPosts.map(post => (
-                <article key={post.id} className="blog-card">
-                  <div className="blog-card__image">
-                    <img src={post.image} alt={post.title} />
-                  </div>
-                  <div className="blog-card__content">
-                    <div className="blog-card__meta">
-                      <span className="blog-card__date">{post.date}</span>
-                      <span className="blog-card__read-time">{post.readTime} мин чтения</span>
-                    </div>
-                    <h3 className="blog-card__title">{post.title}</h3>
-                    <p className="blog-card__preview">{post.preview}</p>
-                    <button className="blog-card__button">
-                      Читать далее
+            {currentPosts.length > 0 ? (
+              <>
+                <div className="blog__posts">
+                  {currentPosts.map(post => (
+                    <article key={post.id} className="blog-card">
+                      <div className="blog-card__image-wrapper">
+                        <img src={post.image} alt={post.title} className="blog-card__image" />
+                        <span className="blog-card__category">{post.category}</span>
+                      </div>
+                      <div className="blog-card__content">
+                        <span className="blog-card__date">{post.date}</span>
+                        <h3 className="blog-card__title">{post.title}</h3>
+                        <p className="blog-card__excerpt">{post.excerpt}</p>
+                        <a href={`/blog/${post.slug}`} className="blog-card__link">
+                          Читать дальше
+                        </a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                
+                {totalPages > 1 && (
+                  <div className="blog__pagination">
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="pagination__button"
+                    >
+                      &larr;
+                    </button>
+                    
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+                      <button
+                        key={number}
+                        onClick={() => handlePageChange(number)}
+                        className={`pagination__button ${currentPage === number ? 'pagination__button--active' : ''}`}
+                      >
+                        {number}
+                      </button>
+                    ))}
+                    
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="pagination__button"
+                    >
+                      &rarr;
                     </button>
                   </div>
-                </article>
-              ))}
-            </div>
-
-            {totalPages > 1 && (
-              <div className="blog__pagination">
-                <button
-                  className="blog__pagination-button"
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(prev => prev - 1)}
+                )}
+              </>
+            ) : (
+              <div className="blog__no-results">
+                <p>По вашему запросу ничего не найдено</p>
+                <button 
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSelectedCategory('all');
+                  }}
+                  className="button button--primary"
                 >
-                  ←
-                </button>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                  <button
-                    key={page}
-                    className={`blog__pagination-button ${currentPage === page ? 'blog__pagination-button--active' : ''}`}
-                    onClick={() => setCurrentPage(page)}
-                  >
-                    {page}
-                  </button>
-                ))}
-                <button
-                  className="blog__pagination-button"
-                  disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage(prev => prev + 1)}
-                >
-                  →
+                  Сбросить фильтры
                 </button>
               </div>
             )}
