@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../store/cartSlice';
 import LazyImage from '../common/LazyImage';
 import Icon from '../common/Icon';
 import { Product, products } from '../../mocks/products';
-import '../../styles/pages/product.css';
+import ProductCard from '../catalog/ProductCard';
+import AddToCartAnimation from '../catalog/AddToCartAnimation';
 import Skeleton from '../common/Skeleton';
+import '../../styles/pages/product.css';
 
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +18,9 @@ const ProductPage = () => {
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [showAnimation, setShowAnimation] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   
   // Получение данных о продукте
   useEffect(() => {
@@ -52,8 +57,25 @@ const ProductPage = () => {
   };
   
   // Обработчик добавления в корзину
-  const handleAddToCart = () => {
-    if (product) {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    if (!product) return;
+
+    // Сохраняем позицию клика мыши
+    setClickPosition({ x: e.clientX, y: e.clientY });
+    
+    // Добавляем эффект нажатия кнопки
+    if (buttonRef.current) {
+      buttonRef.current.classList.add('clicked');
+      setTimeout(() => {
+        buttonRef.current?.classList.remove('clicked');
+      }, 200);
+    }
+    
+    // Запускаем анимацию перед добавлением в корзину
+    setShowAnimation(true);
+    
+    // Откладываем фактическое добавление товара до завершения анимации
+    setTimeout(() => {
       dispatch(addToCart({
         id: product.id,
         name: product.title,
@@ -61,7 +83,7 @@ const ProductPage = () => {
         quantity: 1,
         image: product.image
       }));
-    }
+    }, 400);
   };
   
   // Обработчик добавления в избранное
@@ -72,7 +94,7 @@ const ProductPage = () => {
   if (loading) {
     return (
       <div className="product-page">
-        <div className="product-page__container">
+        <div className="container">
           <div className="product-page__content">
             <div className="product-page__gallery">
               <div className="product-page__image-wrapper">
@@ -95,9 +117,9 @@ const ProductPage = () => {
   if (!product) {
     return (
       <div className="product-page">
-        <div className="product-page__container">
+        <div className="container">
           <div className="product-page__error">
-            <h2>Товар не найден</h2>
+            <h2 className="section-title">Товар не найден</h2>
             <p>К сожалению, товар с указанным идентификатором не существует.</p>
             <Link to="/catalog" className="button button--primary">Вернуться в каталог</Link>
           </div>
@@ -108,7 +130,7 @@ const ProductPage = () => {
   
   return (
     <div className="product-page">
-      <div className="product-page__container">
+      <div className="container">
         {/* Хлебные крошки */}
         <div className="product-page__breadcrumbs">
           <Link to="/">Главная</Link>
@@ -128,7 +150,7 @@ const ProductPage = () => {
                 alt={product.title}
                 fallbackSrc="/images/product-placeholder.jpg"
                 className="product-page__image"
-                objectFit="contain"
+                objectFit="cover"
               />
             </div>
           </div>
@@ -136,7 +158,7 @@ const ProductPage = () => {
           {/* Информация о товаре */}
           <div className="product-page__info">
             <div className="product-page__category">Букет цветов</div>
-            <h1 className="product-page__title">{product.title}</h1>
+            <h1 className="section-title">{product.title}</h1>
             <p className="product-page__description">{product.description}</p>
             
             {/* Цена */}
@@ -147,10 +169,13 @@ const ProductPage = () => {
             {/* Действия с товаром */}
             <div className="product-page__actions">
               <button 
-                className="button button--gold product-page__add-to-cart"
+                ref={buttonRef}
+                className="button button--primary product-page__add-to-cart"
                 onClick={handleAddToCart}
+                data-product-id={product.id}
+                aria-label={`Добавить ${product.title} в корзину`}
               >
-                Добавить в корзину
+                В корзину
               </button>
               <button 
                 className={`product-page__favorite ${isFavorite ? 'active' : ''}`}
@@ -159,6 +184,15 @@ const ProductPage = () => {
               >
                 <Icon name="heart" size={24} />
               </button>
+              
+              {showAnimation && (
+                <AddToCartAnimation
+                  productId={product.id}
+                  isVisible={showAnimation}
+                  onAnimationEnd={() => setShowAnimation(false)}
+                  clickPosition={clickPosition}
+                />
+              )}
             </div>
             
             {/* Дополнительная информация */}
@@ -182,7 +216,7 @@ const ProductPage = () => {
             </div>
             
             {/* Декоративный разделитель */}
-            <div className="product-page__divider"></div>
+            <div className="divider-accent"></div>
             
             {/* Описание доставки */}
             <div className="product-page__delivery-info">
@@ -201,30 +235,17 @@ const ProductPage = () => {
         {/* Похожие товары */}
         {relatedProducts.length > 0 && (
           <div className="product-page__related">
-            <h2 className="product-page__related-title">Похожие товары</h2>
+            <h2 className="section-title section-title--centered">Похожие товары</h2>
+            <div className="divider-accent"></div>
             <div className="product-page__related-grid">
               {relatedProducts.map(relatedProduct => (
-                <div className="product-card" key={relatedProduct.id}>
-                  <Link to={`/products/${relatedProduct.id}`} className="product-card__link">
-                    <div className="product-card__image-container">
-                      <LazyImage
-                        src={relatedProduct.image}
-                        alt={relatedProduct.title}
-                        fallbackSrc="/images/product-placeholder.jpg"
-                        className="product-card__image"
-                        containerClassName="product-card__image-wrapper"
-                        objectFit="contain"
-                        aspectRatio={1}
-                      />
-                    </div>
-                    <div className="product-card__content">
-                      <h3 className="product-card__name">{relatedProduct.title}</h3>
-                      <div className="product-card__price-container">
-                        <span className="product-card__price">{formatPrice(relatedProduct.price)}</span>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
+                <ProductCard
+                  key={relatedProduct.id}
+                  id={relatedProduct.id}
+                  title={relatedProduct.title}
+                  price={relatedProduct.price}
+                  image={relatedProduct.image}
+                />
               ))}
             </div>
           </div>

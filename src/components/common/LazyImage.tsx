@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Skeleton from './Skeleton';
 import '../../styles/components/LazyImage.css';
 
@@ -30,11 +30,17 @@ const LazyImage = ({
 }: LazyImageProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
   
   // Важно! Сбрасываем состояние загрузки при изменении источника изображения
   useEffect(() => {
     setLoading(true);
     setError(false);
+    
+    // Проверяем, загружено ли уже изображение из кэша
+    if (imgRef.current && imgRef.current.complete) {
+      setLoading(false);
+    }
   }, [src]);
   
   const handleLoad = () => {
@@ -87,6 +93,7 @@ const LazyImage = ({
       )}
       
       <img
+        ref={imgRef}
         className={`lazy-image__img ${className} ${loading ? 'lazy-image__img--hidden' : ''}`}
         src={error ? fallbackSrc : src}
         alt={alt}
