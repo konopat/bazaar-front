@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import '../../styles/components/Modal.css';
 import Skeleton from './Skeleton';
@@ -27,39 +27,21 @@ const Modal = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const [isClosing, setIsClosing] = useState(false);
   const [isContentVisible, setIsContentVisible] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
+  
+  // Упрощенная логика определения темы
+  const isDarkTheme = document.body.classList.contains('theme-dark');
 
-  // Эффект для определения текущей темы при открытии модального окна
-  useEffect(() => {
-    const updateTheme = () => {
-      const hasDarkTheme = document.body.classList.contains('theme-dark');
-      setIsDarkTheme(hasDarkTheme);
-    };
-
-    if (isOpen) {
-      updateTheme();
-      
-      // Наблюдаем за изменениями темы
-      const observer = new MutationObserver(updateTheme);
-      observer.observe(document.body, { 
-        attributes: true, 
-        attributeFilter: ['class'] 
-      });
-      
-      return () => observer.disconnect();
-    }
-  }, [isOpen]);
-
-  const handleClose = () => {
+  // Мемоизированный обработчик закрытия
+  const handleClose = useCallback(() => {
     setIsClosing(true);
     setIsContentVisible(false);
     setTimeout(() => {
       setIsClosing(false);
       onClose();
     }, 300);
-  };
+  }, [onClose]);
 
-  // Эффект для открытия модального окна
+  // Эффект для открытия модального окна с CSS-анимацией
   useEffect(() => {
     if (isOpen) {
       // Задержка для анимации открытия, затем показываем контент
@@ -87,23 +69,25 @@ const Modal = ({
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = '';
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
-  // Генерация скелетонов загрузки
-  const renderSkeletons = () => {
+  // Мемоизированные скелетоны для предотвращения лишних перерисовок
+  const skeletons = useMemo(() => {
+    if (!isLoading) return null;
+    
     const { count = 3, height = '2rem', spacing = '1rem' } = skeletonConfig;
-    const skeletons = [];
+    const skeletonsArray = [];
     
     for (let i = 0; i < count; i++) {
-      skeletons.push(
+      skeletonsArray.push(
         <div key={i} style={{ marginBottom: typeof spacing === 'number' ? `${spacing}px` : spacing }}>
           <Skeleton height={height} />
         </div>
       );
     }
     
-    return skeletons;
-  };
+    return skeletonsArray;
+  }, [isLoading, skeletonConfig]);
 
   if (!isOpen && !isClosing) return null;
 
@@ -135,7 +119,7 @@ const Modal = ({
         <div className={`modal__content ${isContentVisible ? 'modal__content--visible' : ''}`}>
           {isLoading ? (
             <div className="modal__skeleton-container">
-              {renderSkeletons()}
+              {skeletons}
             </div>
           ) : (
             children

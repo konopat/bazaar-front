@@ -1,43 +1,86 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useReducer, useEffect, useCallback } from 'react';
 import Modal from '../common/Modal';
 import StoresMap from './StoresMap';
+import StoresList from './StoresList';
 import Skeleton from '../common/Skeleton';
-import { STORES, Store } from '../../constants/contacts';
+import { STORES } from '../../constants/contacts';
+import { Store } from '../../hooks/useMap';
 
 interface StoresModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+// Типы действий для reducer
+type ActionType = 
+  | { type: 'OPEN_MODAL' }
+  | { type: 'INIT_MAP' }
+  | { type: 'MAP_LOADED' }
+  | { type: 'SELECT_STORE', payload: string }
+  | { type: 'RESET' };
+
+// Интерфейс состояния
+interface State {
+  selectedStoreId?: string;
+  isMapLoading: boolean;
+  showMap: boolean;
+}
+
+// Начальное состояние
+const initialState: State = {
+  selectedStoreId: undefined,
+  isMapLoading: true,
+  showMap: false
+};
+
+// Reducer для управления связанными состояниями
+function reducer(state: State, action: ActionType): State {
+  switch (action.type) {
+    case 'OPEN_MODAL':
+      return { ...state, isMapLoading: true, showMap: false };
+    case 'INIT_MAP':
+      return { ...state, showMap: true };
+    case 'MAP_LOADED':
+      return { ...state, isMapLoading: false };
+    case 'SELECT_STORE':
+      return { ...state, selectedStoreId: action.payload };
+    case 'RESET':
+      return initialState;
+    default:
+      return state;
+  }
+}
+
 const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
-  const [selectedStoreId, setSelectedStoreId] = useState<string>();
-  const [isMapLoading, setIsMapLoading] = useState(true);
-  const [showMap, setShowMap] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { selectedStoreId, isMapLoading, showMap } = state;
   
   // Сбрасываем состояния при закрытии и открытии модального окна
   useEffect(() => {
     if (isOpen) {
       // Сначала устанавливаем состояние загрузки
-      setIsMapLoading(true);
+      dispatch({ type: 'OPEN_MODAL' });
       
+      // Используем CSS-анимацию вместо setTimeout
       // Даем модальному окну время для появления, затем показываем карту
       const timeout = setTimeout(() => {
-        console.log('Модальное окно открыто, инициализируем карту');
-        setShowMap(true);
+        dispatch({ type: 'INIT_MAP' });
       }, 300);
       
       return () => clearTimeout(timeout);
     } else {
       // При закрытии сбрасываем состояния
-      setShowMap(false);
-      setSelectedStoreId(undefined);
+      dispatch({ type: 'RESET' });
     }
   }, [isOpen]);
   
-  // Обработчик события, когда карта готова и загружена
+  // Мемоизируем обработчики
   const handleMapReady = useCallback(() => {
-    console.log('Карта загружена, скрываем скелетон');
-    setIsMapLoading(false);
+    dispatch({ type: 'MAP_LOADED' });
+  }, []);
+
+  const handleSelectStore = useCallback((storeId: string) => {
+    dispatch({ type: 'SELECT_STORE', payload: storeId });
   }, []);
 
   return (
@@ -50,21 +93,12 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
       <div className="stores-modal-content">
         <h3 className="stores-section-title">Выберите магазин:</h3>
         
-        {/* Показываем список магазинов сразу */}
-        <div className="stores-map__list">
-          {STORES.map(store => (
-            <button
-              key={store.id}
-              className={`stores-map__store-button ${
-                store.id === selectedStoreId ? 'stores-map__store-button--active' : ''
-              }`}
-              onClick={() => setSelectedStoreId(store.id)}
-            >
-              <h3 className="stores-map__store-name">{store.name}</h3>
-              <p className="stores-map__store-address">{store.address}</p>
-            </button>
-          ))}
-        </div>
+        {/* Используем компонент списка магазинов */}
+        <StoresList
+          stores={STORES}
+          selectedStoreId={selectedStoreId}
+          onStoreSelect={handleSelectStore}
+        />
         
         <h3 className="stores-section-title">Карта:</h3>
         
@@ -76,7 +110,7 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
             </div>
           )}
           
-          {/* Карта появится здесь, когда модалка полностью открыта */}
+          {/* Карта появится здесь с плавной анимацией opacity через CSS */}
           {showMap && (
             <div style={{ 
               opacity: isMapLoading ? 0 : 1, 
@@ -86,7 +120,7 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
               <StoresMap
                 stores={STORES}
                 selectedStoreId={selectedStoreId}
-                onStoreSelect={setSelectedStoreId}
+                onStoreSelect={handleSelectStore}
                 onMapReady={handleMapReady}
                 hideStoresList={true}
               />
