@@ -6,6 +6,7 @@ import {
   CONTACT_FORM_FIELDS 
 } from '../../constants/contacts';
 import StoresModal from '../map/StoresModal';
+import Icon from '../common/Icon';
 
 interface ContactFormData {
   name: string;
@@ -66,28 +67,34 @@ const ContactsPage: React.FC = () => {
   return (
     <div className="contacts">
       <div className="container">
-        <h1 className="fashion-heading fashion-heading--centered">Контакты</h1>
+        <h1 className="section-title section-title--centered">Контакты</h1>
         
-        <section className="gold-frame">
-          <h2 className="fashion-heading">Наши магазины</h2>
+        <section className="contacts__section">
+          <h2 className="section-title">Наши магазины</h2>
           <div className="contacts__stores">
             {STORES.map(store => (
-              <div key={store.id} className="store-card decorative-border">
-                <h3 className="store-card__name gradient-text">{store.name}</h3>
+              <div key={store.id} className="store-card">
+                <h3 className="store-card__name">{store.name}</h3>
                 <div className="store-card__info">
                   <div className="store-card__row">
-                    <span className="store-card__icon gold-block">📍</span>
+                    <span className="store-card__icon">
+                      <Icon name="location" size={16} color="currentColor" />
+                    </span>
                     <span className="store-card__address">{store.address}</span>
                   </div>
                   <div className="store-card__row">
-                    <span className="store-card__icon gold-block">🕒</span>
+                    <span className="store-card__icon">
+                      <Icon name="clock" size={16} color="currentColor" />
+                    </span>
                     <span className="store-card__hours">
                       {getTodaySchedule(store)}
                       <small className="store-card__today">Сегодня</small>
                     </span>
                   </div>
                   <div className="store-card__row">
-                    <span className="store-card__icon gold-block">📞</span>
+                    <span className="store-card__icon">
+                      <Icon name="phone" size={16} color="currentColor" />
+                    </span>
                     <a href={`tel:${store.phone}`} className="store-card__phone">
                       {store.phone}
                     </a>
@@ -102,7 +109,7 @@ const ContactsPage: React.FC = () => {
           
           <div className="contacts__map-button-container">
             <button 
-              className="button button--gold"
+              className="button button--primary"
               onClick={() => setIsMapModalOpen(true)}
             >
               Посмотреть на карте
@@ -110,14 +117,16 @@ const ContactsPage: React.FC = () => {
           </div>
         </section>
         
-        <div className="divider-gold"></div>
+        <div className="divider-accent"></div>
         
-        <section className="gold-frame">
-          <h2 className="fashion-heading">Напишите нам</h2>
+        <section className="contacts__section">
+          <h2 className="section-title">Напишите нам</h2>
           {formSubmitted ? (
             <div className="contacts__form-success">
-              <div className="contacts__form-success-icon gold-block">✓</div>
-              <h3 className="contacts__form-success-title gradient-text">Сообщение отправлено</h3>
+              <div className="contacts__form-success-icon">
+                <Icon name="check" size={20} color="currentColor" />
+              </div>
+              <h3 className="contacts__form-success-title">Сообщение отправлено</h3>
               <p className="contacts__form-success-text">
                 Спасибо за ваше сообщение! Наши менеджеры свяжутся с вами в ближайшее время.
               </p>
@@ -159,31 +168,31 @@ const ContactsPage: React.FC = () => {
                 ))}
               </div>
 
-              <button type="submit" className="button button--gold contacts__form-submit">
+              <button type="submit" className="button button--primary contacts__form-submit">
                 Отправить сообщение
               </button>
             </form>
           )}
         </section>
         
-        <div className="divider-gold"></div>
+        <div className="divider-accent"></div>
         
-        <section className="gold-frame">
-          <h2 className="fashion-heading">Мы в социальных сетях</h2>
+        <section className="contacts__section">
+          <h2 className="section-title">Мы в социальных сетях</h2>
           <div className="contacts__social">
             {SOCIAL_NETWORKS.map(network => (
-              <a key={network.name} href={network.url} className="social-link decorative-border floral-accent">
-                <span className="social-link__icon gold-block">
-                  <i className={`icon-${network.name}`}></i>
+              <a key={network.name} href={network.url} className="social-link">
+                <span className="social-link__icon">
+                  <Icon name={network.name} color="currentColor" size={18} />
                 </span>
-                <span className="social-link__name gradient-text">{network.label}</span>
+                <span className="social-link__name">{network.label}</span>
               </a>
             ))}
           </div>
           
           <div className="contacts__main-phone">
             <div className="contacts__phone-label">Основной телефон для связи:</div>
-            <a href={`tel:${PHONE_NUMBER}`} className="contacts__phone gradient-text">{PHONE_NUMBER}</a>
+            <a href={`tel:${PHONE_NUMBER}`} className="contacts__phone">{PHONE_NUMBER}</a>
           </div>
         </section>
       </div>

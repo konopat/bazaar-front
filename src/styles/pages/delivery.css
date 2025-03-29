@@ -1,6 +1,6 @@
 /* 
 * Стили страницы Доставка
-* Описание: Стилизация страницы информации о доставке с учетом светлой и темной темы
+* Описание: Стилизация страницы с информацией о доставке
 */
 
 .delivery {
@@ -20,10 +20,11 @@
 }
 
 .delivery__section {
-  background: white;
-  border-radius: 8px;
-  padding: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+  background: var(--color-card-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
 }
 
 .delivery__subtitle {
@@ -32,10 +33,10 @@
   font-weight: 600;
 }
 
-/* Методы доставки */
+/* Способы доставки */
 .delivery__methods {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--spacing-lg);
   margin-top: var(--spacing-xl);
 }
@@ -43,31 +44,29 @@
 .delivery-method {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-md);
   padding: var(--spacing-lg);
-  background-color: var(--color-background-light);
+  background: var(--color-background-light);
   border-radius: var(--border-radius);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .delivery-method:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .delivery-method__icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: var(--gradient-gold);
-  border-radius: var(--border-radius);
-  font-size: var(--font-size-2xl);
-}
-
-.theme-dark .delivery-method__icon {
-  background: var(--gradient-accent);
+  width: 50px;
+  height: 50px;
+  margin-right: var(--spacing-md);
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: var(--font-size-md);
 }
 
 .delivery-method__content {
@@ -77,135 +76,89 @@
 .delivery-method__title {
   margin: 0 0 var(--spacing-sm);
   font-family: var(--font-family-secondary);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   font-weight: 500;
+  color: var(--color-primary-dark);
 }
 
 .delivery-method__description {
   margin: 0 0 var(--spacing-md);
-  color: var(--color-text-light);
   font-size: var(--font-size-md);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .delivery-method__features {
-  margin: var(--spacing-sm) 0 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-.delivery-method__features li {
-  position: relative;
-  margin-bottom: var(--spacing-sm);
-  color: var(--color-text-light);
-  font-size: var(--font-size-sm);
+  margin: 0;
   padding-left: var(--spacing-lg);
 }
 
-.delivery-method__features li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--color-primary);
-}
-
-.theme-dark .delivery-method__features li::before {
-  color: var(--color-primary-dark-theme);
+.delivery-method__features li {
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
 }
 
 /* Зоны доставки */
 .delivery__zones {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
   margin-top: var(--spacing-xl);
 }
 
 .delivery-zones__header {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 2fr;
-  gap: var(--spacing-md);
+  grid-template-columns: 1.5fr 1fr 1fr 2fr;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
   padding: var(--spacing-md);
-  border-bottom: 1px solid var(--color-border);
-  font-weight: 500;
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+}
+
+.delivery-zones__header-item {
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  color: var(--color-primary-dark);
 }
 
 .delivery-zone {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 2fr;
-  gap: var(--spacing-md);
-  padding: var(--spacing-lg);
+  grid-template-columns: 1.5fr 1fr 1fr 2fr;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-md);
   background-color: var(--color-background-light);
   border-radius: var(--border-radius);
-  align-items: center;
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .delivery-zone:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .delivery-zone__name {
   font-weight: 500;
-  font-size: var(--font-size-md);
+  color: var(--color-text);
 }
 
 .delivery-zone__price {
-  font-size: var(--font-size-lg);
-  font-weight: 700;
+  font-weight: 600;
+  color: var(--color-primary-dark);
 }
 
 .delivery-zone__time {
-  font-size: var(--font-size-md);
+  color: var(--color-text);
 }
 
 .delivery-zone__description {
   color: var(--color-text-light);
   font-size: var(--font-size-sm);
+  line-height: 1.6;
 }
 
-/* Магазины */
-.delivery__shops {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
-
-.delivery-shop {
-  padding: 24px;
-  background: var(--color-background);
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-}
-
-.delivery-shop:hover {
-  transform: translateY(-4px);
-}
-
-.delivery-shop__title {
-  margin: 0 0 8px;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.delivery-shop__address {
-  margin: 0 0 4px;
-  color: var(--color-gray);
-  font-size: 14px;
-}
-
-.delivery-shop__hours {
-  margin: 0;
-  color: var(--color-primary);
-  font-weight: 500;
-  font-size: 14px;
-}
-
-/* Информационные блоки */
+/* Важная информация */
 .delivery__info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--spacing-lg);
   margin-top: var(--spacing-xl);
 }
@@ -219,7 +172,7 @@
 
 .info-item:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .info-item__title {
@@ -227,27 +180,28 @@
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-lg);
   font-weight: 500;
+  color: var(--color-primary-dark);
 }
 
 .info-item__text {
   margin: 0;
-  color: var(--color-text-light);
   font-size: var(--font-size-md);
-  line-height: 1.5;
+  line-height: 1.6;
+  color: var(--color-text);
 }
 
-/* Шаги доставки */
+/* Этапы доставки */
 .delivery__steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-lg);
   margin-top: var(--spacing-xl);
 }
 
 .delivery-step {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-md);
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: var(--spacing-lg);
   padding: var(--spacing-lg);
   background-color: var(--color-background-light);
   border-radius: var(--border-radius);
@@ -256,23 +210,27 @@
 
 .delivery-step:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .delivery-step__number {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-primary);
+  color: white;
   border-radius: 50%;
+  font-family: var(--font-family-secondary);
   font-size: var(--font-size-xl);
-  font-weight: 600;
-  color: var(--color-text);
+  font-weight: 500;
 }
 
 .delivery-step__content {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .delivery-step__title {
@@ -280,46 +238,77 @@
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-lg);
   font-weight: 500;
+  color: var(--color-primary-dark);
 }
 
 .delivery-step__text {
   margin: 0;
-  color: var(--color-text-light);
   font-size: var(--font-size-md);
-  line-height: 1.5;
+  line-height: 1.6;
+  color: var(--color-text);
 }
 
 /* Советы */
 .delivery__tips {
-  padding: 0;
-  margin: var(--spacing-xl) 0 0;
+  margin: 0;
+  padding: 0 0 0 var(--spacing-xl);
   list-style-type: none;
-  padding-left: var(--spacing-xl);
+  counter-reset: delivery-tips;
 }
 
 .delivery__tip {
   position: relative;
   margin-bottom: var(--spacing-md);
-  padding: var(--spacing-md) var(--spacing-xl);
-  background-color: var(--color-background-light);
-  border-radius: var(--border-radius);
+  padding-left: var(--spacing-xl);
   font-size: var(--font-size-md);
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  line-height: 1.6;
+  color: var(--color-text);
 }
 
-.delivery__tip:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+.delivery__tip::before {
+  counter-increment: delivery-tips;
+  content: counter(delivery-tips) ".";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
-/* Адаптивные стили */
+/* Темная тема */
+.theme-dark .delivery__section {
+  background-color: var(--color-background-light-dark);
+}
+
+.theme-dark .delivery-method,
+.theme-dark .delivery-zone,
+.theme-dark .delivery-zones__header,
+.theme-dark .info-item,
+.theme-dark .delivery-step {
+  background-color: var(--color-card-background-dark);
+}
+
+.theme-dark .delivery-zones__header-item,
+.theme-dark .delivery-method__title,
+.theme-dark .delivery-zone__price,
+.theme-dark .info-item__title,
+.theme-dark .delivery-step__title {
+  color: var(--color-primary-light-dark-theme);
+}
+
+.theme-dark .delivery-method__icon,
+.theme-dark .delivery-step__number {
+  background-color: var(--color-primary-dark-theme);
+  color: var(--color-background-dark);
+}
+
+.theme-dark .delivery__tip::before {
+  color: var(--color-primary-dark-theme);
+}
+
+/* Адаптивная верстка */
 @media (max-width: 768px) {
-  .delivery {
-    padding: var(--spacing-xl) 0;
-  }
-
-  .delivery-zones__header,
-  .delivery-zone {
+  .delivery-zone,
+  .delivery-zones__header {
     grid-template-columns: 1fr;
     gap: var(--spacing-sm);
   }
@@ -328,36 +317,46 @@
     display: none;
   }
   
+  .delivery-zone > div {
+    padding: var(--spacing-xs) 0;
+  }
+  
   .delivery-zone__name::before {
-    content: 'Район: ';
+    content: "Район: ";
     font-weight: normal;
     color: var(--color-text-light);
   }
   
   .delivery-zone__price::before {
-    content: 'Стоимость: ';
+    content: "Стоимость: ";
     font-weight: normal;
     color: var(--color-text-light);
   }
   
   .delivery-zone__time::before {
-    content: 'Время: ';
+    content: "Время: ";
     font-weight: normal;
     color: var(--color-text-light);
   }
   
   .delivery-method {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
   
   .delivery-method__icon {
-    margin-bottom: var(--spacing-sm);
+    margin: 0 0 var(--spacing-md);
   }
   
-  .delivery__methods,
-  .delivery__info,
-  .delivery__steps {
+  .delivery-step {
     grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  
+  .delivery-step__number {
+    margin-bottom: var(--spacing-md);
   }
 }
 
