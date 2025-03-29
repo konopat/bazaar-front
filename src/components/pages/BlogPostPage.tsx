@@ -1,10 +1,25 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import Icon from '../common/Icon';
-import BlogPostCard from '../common/BlogPostCard';
 import { BLOG_POSTS } from '../../constants/blog';
+import BlogPostCard from '../common/BlogPostCard';
+import SocialLinks from '../common/SocialLinks';
+import LazyImage from '../common/LazyImage';
 
 import '../../styles/pages/blog-post.css';
+
+// Стили для текста в шапке блога
+const headerTextStyles = {
+  color: '#F4E8DD', // Кремовый белый цвет
+  textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)'
+};
+
+const headerButtonStyles = {
+  color: '#F4E8DD',
+  background: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  transition: 'all 0.3s ease'
+};
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -68,19 +83,24 @@ const BlogPostPage = () => {
         ></div>
       </div>
       
-      <div className="blog-post__header" style={{ backgroundImage: `url(${currentPost.image})` }}>
+      <div 
+        className="blog-post__header" 
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url(${currentPost.image})` 
+        }}
+      >
         <div className="container">
           <div className="blog-post__header-content">
             <button 
               onClick={() => navigate('/blog')} 
               className="blog-post__back-button"
+              style={headerButtonStyles}
             >
               &larr; Вернуться к блогу
             </button>
-            <h1 className="blog-post__title">{currentPost.title}</h1>
+            <h1 className="section-title blog-post__title" style={headerTextStyles}>{currentPost.title}</h1>
             <div className="blog-post__meta">
-              <span className="blog-post__date">{currentPost.date}</span>
-              <span className="blog-post__category">{currentPost.category}</span>
+              <span className="blog-post__category" style={headerTextStyles}>{currentPost.category}</span>
             </div>
           </div>
         </div>
@@ -118,12 +138,14 @@ const BlogPostPage = () => {
                     </div>
                     
                     {section.image && (
-                      <div className="blog-post__image-wrapper">
-                        <img 
+                      <div className="framed-image blog-post__image-wrapper">
+                        <LazyImage 
                           src={section.image} 
                           alt={section.title} 
                           className="blog-post__image"
-                          loading="lazy"
+                          aspectRatio={16/9}
+                          objectFit="cover"
+                          fallbackSrc="/images/blog-placeholder.jpg"
                         />
                       </div>
                     )}
@@ -145,19 +167,10 @@ const BlogPostPage = () => {
             </div>
           )}
           
-          <div className="blog-post__share">
-            <p className="blog-post__share-title">Поделиться:</p>
-            <div className="blog-post__share-buttons">
-              <button className="blog-post__share-button" aria-label="Поделиться в Telegram">
-                <Icon name="telegram" size={20} />
-              </button>
-              <button className="blog-post__share-button" aria-label="Поделиться в WhatsApp">
-                <Icon name="whatsapp" size={20} />
-              </button>
-              <button className="blog-post__share-button" aria-label="Поделиться в Instagram">
-                <Icon name="instagram" size={20} />
-              </button>
-            </div>
+          <div className="blog-post__subscribe">
+            <div className="divider-accent"></div>
+            <h3 className="blog-post__subscribe-title">Подписаться на обновления</h3>
+            <SocialLinks className="blog-post__social-links" />
           </div>
         </div>
         

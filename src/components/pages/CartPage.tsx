@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Icon from '../common/Icon';
 
 interface CartItem {
   id: number;
@@ -9,7 +10,7 @@ interface CartItem {
   image: string;
 }
 
-const CartPage: React.FC = () => {
+const CartPage = () => {
   // Моковые данные корзины
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
@@ -71,6 +72,11 @@ const CartPage: React.FC = () => {
   const deliveryCost = 500;
   const total = subtotal + deliveryCost - promoDiscount;
 
+  // Форматирование цены
+  const formatPrice = (price: number) => {
+    return price.toLocaleString('ru-RU') + ' ₽';
+  };
+
   return (
     <div className="cart">
       <div className="container">
@@ -86,29 +92,32 @@ const CartPage: React.FC = () => {
                   </div>
                   <div className="cart-item__details">
                     <h3 className="cart-item__name">{item.name}</h3>
-                    <div className="cart-item__price">{item.price} ₽</div>
+                    <div className="cart-item__price">{formatPrice(item.price)}</div>
                   </div>
                   <div className="cart-item__quantity">
                     <button 
                       className="cart-item__quantity-btn"
                       onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                      aria-label="Уменьшить количество"
                     >
-                      -
+                      —
                     </button>
                     <span className="cart-item__quantity-value">{item.quantity}</span>
                     <button 
                       className="cart-item__quantity-btn"
                       onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                      aria-label="Увеличить количество"
                     >
                       +
                     </button>
                   </div>
                   <div className="cart-item__total">
-                    {item.price * item.quantity} ₽
+                    {formatPrice(item.price * item.quantity)}
                   </div>
                   <button 
                     className="cart-item__remove"
                     onClick={() => handleRemoveItem(item.id)}
+                    aria-label="Удалить товар"
                   >
                     ✕
                   </button>
@@ -122,26 +131,26 @@ const CartPage: React.FC = () => {
                 
                 <div className="cart-summary__row">
                   <span className="cart-summary__label">Товары</span>
-                  <span className="cart-summary__value">{subtotal} ₽</span>
+                  <span className="cart-summary__value">{formatPrice(subtotal)}</span>
                 </div>
                 
                 <div className="cart-summary__row">
                   <span className="cart-summary__label">Доставка</span>
-                  <span className="cart-summary__value">{deliveryCost} ₽</span>
+                  <span className="cart-summary__value">{formatPrice(deliveryCost)}</span>
                 </div>
                 
                 {promoApplied && (
                   <div className="cart-summary__row cart-summary__row--discount">
-                    <span className="cart-summary__label">Скидка по промокоду</span>
-                    <span className="cart-summary__value">-{promoDiscount} ₽</span>
+                    <span className="cart-summary__label">Скидка</span>
+                    <span className="cart-summary__value">-{formatPrice(promoDiscount)}</span>
                   </div>
                 )}
                 
-                <div className="cart-summary__divider"></div>
+                <div className="divider-accent cart-summary__divider"></div>
                 
                 <div className="cart-summary__row cart-summary__row--total">
                   <span className="cart-summary__label">Итого</span>
-                  <span className="cart-summary__value">{total} ₽</span>
+                  <span className="cart-summary__value">{formatPrice(total)}</span>
                 </div>
                 
                 <div className="cart-summary__promo">
@@ -153,7 +162,7 @@ const CartPage: React.FC = () => {
                     className="cart-summary__promo-input"
                   />
                   <button 
-                    className="button button--apply-promo" 
+                    className="button button--outline" 
                     onClick={handleApplyPromo}
                   >
                     Применить
@@ -170,7 +179,7 @@ const CartPage: React.FC = () => {
                   Нужна помощь с заказом? Позвоните нам:
                 </p>
                 <a href="tel:+79991234567" className="cart-help__phone">
-                  +7 (999) 123-45-67
+                  <Icon name="phone" size={16} /> +7 (999) 123-45-67
                 </a>
               </div>
             </div>
@@ -178,6 +187,9 @@ const CartPage: React.FC = () => {
         ) : (
           <div className="cart__empty">
             <div className="cart-empty">
+              <div className="cart-empty__icon">
+                <Icon name="cart" size={64} />
+              </div>
               <p className="cart-empty__message">
                 Ваша корзина пуста
               </p>

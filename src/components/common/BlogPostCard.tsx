@@ -7,7 +7,7 @@ interface BlogPostCardProps {
 }
 
 const BlogPostCard = ({ post }: BlogPostCardProps) => {
-  const { id, title, excerpt, image, date, category, slug } = post;
+  const { id, title, excerpt, image, category, slug } = post;
 
   return (
     <article className="blog-card">
@@ -20,12 +20,13 @@ const BlogPostCard = ({ post }: BlogPostCardProps) => {
             aspectRatio={16/9}
             containerClassName="blog-card__image-container"
             className="blog-card__image"
+            key={`blog-image-${id}`}
+            objectFit="cover"
           />
           <span className="blog-card__category">{category}</span>
         </div>
         
         <div className="blog-card__content">
-          <span className="blog-card__date">{date}</span>
           <h3 className="blog-card__title">{title}</h3>
           <p className="blog-card__excerpt">{excerpt}</p>
           
