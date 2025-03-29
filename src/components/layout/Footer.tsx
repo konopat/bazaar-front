@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
             <a href={`tel:${PHONE_NUMBER}`} className="footer__contact-item">
               {PHONE_NUMBER}
             </a>
-            <SocialLinks className="footer__social" />
+            <SocialLinks className="social-links--start" />
           </section>
         </div>
 

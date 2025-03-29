@@ -9,6 +9,19 @@
   gap: var(--spacing-md);
 }
 
+/* Модификаторы выравнивания */
+.social-links--end {
+  justify-content: flex-end;
+}
+
+.social-links--start {
+  justify-content: flex-start;
+}
+
+.social-links--center {
+  justify-content: center;
+}
+
 .social-links__item {
   display: flex;
   align-items: center;
@@ -35,6 +48,7 @@
   transform: scale(0);
   transition: transform var(--transition-normal);
   z-index: -1;
+  pointer-events: none;
 }
 
 .social-links__item svg {
@@ -46,6 +60,7 @@
 
 .social-links__item:hover {
   color: var(--color-primary);
+  transform: translateY(-2px);
 }
 
 .social-links__item:hover::before {

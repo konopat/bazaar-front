@@ -115,7 +115,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className="hero__contacts">
               <a href={`tel:${PHONE_NUMBER}`} className="hero__phone">{PHONE_NUMBER}</a>
-              <SocialLinks className="hero__social" />
+              <SocialLinks className="social-links--end" />
             </div>
           </div>
 

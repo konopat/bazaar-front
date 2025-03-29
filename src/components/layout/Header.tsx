@@ -7,12 +7,10 @@ import Navigation from './Navigation';
 import useTheme from '@hooks/useTheme';
 import BazaarLogo from '../common/BazaarLogo';
 import Icon from '../common/Icon';
-import SocialLinks from '../common/SocialLinks';
-import StoreAddresses from '../common/StoreAddresses';
-import { PHONE_NUMBER } from '../../constants/contacts';
+import SideMenu from './SideMenu';
 
 const Header: React.FC = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [isHeaderSticky, setIsHeaderSticky] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const itemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -30,24 +28,24 @@ const Header: React.FC = () => {
   // Объединенный обработчик для внешних событий
   useEffect(() => {
     const handleGlobalEvents = (e: Event) => {
-      if (e.type === 'keydown' && (e as KeyboardEvent).key === 'Escape' && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
+      if (e.type === 'keydown' && (e as KeyboardEvent).key === 'Escape' && isSideMenuOpen) {
+        setIsSideMenuOpen(false);
       }
       
       if (e.type === 'mousedown') {
-        const menu = document.querySelector('.mobile-menu');
+        const menu = document.querySelector('.side-menu');
         const burger = document.querySelector('.burger-menu');
         
         if (menu && 
             !menu.contains(e.target as Node) && 
             !burger?.contains(e.target as Node) &&
-            isMobileMenuOpen) {
-          setIsMobileMenuOpen(false);
+            isSideMenuOpen) {
+          setIsSideMenuOpen(false);
         }
       }
     };
 
-    if (isMobileMenuOpen) {
+    if (isSideMenuOpen) {
       document.addEventListener('mousedown', handleGlobalEvents);
       document.addEventListener('keydown', handleGlobalEvents);
       document.body.style.overflow = 'hidden';
@@ -58,11 +56,11 @@ const Header: React.FC = () => {
       document.removeEventListener('keydown', handleGlobalEvents);
       document.body.style.overflow = '';
     };
-  }, [isMobileMenuOpen]);
+  }, [isSideMenuOpen]);
 
-  const toggleMobileMenu = useCallback((e: MouseEvent) => {
+  const toggleSideMenu = useCallback((e: MouseEvent) => {
     e.stopPropagation();
-    setIsMobileMenuOpen(prev => !prev);
+    setIsSideMenuOpen(prev => !prev);
   }, []);
 
   return (
@@ -70,8 +68,8 @@ const Header: React.FC = () => {
       <div className={`header__top ${isHeaderSticky ? 'header__top--sticky' : ''}`}>
         <div className="header__top-content">
           <button 
-            className={`burger-menu ${isMobileMenuOpen ? 'burger-menu--active' : ''}`}
-            onClick={toggleMobileMenu}
+            className={`burger-menu ${isSideMenuOpen ? 'burger-menu--active' : ''}`}
+            onClick={toggleSideMenu}
             aria-label="Открыть меню"
           >
             <span></span>
@@ -111,21 +109,10 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      <div className={`mobile-menu ${isMobileMenuOpen ? 'mobile-menu--open' : ''}`}>
-        <div className="mobile-menu__content">
-          <Navigation className="mobile-menu__nav" onLinkClick={toggleMobileMenu} />
-          
-          <div className="mobile-menu__info">
-            <h3 className="mobile-menu__subtitle">Наши магазины</h3>
-            <StoreAddresses className="mobile-menu__stores" />
-            
-            <div className="mobile-menu__contacts">
-              <a href={`tel:${PHONE_NUMBER}`} className="mobile-menu__main-phone">{PHONE_NUMBER}</a>
-              <SocialLinks className="mobile-menu__social" />
-            </div>
-          </div>
-        </div>
-      </div>
+      <SideMenu 
+        isOpen={isSideMenuOpen} 
+        onLinkClick={toggleSideMenu} 
+      />
     </>
   );
 };

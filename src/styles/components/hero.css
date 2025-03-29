@@ -40,6 +40,11 @@
 
 .hero__contacts {
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1;
+  position: relative;
 }
 
 .hero__phone {
@@ -54,38 +59,6 @@
 
 .hero__phone:hover {
   color: var(--color-primary);
-}
-
-.hero__social {
-  display: flex;
-  gap: 16px;
-  justify-content: flex-end;
-}
-
-.hero__social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: var(--color-background);
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-
-.hero__social-link svg {
-  width: 20px;
-  height: 20px;
-  fill: var(--color-text);
-  transition: all 0.3s ease;
-}
-
-.hero__social-link:hover {
-  background: var(--color-primary);
-}
-
-.hero__social-link:hover svg {
-  fill: var(--color-background);
 }
 
 .hero__title {
@@ -185,18 +158,3 @@
   color: var(--color-text);
 }
 
-.theme-dark .hero__social-link {
-  background: var(--color-card-background);
-}
-
-.theme-dark .hero__social-link svg {
-  fill: var(--color-text);
-}
-
-.theme-dark .hero__social-link:hover {
-  background: var(--color-primary);
-}
-
-.theme-dark .hero__social-link:hover svg {
-  fill: var(--color-secondary);
-}

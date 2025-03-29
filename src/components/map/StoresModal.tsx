@@ -5,7 +5,6 @@ import StoresList from './StoresList';
 import StoreDetails from './StoreDetails';
 import Skeleton from '../common/Skeleton';
 import { STORES } from '../../constants/contacts';
-import { Store } from '../../hooks/useMap';
 
 interface StoresModalProps {
   isOpen: boolean;

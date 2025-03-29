@@ -62,10 +62,6 @@
   color: var(--color-text);
 }
 
-.footer__social {
-  margin-top: var(--spacing-sm);
-}
-
 .footer__bottom {
   margin-top: var(--spacing-2xl);
   padding-top: var(--spacing-xl);
@@ -109,9 +105,5 @@
 }
 
 .theme-dark .footer__nav-link:hover {
-  color: var(--color-primary);
-}
-
-.theme-dark .footer__social-link:hover {
   color: var(--color-primary);
 } 
