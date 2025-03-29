@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Icon from '../common/Icon';
+import BlogPostCard from '../common/BlogPostCard';
 import { BLOG_POSTS } from '../../constants/blog';
 
 import '../../styles/pages/blog-post.css';
@@ -34,6 +35,14 @@ const BlogPostPage = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Прокрутка вверх при первой загрузке страницы
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [slug]);
 
   // Если пост не найден, перенаправляем на страницу блога
   useEffect(() => {
@@ -159,25 +168,7 @@ const BlogPostPage = () => {
             <h2 className="section-title section-title--centered">Похожие статьи</h2>
             <div className="blog-post__related-posts">
               {relatedPosts.map(post => post && (
-                <article key={post.id} className="blog-card">
-                  <div className="blog-card__image-wrapper">
-                    <img 
-                      src={post.image} 
-                      alt={post.title} 
-                      className="blog-card__image" 
-                      loading="lazy"
-                    />
-                    <span className="blog-card__category">{post.category}</span>
-                  </div>
-                  <div className="blog-card__content">
-                    <span className="blog-card__date">{post.date}</span>
-                    <h3 className="blog-card__title">{post.title}</h3>
-                    <p className="blog-card__excerpt">{post.excerpt}</p>
-                    <a href={`/blog/${post.slug}`} className="blog-card__link">
-                      Читать дальше
-                    </a>
-                  </div>
-                </article>
+                <BlogPostCard key={post.id} post={post} />
               ))}
             </div>
           </div>

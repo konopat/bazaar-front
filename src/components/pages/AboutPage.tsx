@@ -8,6 +8,7 @@ import {
 } from '../../constants/about';
 import StoresModal from '../map/StoresModal';
 import Icon from '../common/Icon';
+import LazyImage from '@components/common/LazyImage';
 
 // Функция для сопоставления эмодзи с именами иконок
 const getIconNameForValue = (emoji: string) => {
@@ -43,7 +44,13 @@ const AboutPage: React.FC = () => {
           <h2 className="section-title">История нашего бренда</h2>
           <div className="about__content">
             <div className="framed-image">
-              <img src="/images/about/about-history.jpg" alt="История Bazaar" />
+              <LazyImage
+                src="/images/about/about-history.jpg"
+                alt="История Bazaar"
+                fallbackSrc="/images/about/about-history.jpg"
+                containerClassName="framed-image__image-wrapper"
+                className="framed-image__image"
+              />
             </div>
             <div className="about__text-block">
               <p className="about__paragraph">{ABOUT_COMPANY_TEXT.main}</p>

@@ -7,46 +7,6 @@
   margin: 30px auto;
 }
 
-.search-field {
-  position: relative;
-  display: flex;
-  width: 100%;
-}
-
-.search-field__input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  font-size: 16px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.search-field__input:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.1);
-}
-
-.search-field__button {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: var(--color-text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.search-field__button:hover {
-  color: var(--color-primary);
-}
-
 /* Структура контента */
 .blog__content {
   display: grid;
@@ -107,103 +67,118 @@
 /* Карточки блога */
 .blog__posts {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
-  margin-bottom: 40px;
 }
 
 .blog-card {
-  background: var(--color-background);
-  border-radius: 4px;
+  background-color: var(--color-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .blog-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
 }
 
-.blog-card__image-wrapper {
+.blog-card__link-wrapper {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.blog-card__image-container {
   position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .blog-card__image {
-  display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-card__image {
+  transform: scale(1.05);
 }
 
 .blog-card__category {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  padding: 4px 8px;
-  background: var(--color-primary);
+  top: 12px;
+  right: 12px;
+  padding: 4px 12px;
+  background-color: rgba(var(--color-primary-rgb), 0.85);
   color: var(--color-background);
   font-size: 12px;
   font-weight: 500;
-  border-radius: 2px;
+  border-radius: 20px;
 }
 
 .blog-card__content {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  padding: 24px;
 }
 
 .blog-card__date {
+  display: block;
   font-size: 14px;
   color: var(--color-text-secondary);
   margin-bottom: 8px;
-  display: block;
 }
 
 .blog-card__title {
-  margin: 0 0 12px;
   font-size: 18px;
   font-weight: 600;
   line-height: 1.4;
+  margin: 0 0 12px;
   color: var(--color-text);
+  transition: color 0.2s ease;
+}
+
+.blog-card:hover .blog-card__title {
+  color: var(--color-primary);
 }
 
 .blog-card__excerpt {
-  margin: 0 0 16px;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
+  margin-bottom: 16px;
   color: var(--color-text-secondary);
-  flex-grow: 1;
+  /* Ограничиваем высоту, чтобы все карточки были примерно одинаковой высоты */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.blog-card__link {
-  align-self: flex-start;
-  color: var(--color-primary);
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.2s ease;
+.blog-card__action {
+  margin-top: auto;
+}
+
+.blog-card__read-more {
   display: inline-flex;
   align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-primary);
+  transition: color 0.2s ease;
 }
 
-.blog-card__link::after {
-  content: '→';
-  margin-left: 4px;
+.blog-card__arrow {
+  display: inline-block;
+  margin-left: 8px;
   transition: transform 0.2s ease;
 }
 
-.blog-card__link:hover {
-  color: var(--color-primary-dark);
-}
-
-.blog-card__link:hover::after {
-  transform: translateX(2px);
+.blog-card:hover .blog-card__arrow {
+  transform: translateX(4px);
 }
 
 /* Пагинация */
@@ -211,32 +186,31 @@
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-top: 24px;
+  margin-top: 40px;
 }
 
 .pagination__button {
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
   background: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: var(--color-text);
 }
 
-.pagination__button:hover:not(:disabled) {
+.pagination__button:hover {
   background: var(--color-background-secondary);
 }
 
 .pagination__button--active {
   background: var(--color-primary);
-  border-color: var(--color-primary);
   color: var(--color-background);
+  border-color: var(--color-primary);
 }
 
 .pagination__button:disabled {
@@ -247,41 +221,39 @@
 /* Сообщение об отсутствии результатов */
 .blog__no-results {
   text-align: center;
-  padding: 40px;
-  background: var(--color-background-secondary);
-  border-radius: 4px;
+  padding: 60px 0;
 }
 
 .blog__no-results p {
-  margin: 0 0 20px;
-  color: var(--color-text);
+  margin-bottom: 24px;
   font-size: 18px;
+  color: var(--color-text-secondary);
 }
 
 /* Адаптивность */
-@media (max-width: 1024px) {
+@media (max-width: 992px) {
   .blog__content {
-    grid-template-columns: 240px 1fr;
-    gap: 24px;
+    grid-template-columns: 1fr;
+  }
+  
+  .blog__sidebar {
+    position: static;
+    margin-bottom: 32px;
+  }
+  
+  .blog__categories {
+    padding: 16px;
+  }
+  
+  .categories-list {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
 
 @media (max-width: 768px) {
-  .blog {
-    padding: 40px 0;
-  }
-
-  .blog__content {
-    grid-template-columns: 1fr;
-  }
-
-  .blog__sidebar {
-    position: static;
-    margin-bottom: 24px;
-  }
-
   .blog__posts {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
 

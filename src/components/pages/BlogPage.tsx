@@ -1,5 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Icon from '../../components/common/Icon';
+import BlogPostCard from '../common/BlogPostCard';
+import SearchField from '../common/SearchField';
 import { BLOG_POSTS, CATEGORIES, POSTS_PER_PAGE } from '../../constants/blog';
 
 import '../../styles/pages/blog.css';
@@ -33,10 +35,18 @@ const BlogPage = () => {
   const indexOfFirstPost = indexOfLastPost - POSTS_PER_PAGE;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
   
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
+  
   const handleCategoryChange = useCallback((categorySlug: string) => {
     setSelectedCategory(categorySlug);
     setCurrentPage(1); // Сбрасываем страницу при смене категории
-  }, []);
+    scrollToTop();
+  }, [scrollToTop]);
   
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -45,7 +55,8 @@ const BlogPage = () => {
   
   const handlePageChange = useCallback((pageNumber: number) => {
     setCurrentPage(pageNumber);
-  }, []);
+    scrollToTop();
+  }, [scrollToTop]);
 
   const handleResetFilters = useCallback(() => {
     setSearchQuery('');
@@ -53,25 +64,22 @@ const BlogPage = () => {
     setCurrentPage(1);
   }, []);
 
+  // Прокрутка вверх при первой загрузке страницы
+  useEffect(() => {
+    scrollToTop();
+  }, [scrollToTop]);
+
   return (
     <div className="blog">
       <div className="container">
         <h1 className="section-title section-title--centered">Блог</h1>
         
         <div className="blog__search">
-          <div className="search-field">
-            <input
-              type="text"
-              placeholder="Поиск по статьям..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="search-field__input"
-              aria-label="Поиск по блогу"
-            />
-            <button className="search-field__button" aria-label="Искать">
-              <Icon name="search" size={20} />
-            </button>
-          </div>
+          <SearchField
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Поиск по статьям..."
+          />
         </div>
         
         <div className="blog__content">
@@ -102,25 +110,7 @@ const BlogPage = () => {
               <>
                 <div className="blog__posts">
                   {currentPosts.map(post => (
-                    <article key={post.id} className="blog-card">
-                      <div className="blog-card__image-wrapper">
-                        <img 
-                          src={post.image} 
-                          alt={post.title} 
-                          className="blog-card__image" 
-                          loading="lazy"
-                        />
-                        <span className="blog-card__category">{post.category}</span>
-                      </div>
-                      <div className="blog-card__content">
-                        <span className="blog-card__date">{post.date}</span>
-                        <h3 className="blog-card__title">{post.title}</h3>
-                        <p className="blog-card__excerpt">{post.excerpt}</p>
-                        <a href={`/blog/${post.slug}`} className="blog-card__link">
-                          Читать дальше
-                        </a>
-                      </div>
-                    </article>
+                    <BlogPostCard key={post.id} post={post} />
                   ))}
                 </div>
                 

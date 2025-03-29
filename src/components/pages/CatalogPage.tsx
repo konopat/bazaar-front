@@ -4,6 +4,7 @@ import { Product, products } from '../../mocks/products';
 import ProductCard from '../catalog/ProductCard';
 import ColorFilter from '../catalog/ColorFilter';
 import PriceFilter from '../catalog/PriceFilter';
+import SearchField from '../common/SearchField';
 import useScrollToTop from '../../hooks/useScrollToTop';
 
 const CatalogPage: React.FC = () => {
@@ -109,6 +110,10 @@ const CatalogPage: React.FC = () => {
   const activeFilters = getActiveFilters();
   const isAnyFilterActive = activeFilters.length > 0;
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div className="catalog">
       <div className="container">
@@ -117,12 +122,10 @@ const CatalogPage: React.FC = () => {
         </div>
         
         <div className="catalog__search">
-          <input
-            type="text"
-            className="catalog__search-input"
-            placeholder="Поиск букетов..."
+          <SearchField
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleSearchChange}
+            placeholder="Поиск букетов..."
           />
         </div>
 
