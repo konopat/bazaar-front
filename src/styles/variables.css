@@ -6,7 +6,7 @@
 :root {
   /* Основные цвета - светлая тема (пастельные оттенки) */
   --color-primary: #D4A977; /* теплое золото */
-  --primary-rgb: 212, 169, 119; /* RGB версия --color-primary */
+  --color-primary-rgb: 212, 169, 119; /* RGB версия --color-primary */
   --color-primary-light: #E6C7A0;
   --color-primary-dark: #B08A5E;
   
@@ -31,12 +31,14 @@
   --color-text: #4A433B; /* глубокий теплый серый */
   --color-text-light: #766E65;
   --color-text-lighter: #9A938A;
+  --color-text-secondary: #766E65; /* для вторичного текста */
   --color-gray: #B5ADA3;
   --color-light-gray: #F7F3EC;
   
   /* Фоны */
   --color-background: #FFFBF6; /* очень светлый кремовый */
   --color-background-light: #F9F5EF;
+  --color-background-secondary: #F4EFE8; /* вторичный фон */
   --color-background-alt: #F4EFE8;
   --color-border: #E9E2D8;
   --color-card-background: #FFFFFF;
@@ -44,9 +46,11 @@
   /* Темная тема - значения по умолчанию (используются в .theme-dark) */
   --color-background-dark: #121212; /* глубокий черный */
   --color-background-light-dark: #1A1A1A;
+  --color-background-secondary-dark: #1E1E1E; /* вторичный фон для темной темы */
   --color-card-background-dark: #222222;
   --color-text-dark: #F4E8DD; /* кремовый белый */
   --color-text-light-dark: #BEB5A7;
+  --color-text-secondary-dark: #BEB5A7; /* вторичный текст для темной темы */
   --color-border-dark: #2A2A2A;
   --color-quiz-background-dark: #1E1E1E;
   
@@ -133,12 +137,14 @@
   /* Переопределяем фоны и границы */
   --color-background: var(--color-background-dark);
   --color-background-light: var(--color-background-light-dark);
+  --color-background-secondary: var(--color-background-secondary-dark);
   --color-card-background: var(--color-card-background-dark);
   --color-border: var(--color-border-dark);
   
   /* Переопределяем текст */
   --color-text: var(--color-text-dark);
   --color-text-light: var(--color-text-light-dark);
+  --color-text-secondary: var(--color-text-secondary-dark);
   --color-gray: #777777;
   --color-light-gray: #333333;
   

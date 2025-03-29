@@ -1,100 +1,29 @@
-import React, { useState } from 'react';
+import { useState, useCallback } from 'react';
+import Icon from '../../components/common/Icon';
+import { BLOG_POSTS, CATEGORIES, POSTS_PER_PAGE } from '../../constants/blog';
 
-interface BlogPost {
-  id: number;
-  title: string;
-  excerpt: string;
-  image: string;
-  date: string;
-  category: string;
-  slug: string;
-}
+import '../../styles/pages/blog.css';
 
-interface Category {
-  id: number;
-  name: string;
-  slug: string;
-}
-
-const BLOG_POSTS: BlogPost[] = [
-  {
-    id: 1,
-    title: 'Как сохранить букет свежим дольше',
-    excerpt: 'Узнайте простые и эффективные способы продлить жизнь срезанных цветов в домашних условиях',
-    image: '/images/blog/blog-1.jpg',
-    date: '15 мая 2023',
-    category: 'Советы',
-    slug: 'keep-flowers-fresh'
-  },
-  {
-    id: 2,
-    title: 'Тренды флористики 2023',
-    excerpt: 'Обзор самых популярных цветочных композиций, цветовых сочетаний и стилей в этом сезоне',
-    image: '/images/blog/blog-2.jpg',
-    date: '3 апреля 2023',
-    category: 'Тренды',
-    slug: 'floral-trends-2023'
-  },
-  {
-    id: 3,
-    title: 'Язык цветов: что означают разные цветы',
-    excerpt: 'История флориографии и значения популярных цветов в разных культурах',
-    image: '/images/blog/blog-3.jpg',
-    date: '21 марта 2023',
-    category: 'История',
-    slug: 'flower-language'
-  },
-  {
-    id: 4,
-    title: 'Букет на свадьбу: как выбрать идеальный',
-    excerpt: 'Советы по выбору свадебного букета, который идеально дополнит образ невесты',
-    image: '/images/blog/blog-4.jpg',
-    date: '15 февраля 2023',
-    category: 'Свадьба',
-    slug: 'wedding-bouquet'
-  },
-  {
-    id: 5,
-    title: 'Растения для офиса: топ-10 неприхотливых видов',
-    excerpt: 'Какие растения выбрать для офисного пространства, чтобы создать уютную атмосферу',
-    image: '/images/blog/blog-5.jpg',
-    date: '10 января 2023',
-    category: 'Комнатные растения',
-    slug: 'office-plants'
-  },
-  {
-    id: 6,
-    title: 'Сезонные цветы: что цветет зимой',
-    excerpt: 'Обзор зимних цветов и растений, которые помогут создать праздничное настроение',
-    image: '/images/blog/blog-6.jpg',
-    date: '5 декабря 2022',
-    category: 'Сезонные цветы',
-    slug: 'winter-flowers'
-  }
-];
-
-const CATEGORIES: Category[] = [
-  { id: 1, name: 'Все', slug: 'all' },
-  { id: 2, name: 'Советы', slug: 'tips' },
-  { id: 3, name: 'Тренды', slug: 'trends' },
-  { id: 4, name: 'История', slug: 'history' },
-  { id: 5, name: 'Свадьба', slug: 'wedding' },
-  { id: 6, name: 'Комнатные растения', slug: 'indoor-plants' },
-  { id: 7, name: 'Сезонные цветы', slug: 'seasonal-flowers' }
-];
-
-const POSTS_PER_PAGE = 4;
-
-const BlogPage: React.FC = () => {
+const BlogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
   
   // Фильтрация постов по категории и поисковому запросу
   const filteredPosts = BLOG_POSTS.filter(post => {
-    const matchesCategory = selectedCategory === 'all' || post.category.toLowerCase() === selectedCategory;
+    // Находим соответствующую категорию
+    const categoryItem = CATEGORIES.find(cat => 
+      cat.slug === selectedCategory || (selectedCategory === 'all' && cat.name === 'Все')
+    );
+    
+    // Проверяем соответствие категории
+    const matchesCategory = selectedCategory === 'all' || 
+                           (categoryItem && post.category === categoryItem.name);
+    
+    // Проверяем поисковый запрос
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                           post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    
     return matchesCategory && matchesSearch;
   });
   
@@ -104,19 +33,25 @@ const BlogPage: React.FC = () => {
   const indexOfFirstPost = indexOfLastPost - POSTS_PER_PAGE;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
   
-  const handleCategoryChange = (categorySlug: string) => {
+  const handleCategoryChange = useCallback((categorySlug: string) => {
     setSelectedCategory(categorySlug);
     setCurrentPage(1); // Сбрасываем страницу при смене категории
-  };
+  }, []);
   
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1); // Сбрасываем страницу при поиске
-  };
+  }, []);
   
-  const handlePageChange = (pageNumber: number) => {
+  const handlePageChange = useCallback((pageNumber: number) => {
     setCurrentPage(pageNumber);
-  };
+  }, []);
+
+  const handleResetFilters = useCallback(() => {
+    setSearchQuery('');
+    setSelectedCategory('all');
+    setCurrentPage(1);
+  }, []);
 
   return (
     <div className="blog">
@@ -131,9 +66,10 @@ const BlogPage: React.FC = () => {
               value={searchQuery}
               onChange={handleSearchChange}
               className="search-field__input"
+              aria-label="Поиск по блогу"
             />
-            <button className="search-field__button">
-              🔍
+            <button className="search-field__button" aria-label="Искать">
+              <Icon name="search" size={20} />
             </button>
           </div>
         </div>
@@ -141,7 +77,7 @@ const BlogPage: React.FC = () => {
         <div className="blog__content">
           <aside className="blog__sidebar">
             <div className="blog__categories">
-              <h2 className="blog__sidebar-title">Категории</h2>
+              <h2 className="section-title">Категории</h2>
               <ul className="categories-list">
                 {CATEGORIES.map(category => (
                   <li 
@@ -151,6 +87,7 @@ const BlogPage: React.FC = () => {
                     <button
                       onClick={() => handleCategoryChange(category.slug)}
                       className="categories-list__button"
+                      aria-current={selectedCategory === category.slug ? 'true' : 'false'}
                     >
                       {category.name}
                     </button>
@@ -167,7 +104,12 @@ const BlogPage: React.FC = () => {
                   {currentPosts.map(post => (
                     <article key={post.id} className="blog-card">
                       <div className="blog-card__image-wrapper">
-                        <img src={post.image} alt={post.title} className="blog-card__image" />
+                        <img 
+                          src={post.image} 
+                          alt={post.title} 
+                          className="blog-card__image" 
+                          loading="lazy"
+                        />
                         <span className="blog-card__category">{post.category}</span>
                       </div>
                       <div className="blog-card__content">
@@ -188,6 +130,7 @@ const BlogPage: React.FC = () => {
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
                       className="pagination__button"
+                      aria-label="Предыдущая страница"
                     >
                       &larr;
                     </button>
@@ -197,6 +140,8 @@ const BlogPage: React.FC = () => {
                         key={number}
                         onClick={() => handlePageChange(number)}
                         className={`pagination__button ${currentPage === number ? 'pagination__button--active' : ''}`}
+                        aria-current={currentPage === number ? 'page' : undefined}
+                        aria-label={`Страница ${number}`}
                       >
                         {number}
                       </button>
@@ -206,6 +151,7 @@ const BlogPage: React.FC = () => {
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage === totalPages}
                       className="pagination__button"
+                      aria-label="Следующая страница"
                     >
                       &rarr;
                     </button>
@@ -216,10 +162,7 @@ const BlogPage: React.FC = () => {
               <div className="blog__no-results">
                 <p>По вашему запросу ничего не найдено</p>
                 <button 
-                  onClick={() => {
-                    setSearchQuery('');
-                    setSelectedCategory('all');
-                  }}
+                  onClick={handleResetFilters}
                   className="button button--primary"
                 >
                   Сбросить фильтры
@@ -228,6 +171,8 @@ const BlogPage: React.FC = () => {
             )}
           </main>
         </div>
+        
+        <div className="divider-accent"></div>
       </div>
     </div>
   );
