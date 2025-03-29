@@ -303,10 +303,19 @@ body[data-theme="dark"] .stores-map__skeleton {
 
 .stores-map__skeleton-container {
   width: 100%;
-  height: 300px;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  margin-bottom: var(--spacing-md);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+}
+
+[data-theme="dark"] .stores-map__skeleton-container {
+  background-color: rgba(18, 18, 18, 0.8);
 }
 
 .stores-modal-content {
@@ -361,19 +370,241 @@ body[data-theme="dark"] .stores-map__skeleton {
   }
 }
 
-.stores-map__skeleton-container {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 5;
+.stores-map-wrapper {
+  flex: 2;
+  min-height: 300px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-primary);
+  border: 1px solid var(--color-border);
 }
 
-/* Отменим стандартные стили для контейнера карты в модальном окне */
-.stores-modal-content .stores-map {
-  height: auto;
+[data-theme="dark"] .stores-map-wrapper {
+  box-shadow: 0 4px 12px rgba(212, 169, 119, 0.2);
+  border: 1px solid rgba(212, 169, 119, 0.4);
+}
+
+.stores-modal-details-column {
+  flex: 1;
+  min-height: 250px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .stores-modal-details-column {
+  border-color: rgba(212, 169, 119, 0.3);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.1);
+}
+
+.stores-modal-list-column {
+  flex: 1;
+}
+
+.stores-modal-list-column .stores-map__list {
+  max-height: 300px;
+  overflow-y: auto;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.stores-modal-list-column .stores-map__store-button {
+  width: 100%;
+  min-width: auto;
+}
+
+/* Адаптивные стили для десктопов */
+@media (min-width: 768px) {
+  .stores-modal-layout {
+    flex-direction: row;
+    align-items: stretch;
+    height: 600px;
+  }
+  
+  .stores-modal-map-column {
+    flex: 3;
+    min-height: 100%;
+    max-width: 65%;
+  }
+  
+  .stores-modal-list-column {
+    flex: 2;
+    max-width: 35%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stores-modal-list-column .stores-map__list {
+    flex: 1;
+    max-height: none;
+  }
+  
+  .stores-map-wrapper {
+    height: 60% !important;
+  }
+  
+  .stores-modal-details-column {
+    height: 40%;
+  }
+}
+
+/* Стили для компонента StoreDetails */
+.store-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  background-color: var(--color-background);
+  height: 100%;
+}
+
+[data-theme="dark"] .store-details {
+  background-color: rgba(18, 18, 18, 0.8);
+}
+
+.store-details--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+.store-details__photo-container {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .store-details__photo-container {
+  border-color: rgba(212, 169, 119, 0.3);
+}
+
+.store-details__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.store-details__photo:hover {
+  transform: scale(1.05);
+}
+
+.store-details__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.store-details__name {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm);
+}
+
+[data-theme="dark"] .store-details__name {
+  color: #F4E8DD;
+}
+
+.store-details__address,
+.store-details__phone,
+.store-details__status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.store-details__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.store-details__link {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-normal);
+}
+
+.store-details__link:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+[data-theme="dark"] .store-details__link {
+  color: #D4A977;
+}
+
+[data-theme="dark"] .store-details__link:hover {
+  color: #E8D6C6;
+}
+
+.store-details__status--open {
+  color: var(--color-success);
+}
+
+.store-details__status--closed {
+  color: var(--color-error);
+}
+
+[data-theme="dark"] .store-details__status--open {
+  color: #6CBB87;
+}
+
+[data-theme="dark"] .store-details__status--closed {
+  color: #E57373;
+}
+
+/* Адаптивные стили для компонента StoreDetails */
+@media (min-width: 768px) {
+  .stores-modal-map-column {
+    position: relative;
+  }
+  
+  .stores-modal-details-column {
+    flex: 1;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}
+
+/* Исправляем отображение карты в модальном окне */
+.stores-modal-map-column .stores-map {
+  height: 100%;
+  margin-top: 0;
   opacity: 1;
+}
+
+/* Исправляем контейнер карты в модальном окне */
+.stores-modal-map-column .stores-map__container {
+  min-height: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* В модальном окне скелетон должен полностью покрывать область карты */
+.stores-map-wrapper .stores-map__skeleton-container {
+  border-radius: var(--border-radius);
+}
+
+/* Убедимся, что карта занимает все доступное пространство */
+.stores-map-wrapper .stores-map,
+.stores-map-wrapper .stores-map__container {
+  height: 100% !important;
+  width: 100% !important;
+  min-height: inherit !important;
+  max-height: inherit !important;
 }
 
 .stores-section-title {
@@ -401,7 +632,7 @@ body[data-theme="dark"] .stores-map__skeleton {
   color: #F4E8DD;
 }
 
-/* Стили для модального окна с двухколоночным лэйаутом */
+/* Обновленные стили для модального окна с двухколоночным лэйаутом */
 .stores-modal-layout {
   display: flex;
   flex-direction: column;
@@ -411,7 +642,38 @@ body[data-theme="dark"] .stores-map__skeleton {
 
 .stores-modal-map-column {
   flex: 1;
-  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  min-height: 600px;
+}
+
+.stores-map-wrapper {
+  flex: 2;
+  min-height: 300px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-primary);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .stores-map-wrapper {
+  box-shadow: 0 4px 12px rgba(212, 169, 119, 0.2);
+  border: 1px solid rgba(212, 169, 119, 0.4);
+}
+
+.stores-modal-details-column {
+  flex: 1;
+  min-height: 250px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .stores-modal-details-column {
+  border-color: rgba(212, 169, 119, 0.3);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.1);
 }
 
 .stores-modal-list-column {
@@ -430,22 +692,23 @@ body[data-theme="dark"] .stores-map__skeleton {
   min-width: auto;
 }
 
-/* Стили для планшетов и десктопов */
+/* Адаптивные стили для десктопов */
 @media (min-width: 768px) {
   .stores-modal-layout {
     flex-direction: row;
     align-items: stretch;
-    height: 500px;
+    height: 600px;
   }
   
   .stores-modal-map-column {
     flex: 3;
     min-height: 100%;
+    max-width: 65%;
   }
   
   .stores-modal-list-column {
     flex: 2;
-    max-width: 350px;
+    max-width: 35%;
     display: flex;
     flex-direction: column;
   }
@@ -453,5 +716,13 @@ body[data-theme="dark"] .stores-map__skeleton {
   .stores-modal-list-column .stores-map__list {
     flex: 1;
     max-height: none;
+  }
+  
+  .stores-map-wrapper {
+    height: 60% !important;
+  }
+  
+  .stores-modal-details-column {
+    height: 40%;
   }
 } 

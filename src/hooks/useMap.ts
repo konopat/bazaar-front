@@ -19,6 +19,17 @@ export interface Store {
   name: string;
   address: string;
   coordinates: [number, number];
+  phone?: string;
+  workSchedule?: {
+    monday: { open: string; close: string; dayOff: boolean };
+    tuesday: { open: string; close: string; dayOff: boolean };
+    wednesday: { open: string; close: string; dayOff: boolean };
+    thursday: { open: string; close: string; dayOff: boolean };
+    friday: { open: string; close: string; dayOff: boolean };
+    saturday: { open: string; close: string; dayOff: boolean };
+    sunday: { open: string; close: string; dayOff: boolean };
+  };
+  photo?: string;
 }
 
 interface UseMapOptions {

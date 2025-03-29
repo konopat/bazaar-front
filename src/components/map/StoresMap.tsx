@@ -42,8 +42,8 @@ const StoresMap = ({
   });
 
   return (
-    <div className={`stores-map ${!isLoading ? 'stores-map--visible' : ''}`}>
-      <div className="stores-map__container" ref={mapRef}>
+    <div className={`stores-map ${!isLoading ? 'stores-map--visible' : ''}`} style={{ height: '100%', width: '100%' }}>
+      <div className="stores-map__container" ref={mapRef} style={{ height: '100%', width: '100%' }}>
         {/* Сообщение об ошибке */}
         {isError && (
           <div className="stores-map__error">

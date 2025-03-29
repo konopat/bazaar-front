@@ -1,7 +1,8 @@
-import { useReducer, useEffect, useCallback } from 'react';
+import { useReducer, useEffect, useCallback, useMemo } from 'react';
 import Modal from '../common/Modal';
 import StoresMap from './StoresMap';
 import StoresList from './StoresList';
+import StoreDetails from './StoreDetails';
 import Skeleton from '../common/Skeleton';
 import { STORES } from '../../constants/contacts';
 import { Store } from '../../hooks/useMap';
@@ -55,6 +56,12 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { selectedStoreId, isMapLoading, showMap } = state;
   
+  // Находим выбранный магазин
+  const selectedStore = useMemo(() => {
+    if (!selectedStoreId) return undefined;
+    return STORES.find(store => store.id === selectedStoreId);
+  }, [selectedStoreId]);
+  
   // Сбрасываем состояния при закрытии и открытии модального окна
   useEffect(() => {
     if (isOpen) {
@@ -95,10 +102,10 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
           {/* Левая колонка с картой */}
           <div className="stores-modal-map-column">
             {/* Контейнер карты со скелетоном */}
-            <div className="stores-map__container">
+            <div className="stores-map-wrapper" style={{ height: '100%', width: '100%', position: 'relative' }}>
               {isMapLoading && (
                 <div className="stores-map__skeleton-container">
-                  <Skeleton height={300} width="100%" />
+                  <Skeleton height="100%" width="100%" />
                 </div>
               )}
               
@@ -107,7 +114,11 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
                 <div style={{ 
                   opacity: isMapLoading ? 0 : 1, 
                   transition: 'opacity 0.3s ease-in-out',
-                  height: '100%'
+                  height: '100%',
+                  width: '100%',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0
                 }}>
                   <StoresMap
                     stores={STORES}
@@ -118,6 +129,11 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
                   />
                 </div>
               )}
+            </div>
+            
+            {/* Детальная информация о выбранном магазине */}
+            <div className="stores-modal-details-column">
+              <StoreDetails store={selectedStore} />
             </div>
           </div>
           
