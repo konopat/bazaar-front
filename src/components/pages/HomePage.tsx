@@ -161,6 +161,7 @@ const HomePage: React.FC = () => {
                   containerClassName="adsblock__img-wrapper"
                   className="adsblock__img"
                   objectFit="cover"
+                  aspectRatio={1}
                 />
               </div>
               <div className="adsblock__content">
