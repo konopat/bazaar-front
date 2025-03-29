@@ -40,7 +40,7 @@ export interface Store {
   id: string;
   name: string;
   address: string;
-  coordinates: [number, number]; // [долгота, широта]
+  coordinates: [number, number]; // [широта, долгота]
   phone: string; // Телефон магазина
   workSchedule: WorkSchedule; // Расписание работы
   photo: string; // URL фотографии входной группы

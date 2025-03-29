@@ -39,7 +39,7 @@ interface UseMapOptions {
   onMapReady?: () => void;
   initialZoom?: number;
   maxZoom?: number;
-  centerCoordinates?: [number, number];
+  centerCoordinates?: [number, number]; // [широта, долгота]
 }
 
 export const useMap = (stores: Store[], selectedStoreId?: string, options?: UseMapOptions) => {
@@ -47,7 +47,7 @@ export const useMap = (stores: Store[], selectedStoreId?: string, options?: UseM
     onMapReady,
     initialZoom = 12,
     maxZoom = 19,
-    centerCoordinates = [104.280094, 52.287430] // Иркутск по умолчанию
+    centerCoordinates = [52.287430, 104.280094] // Иркутск по умолчанию [широта, долгота]
   } = options || {};
 
   // Мемоизируем координаты центра, чтобы избежать лишних перерисовок
@@ -102,7 +102,7 @@ export const useMap = (stores: Store[], selectedStoreId?: string, options?: UseM
           vectorLayerRef.current,
         ],
         view: new View({
-          center: fromLonLat(memoizedCenter),
+          center: fromLonLat([memoizedCenter[1], memoizedCenter[0]]), // Конвертируем [широта, долгота] в [долгота, широта] для OL
           zoom: memoizedZoom.initial,
           maxZoom: memoizedZoom.max,
         }),
@@ -194,7 +194,7 @@ export const useMap = (stores: Store[], selectedStoreId?: string, options?: UseM
       // Добавляем маркеры для каждого магазина
       const features = stores.map(store => {
         const feature = new Feature({
-          geometry: new Point(fromLonLat(store.coordinates)),
+          geometry: new Point(fromLonLat([store.coordinates[1], store.coordinates[0]])), // Конвертируем [широта, долгота] в [долгота, широта] для OL
           properties: store,
         });
 
@@ -222,7 +222,7 @@ export const useMap = (stores: Store[], selectedStoreId?: string, options?: UseM
         const selectedStore = stores.find(store => store.id === selectedStoreId);
         if (selectedStore) {
           map.getView().animate({
-            center: fromLonLat(selectedStore.coordinates),
+            center: fromLonLat([selectedStore.coordinates[1], selectedStore.coordinates[0]]), // Конвертируем [широта, долгота] в [долгота, широта] для OL
             zoom: 16,
             duration: 800,
           });
@@ -230,7 +230,7 @@ export const useMap = (stores: Store[], selectedStoreId?: string, options?: UseM
       } else if (features.length > 0) {
         // Центрируем на всех магазинах
         map.getView().animate({
-          center: fromLonLat(memoizedCenter),
+          center: fromLonLat([memoizedCenter[1], memoizedCenter[0]]), // Конвертируем [широта, долгота] в [долгота, широта] для OL
           zoom: memoizedZoom.initial,
           duration: 800,
         });

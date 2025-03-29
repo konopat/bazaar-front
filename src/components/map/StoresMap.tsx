@@ -38,7 +38,7 @@ const StoresMap = ({
     onMapReady,
     initialZoom: 12,
     maxZoom: 19,
-    centerCoordinates: [104.280094, 52.287430] // Иркутск
+    centerCoordinates: [52.287430, 104.280094] // Иркутск - изменен порядок: [широта, долгота]
   });
 
   return (
@@ -65,4 +65,4 @@ const StoresMap = ({
   );
 };
 
-export default memo(StoresMap); 
+export default memo(StoresMap);

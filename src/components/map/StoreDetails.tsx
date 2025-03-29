@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { Store } from '../../hooks/useMap';
 import { useStoreStatus } from '../../hooks/useStoreStatus';
 import LazyImage from '../common/LazyImage';
+import Icon from '../common/Icon';
 
 interface StoreDetailsProps {
   store?: Store;
@@ -42,17 +43,23 @@ const StoreDetails = ({ store }: StoreDetailsProps) => {
           <h3 className="store-details__name">{store.name}</h3>
           
           <div className="store-details__address">
-            <span className="store-details__icon">📍</span>
+            <span className="store-details__icon">
+              <Icon name="location" size={18} color="currentColor" />
+            </span>
             <span>{store.address}</span>
           </div>
           
           <div className="store-details__phone">
-            <span className="store-details__icon">📞</span>
+            <span className="store-details__icon">
+              <Icon name="phone" size={18} color="currentColor" />
+            </span>
             <a href={`tel:${store.phone}`} className="store-details__link">{store.phone}</a>
           </div>
           
           <div className={`store-details__status ${isOpen ? 'store-details__status--open' : 'store-details__status--closed'}`}>
-            <span className="store-details__icon">{isOpen ? '✓' : '✕'}</span>
+            <span className="store-details__icon">
+              <Icon name={isOpen ? "check" : "clock"} size={18} color="currentColor" />
+            </span>
             <span>{statusText}</span>
           </div>
         </div>
