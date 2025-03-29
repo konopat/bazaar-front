@@ -1,0 +1,121 @@
+/* Стили фильтра по цветам */
+.color-filter {
+  width: 100%;
+}
+
+.color-filter__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.color-filter__button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  margin-bottom: var(--spacing-xs);
+  position: relative;
+}
+
+.color-filter__button:hover {
+  background-color: var(--color-background-light);
+  transform: translateY(-2px);
+}
+
+.color-filter__button--active {
+  background-color: var(--color-background-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.color-filter__button--active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: 1px;
+}
+
+.color-filter__color-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.color-filter__button--active .color-filter__color-circle {
+  transform: scale(1.1);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 3px var(--color-primary);
+}
+
+.color-filter__name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  transition: color var(--transition-normal);
+}
+
+.color-filter__button:hover .color-filter__name {
+  color: var(--color-primary);
+}
+
+/* Темная тема */
+.theme-dark .color-filter__button:hover {
+  background-color: var(--color-card-background-dark);
+}
+
+.theme-dark .color-filter__button--active {
+  background-color: var(--color-card-background-dark);
+}
+
+.theme-dark .color-filter__button--active::after {
+  background-color: var(--color-primary-dark-theme);
+}
+
+.theme-dark .color-filter__color-circle {
+  border-color: var(--color-border-dark);
+}
+
+.theme-dark .color-filter__button--active .color-filter__color-circle {
+  border-color: var(--color-primary-dark-theme);
+  box-shadow: 0 0 0 2px var(--color-background-dark), 0 0 0 3px var(--color-primary-dark-theme);
+}
+
+.theme-dark .color-filter__name {
+  color: var(--color-text-dark);
+}
+
+.theme-dark .color-filter__button:hover .color-filter__name {
+  color: var(--color-primary-dark-theme);
+}
+
+/* Медиа-запросы */
+@media (max-width: 1024px) {
+  .color-filter__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .color-filter__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .color-filter__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} 

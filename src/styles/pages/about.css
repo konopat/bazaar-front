@@ -1,0 +1,289 @@
+/* 
+* Стили страницы О нас
+* Описание: Стилизация страницы информации о компании
+*/
+
+.about {
+  padding: var(--spacing-2xl) 0;
+}
+
+.about__section {
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+  background: var(--color-card-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.about__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.about__text-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about__paragraph {
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-md);
+  line-height: 1.7;
+}
+
+.about__text {
+  font-size: var(--font-size-md);
+  line-height: 1.7;
+  margin-bottom: var(--spacing-xl);
+}
+
+.about__text--centered {
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* История */
+.about__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+
+.milestone {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: var(--spacing-lg);
+}
+
+.milestone__year {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+}
+
+.milestone__content {
+  padding: var(--spacing-lg);
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  position: relative;
+}
+
+.milestone__title {
+  margin: 0 0 var(--spacing-sm);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  color: var(--color-primary-dark);
+}
+
+.milestone__description {
+  margin: 0;
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+}
+
+/* Команда */
+.about__team {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  text-align: center;
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.team-card__photo-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+}
+
+.team-card__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-card__name {
+  margin: 0 0 var(--spacing-xs);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: var(--color-primary-dark);
+}
+
+.team-card__position {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.team-card__bio {
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.team-card--active {
+  box-shadow: var(--shadow-md);
+}
+
+/* Ценности */
+.about__values {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.value-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  text-align: center;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.value-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: var(--spacing-md);
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  font-size: var(--font-size-lg);
+}
+
+.value-card__title {
+  margin: 0 0 var(--spacing-sm);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: var(--color-primary-dark);
+}
+
+.value-card__text {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+/* Магазины */
+.about__stores-map {
+  margin-top: var(--spacing-xl);
+}
+
+.about__stores-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.about__map-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Темная тема */
+.theme-dark .about__section {
+  background-color: var(--color-background-light-dark);
+}
+
+.theme-dark .milestone__year {
+  background-color: var(--color-primary-dark-theme);
+  color: var(--color-background-dark);
+}
+
+.theme-dark .milestone__content,
+.theme-dark .team-card,
+.theme-dark .value-card {
+  background-color: var(--color-card-background-dark);
+}
+
+.theme-dark .milestone__title,
+.theme-dark .team-card__name,
+.theme-dark .value-card__title {
+  color: var(--color-primary-light-dark-theme);
+}
+
+.theme-dark .value-card__icon {
+  background-color: var(--color-primary-dark-theme);
+  color: var(--color-background-dark);
+}
+
+/* Адаптивная верстка */
+@media (max-width: 768px) {
+  .about__content {
+    grid-template-columns: 1fr;
+  }
+  
+  .milestone {
+    grid-template-columns: 60px 1fr;
+  }
+  
+  .milestone__year {
+    width: 60px;
+    height: 60px;
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-normal) ease-in-out;
+} 

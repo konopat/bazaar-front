@@ -1,0 +1,112 @@
+/* Стили ценовых категорий */
+.price-categories {
+  padding: var(--spacing-2xl) 0;
+  background: var(--color-background);
+}
+
+.price-categories__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.price-categories__title {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.price-categories__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.price-category {
+  background: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.price-category:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.price-category__header {
+  padding: var(--spacing-lg);
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.price-category__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+}
+
+.price-category__range {
+  font-size: var(--font-size-sm);
+  opacity: 0.8;
+}
+
+.price-category__content {
+  padding: var(--spacing-lg);
+}
+
+.price-category__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.price-category__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text);
+}
+
+.price-category__item-icon {
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+}
+
+.price-category__button {
+  width: 100%;
+}
+
+/* Медиа-запросы */
+@media (max-width: 1024px) {
+  .price-categories__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .price-categories__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Темная тема */
+.theme-dark .price-categories {
+  background: var(--color-background-dark);
+}
+
+.theme-dark .price-category {
+  background: var(--color-background-darker);
+}
+
+.theme-dark .price-category__header {
+  background: var(--color-primary-dark);
+}
+
+.theme-dark .price-category__item {
+  color: var(--color-text-light);
+}
+
+.theme-dark .price-category__item-icon {
+  color: var(--color-primary-light);
+} 

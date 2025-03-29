@@ -1,0 +1,94 @@
+/* 
+* Компонент: Социальные сети (SocialLinks)
+* Описание: Стилизация блока с иконками социальных сетей
+*/
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* Модификаторы выравнивания */
+.social-links--end {
+  justify-content: flex-end;
+}
+
+.social-links--start {
+  justify-content: flex-start;
+}
+
+.social-links--center {
+  justify-content: center;
+}
+
+.social-links__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-text);
+  background-color: transparent;
+  border-radius: 50%;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-links__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-light-gray);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform var(--transition-normal);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.social-links__item svg {
+  color: var(--color-text);
+  width: 22px;
+  height: 22px;
+  transition: transform var(--transition-fast), color var(--transition-normal);
+}
+
+.social-links__item:hover {
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.social-links__item:hover::before {
+  transform: scale(1);
+}
+
+.social-links__item:hover svg {
+  transform: scale(1.1);
+  color: var(--color-primary);
+}
+
+.social-links__item:active svg {
+  transform: scale(0.95);
+}
+
+/* Темная тема */
+.theme-dark .social-links__item {
+  color: var(--color-text-light-dark);
+}
+
+.theme-dark .social-links__item svg {
+  color: var(--color-text-light-dark);
+}
+
+.theme-dark .social-links__item::before {
+  background: var(--color-border-dark);
+}
+
+.theme-dark .social-links__item:hover svg {
+  color: var(--color-secondary-light);
+}

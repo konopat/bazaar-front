@@ -1,0 +1,68 @@
+/* Базовый скелетон-загрузчик */
+.skeleton-loader {
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton-base) 0%,
+    var(--color-skeleton-highlight) 50%,
+    var(--color-skeleton-base) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease infinite;
+}
+
+/* Стили для страничного скелетона */
+.page-skeleton {
+  padding: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-skeleton__header {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.page-skeleton__title {
+  margin-bottom: var(--spacing-md);
+}
+
+.page-skeleton__subtitle {
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-skeleton__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.page-skeleton__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--color-background);
+}
+
+.page-skeleton__image {
+  border-radius: var(--border-radius-md);
+}
+
+.page-skeleton__button {
+  margin-top: auto;
+}
+
+/* Анимация скелетона */
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Темная тема */
+.theme-dark .page-skeleton__card {
+  background-color: var(--color-background-dark);
+} 

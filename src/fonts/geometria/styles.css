@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'VYZQXP-Geometria';
+  src: url(./VYZQXP-Geometria.eot);
+  src: url(./VYZQXP-Geometria.eot?#iefix) format('embedded-opentype'),
+       url(./VYZQXP-Geometria.otf) format('otf'),
+       url(./VYZQXP-Geometria.svg#VYZQXP-Geometria) format('svg'),
+       url(./VYZQXP-Geometria.ttf) format('truetype'),
+       url(./VYZQXP-Geometria.woff) format('woff'),
+       url(./VYZQXP-Geometria.woff2) format('woff2');
+}

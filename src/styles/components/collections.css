@@ -1,0 +1,123 @@
+/* 
+* Компонент: Коллекции по цене
+* Описание: Стили для отображения коллекций товаров по ценовым категориям
+*/
+
+
+
+/* Заголовок секции - выравнивание по левому краю */
+.collections__title {
+  font-size: var(--font-size-3xl);
+  color: var(--color-text);
+  text-align: start; /* Выравнивание по левому краю */
+  margin-block-end: var(--spacing-md);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+/* Описание секции - выравнивание по левому краю */
+.collections__subtitle {
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  text-align: start; /* Выравнивание по левому краю */
+  margin-block-end: var(--spacing-xl);
+  max-inline-size: 700px;
+  margin-inline: 0; /* Убираем автоматические отступы */
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* Сетка коллекций - одна коллекция в строку */
+.collections__grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+/* Карточка коллекции */
+.collection {
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.collection:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Заголовок коллекции */
+.collection__title {
+  font-size: var(--font-size-xl);
+  color: var(--color-text);
+  margin-block-end: var(--spacing-md);
+  padding-block-start: var(--spacing-lg);
+  padding-inline: var(--spacing-lg);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+/* Сетка товаров в коллекции - 3 карточки в ряд */
+.collection__items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  padding-inline: var(--spacing-lg);
+  padding-block-end: var(--spacing-md);
+}
+
+/* Кнопка "Показать все" */
+.collection__button {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
+  text-align: center;
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-lg);
+  margin-block: var(--spacing-md);
+  margin-inline-start: var(--spacing-lg);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-normal);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: var(--border-radius-sm);
+}
+
+.collection__button:hover {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  border-color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .collection__items {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  .collections {
+    padding-inline: var(--spacing-md);
+  }
+  
+  .collection__title {
+    font-size: var(--font-size-lg);
+    padding-inline: var(--spacing-md);
+  }
+  
+  .collection__items {
+    grid-template-columns: 1fr; /* Одна карточка в ряд на мобильных */
+    padding-inline: var(--spacing-md);
+  }
+  
+  .collection__button {
+    margin-inline-start: var(--spacing-md);
+  }
+} 

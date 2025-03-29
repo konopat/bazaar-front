@@ -1,0 +1,40 @@
+/* Подключение Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+/* Подключение локальных шрифтов */
+/* Подключение шрифта Geometria */
+@font-face {
+  font-family: 'Local-Geometria';
+  src: url('../fonts/geometria/VYZQXP-Geometria.woff2') format('woff2'),
+       url('../fonts/geometria/VYZQXP-Geometria.woff') format('woff'),
+       url('../fonts/geometria/VYZQXP-Geometria.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Подключение шрифта Didot */
+@font-face {
+  font-family: 'Local-Didot';
+  src: url('../fonts/didot/Didot.woff2') format('woff2'),
+       url('../fonts/didot/Didot.woff') format('woff'),
+       url('../fonts/didot/Didot.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Шрифтовые классы для удобства использования */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+} 

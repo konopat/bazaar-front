@@ -1,0 +1,171 @@
+.catalog {
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--color-background);
+}
+
+.catalog__header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.catalog__title {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-3xl);
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.catalog__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  justify-content: center;
+}
+
+.catalog__filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.catalog__filter-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.catalog__filter-select {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-background-light);
+  color: var(--color-text);
+  min-width: 180px;
+  font-size: var(--font-size-sm);
+  transition: border-color var(--transition-normal);
+}
+
+.catalog__filter-select:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.catalog__filter-select option {
+  background-color: var(--color-background-light);
+  color: var(--color-text);
+}
+
+.catalog__search {
+  display: flex;
+  margin-bottom: var(--spacing-lg);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.catalog__search-input {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
+  background-color: var(--color-background-light);
+  color: var(--color-text);
+  flex-grow: 1;
+  font-size: var(--font-size-sm);
+  transition: border-color var(--transition-normal);
+}
+
+.catalog__search-input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.catalog__search-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-primary);
+  border-left: none;
+  border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+  background-color: var(--color-primary);
+  color: var(--color-background-light);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.catalog__search-button:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.catalog__empty {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-light);
+  font-size: var(--font-size-lg);
+  grid-column: 1 / -1;
+}
+
+.catalog__load-more {
+  margin-top: var(--spacing-xl);
+  text-align: center;
+}
+
+.catalog__load-more-button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all var(--transition-normal);
+}
+
+.catalog__load-more-button:hover {
+  background-color: var(--color-primary);
+  color: var(--color-background-light);
+}
+
+/* Темная тема */
+.theme-dark .catalog__filter-select,
+.theme-dark .catalog__search-input {
+  background-color: var(--color-card-background);
+  border-color: var(--color-border-dark);
+  color: var(--color-text-dark);
+}
+
+.theme-dark .catalog__filter-select option {
+  background-color: var(--color-card-background);
+  color: var(--color-text-dark);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .catalog__filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .catalog__filter-select {
+    width: 100%;
+  }
+  
+  .catalog__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog__grid {
+    grid-template-columns: 1fr;
+  }
+} 

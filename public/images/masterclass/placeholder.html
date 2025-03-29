@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор изображения мастер-класса</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        .masterclass-container {
+            margin-bottom: 30px;
+        }
+        .masterclass {
+            width: 800px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .masterclass-content {
+            text-align: center;
+            padding: 40px;
+            z-index: 2;
+            color: white;
+        }
+        .masterclass-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .masterclass-description {
+            font-size: 24px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            line-height: 1.4;
+        }
+        .masterclass-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: white;
+            color: #6a11cb;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .flower {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .download-btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="masterclass-container">
+            <div id="masterclass" class="masterclass">
+                <div class="flower" style="width: 100px; height: 100px; top: 50px; left: 50px;"></div>
+                <div class="flower" style="width: 150px; height: 150px; bottom: 70px; right: 60px;"></div>
+                <div class="flower" style="width: 80px; height: 80px; top: 200px; right: 180px;"></div>
+                <div class="flower" style="width: 120px; height: 120px; bottom: 150px; left: 180px;"></div>
+                <div class="masterclass-content">
+                    <div class="masterclass-title">Мастер-класс по флористике</div>
+                    <div class="masterclass-description">Научитесь создавать уникальные букеты под руководством опытных флористов</div>
+                    <a href="#" class="masterclass-button">Записаться</a>
+                </div>
+            </div>
+            <button class="download-btn" onclick="downloadImage('masterclass', 'masterclass.jpg')">Скачать</button>
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        function downloadImage(id, filename) {
+            const element = document.getElementById(id);
+            
+            html2canvas(element).then(canvas => {
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html> 

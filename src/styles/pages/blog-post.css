@@ -1,0 +1,243 @@
+.blog-post {
+  position: relative;
+}
+
+/* Индикатор прогресса чтения */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  z-index: var(--z-index-fixed);
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 0.1s ease;
+}
+
+/* Шапка статьи */
+.blog-post__header {
+  position: relative;
+  padding: 120px 0 80px;
+  background-size: cover;
+  background-position: center;
+}
+
+.blog-post__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+}
+
+.blog-post__header-content {
+  position: relative;
+  z-index: 1;
+  color: var(--color-background);
+  max-width: 800px;
+}
+
+.blog-post__back-button {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--color-background);
+  font-size: 14px;
+  margin-bottom: 24px;
+  padding: 8px 16px;
+  border-radius: var(--border-radius-sm);
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.blog-post__back-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.blog-post__title {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 24px;
+  line-height: 1.2;
+  font-family: var(--font-family-secondary);
+}
+
+.blog-post__meta {
+  display: flex;
+  gap: 16px;
+}
+
+.blog-post__date,
+.blog-post__category {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.blog-post__category {
+  position: relative;
+  padding-left: 12px;
+}
+
+.blog-post__category::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+}
+
+/* Контент статьи */
+.blog-post__content {
+  max-width: 800px;
+  margin: 60px auto;
+  line-height: 1.7;
+}
+
+.blog-post__intro {
+  font-size: 18px;
+  color: var(--color-text);
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.blog-post__section {
+  margin-bottom: 40px;
+}
+
+.blog-post__section-content {
+  margin-bottom: 24px;
+}
+
+.blog-post__paragraph {
+  margin-bottom: 20px;
+}
+
+.blog-post__list {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style-type: disc;
+}
+
+.blog-post__list li {
+  margin-bottom: 8px;
+}
+
+.blog-post__image-wrapper {
+  margin: 24px 0;
+}
+
+.blog-post__image {
+  width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.blog-post__conclusion {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.blog-post__excerpt {
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* Кнопки для шеринга */
+.blog-post__share {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.blog-post__share-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.blog-post__share-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.blog-post__share-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-background-secondary);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-text);
+}
+
+.blog-post__share-button:hover {
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+
+/* Похожие статьи */
+.blog-post__related {
+  margin: 60px 0;
+}
+
+.blog-post__related-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+/* Состояние загрузки */
+.blog-post__loading {
+  text-align: center;
+  padding: 100px 0;
+  font-size: 18px;
+  color: var(--color-text-secondary);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .blog-post__header {
+    padding: 100px 0 60px;
+  }
+  
+  .blog-post__title {
+    font-size: 28px;
+  }
+  
+  .blog-post__content {
+    margin: 40px auto;
+  }
+  
+  .blog-post__intro {
+    font-size: 16px;
+  }
+  
+  .blog-post__related-posts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-post__header {
+    padding: 80px 0 40px;
+  }
+  
+  .blog-post__title {
+    font-size: 24px;
+  }
+} 

@@ -1,0 +1,787 @@
+.stores-map {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  height: 600px;
+  margin-top: var(--spacing-sm);
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.stores-map--visible {
+  opacity: 1;
+}
+
+.stores-map__container {
+  flex: 1;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-primary);
+  border: 1px solid var(--color-border);
+  min-height: 400px;
+  width: 100%;
+}
+
+[data-theme="dark"] .stores-map__container {
+  box-shadow: 0 4px 12px rgba(212, 169, 119, 0.2);
+  border: 1px solid rgba(212, 169, 119, 0.4);
+}
+
+.stores-map__error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  text-align: center;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  z-index: 2;
+}
+
+[data-theme="dark"] .stores-map__error {
+  background-color: rgba(18, 18, 18, 0.9);
+  color: #F4E8DD;
+}
+
+.stores-map__error p {
+  max-width: 300px;
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+}
+
+.stores-map__skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+  z-index: 10;
+  padding: var(--spacing-xl);
+}
+
+[data-theme="dark"] .stores-map__skeleton,
+:root[data-theme="dark"] .stores-map__skeleton,
+html[data-theme="dark"] .stores-map__skeleton,
+body[data-theme="dark"] .stores-map__skeleton {
+  background-color: #121212;
+}
+
+.stores-map__skeleton-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.stores-map__skeleton-title {
+  margin-bottom: var(--spacing-md);
+}
+
+.stores-map__skeleton-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.stores-map__skeleton-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.stores-map__skeleton-main {
+  min-height: 200px;
+  margin-bottom: var(--spacing-md);
+}
+
+.stores-map__skeleton-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.stores-map__skeleton-points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+.stores-map__skeleton-point {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Удаляем старые стили для спиннера */
+.stores-map__loading-icon {
+  display: none;
+}
+
+.stores-map__loading-text {
+  display: none;
+}
+
+.stores-map__list {
+  width: 100%;
+  overflow-y: auto;
+  padding-right: var(--spacing-xs);
+  max-height: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.stores-map__store-button {
+  flex: 1;
+  min-width: 200px;
+  text-align: left;
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .stores-map__store-button {
+  border-color: rgba(212, 169, 119, 0.4);
+  background-color: rgba(18, 18, 18, 0.3);
+}
+
+.stores-map__store-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--gradient-primary);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--transition-normal);
+}
+
+.stores-map__store-button:hover {
+  border-color: var(--color-primary);
+  background-color: rgba(var(--primary-rgb), 0.03);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .stores-map__store-button:hover {
+  background-color: rgba(212, 169, 119, 0.1);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.2);
+}
+
+.stores-map__store-button:hover::before {
+  transform: scaleY(1);
+}
+
+.stores-map__store-button--active {
+  border-color: var(--color-primary);
+  background-color: rgba(var(--primary-rgb), 0.06);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .stores-map__store-button--active {
+  background-color: rgba(212, 169, 119, 0.2);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.3);
+}
+
+.stores-map__store-button--active::before {
+  transform: scaleY(1);
+}
+
+.stores-map__store-name {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm);
+}
+
+[data-theme="dark"] .stores-map__store-name {
+  color: #F4E8DD;
+}
+
+.stores-map__store-address {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+[data-theme="dark"] .stores-map__store-address {
+  color: #D4A977;
+}
+
+/* Стили для OpenLayers */
+.ol-control {
+  background: none;
+}
+
+.ol-zoom {
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  left: auto;
+}
+
+.ol-zoom button {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-primary);
+  margin: 2px;
+  transition: all var(--transition-normal);
+}
+
+[data-theme="dark"] .ol-zoom button {
+  background-color: rgba(18, 18, 18, 0.8);
+  color: #F4E8DD;
+  border-color: #D4A977;
+}
+
+.ol-zoom button:hover {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .ol-zoom button:hover {
+  background-color: #D4A977;
+  color: #121212;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Адаптивные стили */
+@media (min-width: 768px) {
+  .stores-map {
+    flex-direction: row;
+  }
+  
+  .stores-map__list {
+    width: 300px;
+    max-height: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  
+  .stores-map__store-button {
+    min-width: auto;
+    margin-bottom: var(--spacing-md);
+    flex: none;
+  }
+}
+
+.stores-map__hidden {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.stores-map__skeleton-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+}
+
+[data-theme="dark"] .stores-map__skeleton-container {
+  background-color: rgba(18, 18, 18, 0.8);
+}
+
+.stores-modal-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.stores-modal-content .stores-map__container {
+  min-height: 300px;
+  height: 300px;
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-primary);
+  border: 1px solid var(--color-border);
+}
+
+.stores-modal-content .stores-map__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-height: none;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  flex-wrap: nowrap;
+}
+
+/* На мобильных - отображаем в столбик */
+@media (max-width: 767px) {
+  .stores-modal-content .stores-map__list {
+    flex-direction: column;
+  }
+
+  .stores-modal-content .stores-map__store-button {
+    width: 100%;
+  }
+}
+
+/* На планшетах и выше можно отобразить в ряд */
+@media (min-width: 768px) {
+  .stores-modal-content .stores-map__list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .stores-modal-content .stores-map__store-button {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+.stores-map-wrapper {
+  flex: 2;
+  min-height: 300px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-primary);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .stores-map-wrapper {
+  box-shadow: 0 4px 12px rgba(212, 169, 119, 0.2);
+  border: 1px solid rgba(212, 169, 119, 0.4);
+}
+
+.stores-modal-details-column {
+  flex: 1;
+  min-height: 250px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .stores-modal-details-column {
+  border-color: rgba(212, 169, 119, 0.3);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.1);
+}
+
+.stores-modal-list-column {
+  flex: 1;
+}
+
+.stores-modal-list-column .stores-map__list {
+  max-height: 300px;
+  overflow-y: auto;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.stores-modal-list-column .stores-map__store-button {
+  width: 100%;
+  min-width: auto;
+}
+
+/* Адаптивные стили для десктопов */
+@media (min-width: 768px) {
+  .stores-modal-layout {
+    flex-direction: row;
+    align-items: stretch;
+    height: 600px;
+  }
+  
+  .stores-modal-map-column {
+    flex: 3;
+    min-height: 100%;
+    max-width: 65%;
+  }
+  
+  .stores-modal-list-column {
+    flex: 2;
+    max-width: 35%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stores-modal-list-column .stores-map__list {
+    flex: 1;
+    max-height: none;
+  }
+  
+  .stores-map-wrapper {
+    height: 60% !important;
+  }
+  
+  .stores-modal-details-column {
+    height: 40%;
+  }
+}
+
+/* Обновленные стили для компонента StoreDetails с двухколоночным лэйаутом */
+.store-details {
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  background-color: var(--color-background);
+  height: 100%;
+}
+
+[data-theme="dark"] .store-details {
+  background-color: rgba(18, 18, 18, 0.8);
+}
+
+.store-details--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+.store-details__layout {
+  display: flex;
+  height: 100%;
+  gap: var(--spacing-md);
+}
+
+.store-details__photo-column {
+  flex: 1;
+  min-width: 120px;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  position: relative;
+}
+
+[data-theme="dark"] .store-details__photo-column {
+  border-color: rgba(212, 169, 119, 0.3);
+}
+
+.store-details__photo-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.store-details__skeleton-animation {
+  background: linear-gradient(90deg, 
+    var(--color-skeleton-start) 0%, 
+    var(--color-skeleton-end) 50%, 
+    var(--color-skeleton-start) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+[data-theme="dark"] .store-details__skeleton-animation {
+  background: linear-gradient(90deg, 
+    rgba(32, 32, 32, 0.8) 0%, 
+    rgba(48, 48, 48, 0.8) 50%, 
+    rgba(32, 32, 32, 0.8) 100%);
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.store-details__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+.store-details__photo--loading {
+  opacity: 0;
+}
+
+.store-details__photo:not(.store-details__photo--loading):hover {
+  transform: scale(1.05);
+}
+
+.store-details__info-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.store-details__name {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm);
+}
+
+[data-theme="dark"] .store-details__name {
+  color: #F4E8DD;
+}
+
+.store-details__address,
+.store-details__phone,
+.store-details__status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.store-details__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.store-details__link {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-normal);
+}
+
+.store-details__link:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+[data-theme="dark"] .store-details__link {
+  color: #D4A977;
+}
+
+[data-theme="dark"] .store-details__link:hover {
+  color: #E8D6C6;
+}
+
+.store-details__status--open {
+  color: var(--color-success);
+}
+
+.store-details__status--closed {
+  color: var(--color-error);
+}
+
+[data-theme="dark"] .store-details__status--open {
+  color: #6CBB87;
+}
+
+[data-theme="dark"] .store-details__status--closed {
+  color: #E57373;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 576px) {
+  .store-details__layout {
+    flex-direction: column;
+  }
+  
+  .store-details__photo-column {
+    height: 150px;
+    width: 100%;
+  }
+}
+
+/* Адаптивные стили для компонента StoreDetails */
+@media (min-width: 768px) {
+  .stores-modal-map-column {
+    position: relative;
+  }
+  
+  .stores-modal-details-column {
+    flex: 1;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}
+
+/* Исправляем отображение карты в модальном окне */
+.stores-modal-map-column .stores-map {
+  height: 100%;
+  margin-top: 0;
+  opacity: 1;
+}
+
+/* Исправляем контейнер карты в модальном окне */
+.stores-modal-map-column .stores-map__container {
+  min-height: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* В модальном окне скелетон должен полностью покрывать область карты */
+.stores-map-wrapper .stores-map__skeleton-container {
+  border-radius: var(--border-radius);
+}
+
+/* Убедимся, что карта занимает все доступное пространство */
+.stores-map-wrapper .stores-map,
+.stores-map-wrapper .stores-map__container {
+  height: 100% !important;
+  width: 100% !important;
+  min-height: inherit !important;
+  max-height: inherit !important;
+}
+
+.stores-section-title {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm);
+  position: relative;
+  padding-left: var(--spacing-md);
+}
+
+.stores-section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 70%;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+[data-theme="dark"] .stores-section-title {
+  color: #F4E8DD;
+}
+
+/* Обновленные стили для модального окна с двухколоночным лэйаутом */
+.stores-modal-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+.stores-modal-map-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  min-height: 600px;
+}
+
+.stores-map-wrapper {
+  flex: 2;
+  min-height: 300px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-primary);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .stores-map-wrapper {
+  box-shadow: 0 4px 12px rgba(212, 169, 119, 0.2);
+  border: 1px solid rgba(212, 169, 119, 0.4);
+}
+
+.stores-modal-details-column {
+  flex: 1;
+  min-height: 250px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .stores-modal-details-column {
+  border-color: rgba(212, 169, 119, 0.3);
+  box-shadow: 0 2px 8px rgba(212, 169, 119, 0.1);
+}
+
+.stores-modal-list-column {
+  flex: 1;
+}
+
+.stores-modal-list-column .stores-map__list {
+  max-height: 300px;
+  overflow-y: auto;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.stores-modal-list-column .stores-map__store-button {
+  width: 100%;
+  min-width: auto;
+}
+
+/* Адаптивные стили для десктопов */
+@media (min-width: 768px) {
+  .stores-modal-layout {
+    flex-direction: row;
+    align-items: stretch;
+    height: 600px;
+  }
+  
+  .stores-modal-map-column {
+    flex: 3;
+    min-height: 100%;
+    max-width: 65%;
+  }
+  
+  .stores-modal-list-column {
+    flex: 2;
+    max-width: 35%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stores-modal-list-column .stores-map__list {
+    flex: 1;
+    max-height: none;
+  }
+  
+  .stores-map-wrapper {
+    height: 60% !important;
+  }
+  
+  .stores-modal-details-column {
+    height: 40%;
+  }
+} 
