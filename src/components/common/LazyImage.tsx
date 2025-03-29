@@ -47,14 +47,27 @@ const LazyImage = ({
   };
 
   // Вычисляем стили контейнера с учетом соотношения сторон
-  const containerStyle = {
-    width, 
-    height,
-    // Если задано соотношение сторон, применяем его
-    ...(aspectRatio ? {
-      paddingBottom: `${(1 / aspectRatio) * 100}%`,
-      height: 0
-    } : {})
+  const containerStyle: React.CSSProperties = aspectRatio
+    ? {
+        position: 'relative',
+        width,
+        height: 0,
+        paddingBottom: `${(1 / aspectRatio) * 100}%`
+      }
+    : { width, height };
+
+  // Вычисляем стили для изображения
+  const imageStyle: React.CSSProperties = {
+    objectFit,
+    ...(aspectRatio
+      ? {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%'
+        }
+      : {})
   };
 
   return (
@@ -62,8 +75,9 @@ const LazyImage = ({
       className={`lazy-image__container ${containerClassName}`} 
       style={containerStyle}
     >
+      {/* Скелетон всегда находится в том же контейнере, что и изображение */}
       {loading && (
-        <div className="lazy-image__skeleton">
+        <div className="lazy-image__skeleton" style={aspectRatio ? { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' } : {}}>
           <Skeleton
             width="100%"
             height="100%"
@@ -78,15 +92,7 @@ const LazyImage = ({
         alt={alt}
         onLoad={handleLoad}
         onError={handleError}
-        style={{ 
-          objectFit,
-          // Если задано соотношение сторон, позиционируем изображение абсолютно
-          ...(aspectRatio ? {
-            position: 'absolute',
-            top: 0,
-            left: 0
-          } : {})
-        }}
+        style={imageStyle}
       />
     </div>
   );

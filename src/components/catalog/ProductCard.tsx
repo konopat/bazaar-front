@@ -67,7 +67,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
           fallbackSrc="/images/product-placeholder.jpg"
           className="product-card__image-content"
           containerClassName="product-card__image-wrapper"
-          objectFit="contain"
+          objectFit="cover"
+          aspectRatio={1}
         />
       </div>
       <div className="product-card__content">

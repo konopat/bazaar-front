@@ -71,18 +71,17 @@
 }
 
 /* Контейнер для изображения */
-.product-card__image {
+.product-card__image-container {
   position: relative;
-  padding-top: 100%; /* Квадратное соотношение сторон */
   overflow: hidden;
 }
 
 .product-card__image-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 0;
+  padding-bottom: 100%; /* Соотношение сторон 1:1 по умолчанию */
+  overflow: hidden;
 }
 
 .product-card__image-content {
@@ -293,4 +292,15 @@
 .theme-dark .product-card__badge {
   color: var(--color-background-dark);
   font-weight: 600;
+}
+
+/* Бейджи для карточки товара */
+.product-card__badges {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 5; /* Должны быть выше скелетона и изображения */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

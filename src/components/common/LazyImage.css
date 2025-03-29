@@ -2,6 +2,7 @@
   position: relative;
   overflow: hidden;
   display: block;
+  background-color: var(--color-skeleton-start);
 }
 
 .lazy-image__skeleton {
@@ -11,6 +12,7 @@
   top: 0;
   left: 0;
   z-index: 1;
+  border-radius: inherit;
 }
 
 .lazy-image__skeleton-animation {
@@ -22,6 +24,8 @@
   );
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
+  height: 100%;
+  width: 100%;
 }
 
 .lazy-image__img {
@@ -29,8 +33,8 @@
   width: 100%;
   height: 100%;
   transition: opacity 0.2s ease-in-out;
-  z-index: 2;
   position: relative;
+  z-index: 2;
 }
 
 .lazy-image__img--hidden {
