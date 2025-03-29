@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@store/cartSlice';
 import AddToCartAnimation from './AddToCartAnimation';
+import LazyImage from '../common/LazyImage';
 
 interface ProductCardProps {
   id: number;
@@ -60,7 +61,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <Link to={`/product/${id}`} className="product-card">
       {isHot && <div className="product-card__badge">Горячее предложение</div>}
       <div className="product-card__image">
-        <img src={image} alt={title} />
+        <LazyImage
+          src={image}
+          alt={title}
+          fallbackSrc="/images/product-placeholder.jpg"
+          className="product-card__image-content"
+          containerClassName="product-card__image-wrapper"
+          objectFit="contain"
+        />
       </div>
       <div className="product-card__content">
         <h3 className="product-card__title">{title}</h3>

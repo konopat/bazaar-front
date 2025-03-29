@@ -449,11 +449,8 @@ body[data-theme="dark"] .stores-map__skeleton {
   }
 }
 
-/* Стили для компонента StoreDetails */
+/* Обновленные стили для компонента StoreDetails с двухколоночным лэйаутом */
 .store-details {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
   padding: var(--spacing-md);
   border-radius: var(--border-radius);
   background-color: var(--color-background);
@@ -474,30 +471,80 @@ body[data-theme="dark"] .stores-map__skeleton {
   font-style: italic;
 }
 
-.store-details__photo-container {
-  width: 100%;
-  height: 180px;
+.store-details__layout {
+  display: flex;
+  height: 100%;
+  gap: var(--spacing-md);
+}
+
+.store-details__photo-column {
+  flex: 1;
+  min-width: 120px;
+  height: 100%;
   overflow: hidden;
   border-radius: var(--border-radius);
   border: 1px solid var(--color-border);
+  position: relative;
 }
 
-[data-theme="dark"] .store-details__photo-container {
+[data-theme="dark"] .store-details__photo-column {
   border-color: rgba(212, 169, 119, 0.3);
+}
+
+.store-details__photo-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.store-details__skeleton-animation {
+  background: linear-gradient(90deg, 
+    var(--color-skeleton-start) 0%, 
+    var(--color-skeleton-end) 50%, 
+    var(--color-skeleton-start) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+[data-theme="dark"] .store-details__skeleton-animation {
+  background: linear-gradient(90deg, 
+    rgba(32, 32, 32, 0.8) 0%, 
+    rgba(48, 48, 48, 0.8) 50%, 
+    rgba(32, 32, 32, 0.8) 100%);
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .store-details__photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-normal);
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
 }
 
-.store-details__photo:hover {
+.store-details__photo--loading {
+  opacity: 0;
+}
+
+.store-details__photo:not(.store-details__photo--loading):hover {
   transform: scale(1.05);
 }
 
-.store-details__info {
+.store-details__info-column {
+  flex: 2;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
@@ -564,6 +611,18 @@ body[data-theme="dark"] .stores-map__skeleton {
 
 [data-theme="dark"] .store-details__status--closed {
   color: #E57373;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 576px) {
+  .store-details__layout {
+    flex-direction: column;
+  }
+  
+  .store-details__photo-column {
+    height: 150px;
+    width: 100%;
+  }
 }
 
 /* Адаптивные стили для компонента StoreDetails */

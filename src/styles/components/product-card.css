@@ -77,7 +77,15 @@
   overflow: hidden;
 }
 
-.product-card__image img {
+.product-card__image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.product-card__image-content {
   position: absolute;
   top: 0;
   left: 0;
@@ -87,7 +95,7 @@
   transition: transform var(--transition-normal);
 }
 
-.product-card:hover .product-card__image img {
+.product-card:hover .product-card__image-content {
   transform: scale(1.05);
 }
 
@@ -101,6 +109,7 @@
   height: 40%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.05), transparent);
   pointer-events: none;
+  z-index: 3;
 }
 
 /* Основной контент карточки */

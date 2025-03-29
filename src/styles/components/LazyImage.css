@@ -1,0 +1,120 @@
+/* Стили для компонента LazyImage */
+
+.lazy-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  background-color: var(--color-skeleton-start);
+}
+
+.lazy-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.lazy-image:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.lazy-image-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  border-radius: inherit;
+  overflow: hidden;
+  background-color: var(--color-skeleton-start);
+}
+
+.lazy-image-skeleton__animation {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    var(--color-skeleton-start) 0%, 
+    var(--color-skeleton-end) 50%, 
+    var(--color-skeleton-start) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Задаем стили для скелетона в разных контейнерах */
+.product-card__image-wrapper .lazy-image-skeleton {
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.store-details__photo-wrapper .lazy-image-skeleton {
+  border-radius: var(--border-radius);
+}
+
+/* Варианты соотношения сторон */
+.lazy-image-container--square {
+  aspect-ratio: 1/1;
+}
+
+.lazy-image-container--4x3 {
+  aspect-ratio: 4/3;
+}
+
+.lazy-image-container--16x9 {
+  aspect-ratio: 16/9;
+}
+
+.lazy-image-container--3x4 {
+  aspect-ratio: 3/4;
+}
+
+.lazy-image-container--2x3 {
+  aspect-ratio: 2/3;
+}
+
+/* Различные object-fit преднастройки */
+.lazy-image--cover {
+  object-fit: cover;
+}
+
+.lazy-image--contain {
+  object-fit: contain;
+}
+
+.lazy-image--fill {
+  object-fit: fill;
+}
+
+/* Модификаторы для эффектов при наведении */
+.lazy-image--zoom:hover {
+  transform: scale(1.1);
+}
+
+.lazy-image--no-zoom:hover {
+  transform: none;
+}
+
+/* Улучшение производительности с помощью hardware acceleration */
+.lazy-image, 
+.lazy-image-skeleton {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: opacity, transform;
+}
+
+/* Оптимизация для браузеров на базе WebKit */
+@supports (-webkit-overflow-scrolling: touch) {
+  .lazy-image-skeleton__animation {
+    /* Улучшение производительности на iOS */
+    -webkit-transform: translateZ(0);
+  }
+} 

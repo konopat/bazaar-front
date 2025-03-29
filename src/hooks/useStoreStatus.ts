@@ -32,6 +32,11 @@ export function useStoreStatus(workSchedule?: WorkSchedule): StoreStatus {
     // Получаем расписание на сегодня
     const todaySchedule = workSchedule[today];
     
+    // Проверка на случай некорректных данных
+    if (!todaySchedule) {
+      return { isOpen: false, statusText: 'Информация о часах работы недоступна' };
+    }
+    
     // Если сегодня выходной
     if (todaySchedule.dayOff) {
       // Ищем следующий рабочий день
@@ -44,7 +49,8 @@ export function useStoreStatus(workSchedule?: WorkSchedule): StoreStatus {
         nextDay.setDate(now.getDate() + i);
         const nextDayOfWeek = daysOfWeek[nextDay.getDay()];
         
-        if (!workSchedule[nextDayOfWeek].dayOff) {
+        // Проверка на существование данных
+        if (workSchedule[nextDayOfWeek] && !workSchedule[nextDayOfWeek].dayOff) {
           nextWorkDay = nextDayOfWeek;
           
           // Названия дней недели на русском
@@ -63,7 +69,7 @@ export function useStoreStatus(workSchedule?: WorkSchedule): StoreStatus {
         }
       }
       
-      if (nextWorkDay) {
+      if (nextWorkDay && workSchedule[nextWorkDay].open) {
         return {
           isOpen: false,
           statusText: `Закрыто до ${workSchedule[nextWorkDay].open} ${nextWorkDayName}`
@@ -71,6 +77,11 @@ export function useStoreStatus(workSchedule?: WorkSchedule): StoreStatus {
       } else {
         return { isOpen: false, statusText: 'Закрыто' };
       }
+    }
+    
+    // Проверка на валидность времени открытия и закрытия
+    if (!todaySchedule.open || !todaySchedule.close) {
+      return { isOpen: false, statusText: 'Информация о часах работы недоступна' };
     }
     
     // Если сегодня рабочий день
@@ -107,14 +118,15 @@ export function useStoreStatus(workSchedule?: WorkSchedule): StoreStatus {
         nextDay.setDate(now.getDate() + i);
         const nextDayOfWeek = daysOfWeek[nextDay.getDay()];
         
-        if (!workSchedule[nextDayOfWeek].dayOff) {
+        // Проверяем существование данных
+        if (workSchedule[nextDayOfWeek] && !workSchedule[nextDayOfWeek].dayOff) {
           nextWorkDay = nextDayOfWeek;
           daysAhead = i;
           break;
         }
       }
       
-      if (nextWorkDay) {
+      if (nextWorkDay && workSchedule[nextWorkDay].open) {
         // Названия дней недели на русском
         const dayNames = ['завтра', 'послезавтра'];
         let dayText = daysAhead <= 2 ? dayNames[daysAhead - 1] : `через ${daysAhead} дня`;
