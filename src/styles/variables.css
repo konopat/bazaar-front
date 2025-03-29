@@ -172,6 +172,6 @@
   /* Цвета для скелетон-компонентов в темной теме */
   --color-skeleton-base: rgba(212, 169, 119, 0.15);
   --color-skeleton-highlight: rgba(212, 169, 119, 0.08);
-  --color-skeleton-start: rgba(32, 32, 32, 0.9);
-  --color-skeleton-end: rgba(70, 60, 50, 0.6);
+  --color-skeleton-start-dark: rgba(32, 32, 32, 0.9);
+  --color-skeleton-end-dark: rgba(112, 92, 72, 0.8);
 } 

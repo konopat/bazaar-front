@@ -158,6 +158,11 @@
   margin-right: var(--spacing-sm);
 }
 
+/* Кнопка добавления в корзину */
+.product-card__add-to-cart {
+  margin-block-start: var(--spacing-md);
+}
+
 .product-card__button {
   display: inline-flex;
   align-items: center;

@@ -141,6 +141,9 @@
 .theme-dark .button--outline {
   border-color: var(--color-primary-dark-theme);
   color: var(--color-primary-dark-theme);
+  background: transparent;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .theme-dark .button--outline:hover {

@@ -66,7 +66,7 @@
     var(--color-skeleton-start-dark)
   );
   background-size: 200% 100%;
-  animation: skeleton-loading-dark 1.5s infinite;
+  animation: skeleton-loading 1.5s infinite;
 }
 
 @keyframes skeleton-loading-dark {
