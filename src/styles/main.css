@@ -33,8 +33,10 @@
 @import './pages/about.css';
 @import './pages/contacts.css';
 @import './pages/blog.css';
+@import './pages/blog-post.css';
 @import './pages/vacancies.css';
 @import './pages/privacy.css';
+@import './pages/product.css';
 
 /* Основной контейнер приложения */
 .app {

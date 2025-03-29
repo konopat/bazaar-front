@@ -58,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <Link to={`/product/${id}`} className="product-card">
+    <Link to={`/products/${id}`} className="product-card">
       {isHot && <div className="product-card__badge">Горячее предложение</div>}
       <div className="product-card__image">
         <LazyImage
