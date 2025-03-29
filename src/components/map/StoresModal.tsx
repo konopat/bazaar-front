@@ -2,40 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import Modal from '../common/Modal';
 import StoresMap from './StoresMap';
 import Skeleton from '../common/Skeleton';
-
-interface Store {
-  id: string;
-  name: string;
-  address: string;
-  coordinates: [number, number];
-}
+import { STORES, Store } from '../../constants/contacts';
 
 interface StoresModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-// Реальные координаты (примерно) для Иркутска
-const stores: Store[] = [
-  {
-    id: '1',
-    name: 'Центральный магазин',
-    address: 'ул. Ленина, 30, Иркутск',
-    coordinates: [104.280094, 52.287430], // Более точные координаты центра Иркутска
-  },
-  {
-    id: '2',
-    name: 'Магазин на Кирова',
-    address: 'ул. Кирова, 10, Иркутск',
-    coordinates: [104.281763, 52.289056], // Немного северо-восточнее
-  },
-  {
-    id: '3',
-    name: 'Магазин на Карла Маркса',
-    address: 'ул. Карла Маркса, 20, Иркутск',
-    coordinates: [104.285513, 52.286052], // Восточнее
-  },
-];
 
 const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
   const [selectedStoreId, setSelectedStoreId] = useState<string>();
@@ -80,7 +52,7 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
         
         {/* Показываем список магазинов сразу */}
         <div className="stores-map__list">
-          {stores.map(store => (
+          {STORES.map(store => (
             <button
               key={store.id}
               className={`stores-map__store-button ${
@@ -112,7 +84,7 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
               height: '100%'
             }}>
               <StoresMap
-                stores={stores}
+                stores={STORES}
                 selectedStoreId={selectedStoreId}
                 onStoreSelect={setSelectedStoreId}
                 onMapReady={handleMapReady}

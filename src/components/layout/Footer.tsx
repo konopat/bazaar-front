@@ -2,6 +2,7 @@ import BazaarLogo from '@components/common/BazaarLogo';
 import SocialLinks from '@components/common/SocialLinks';
 import { Link } from 'react-router-dom';
 import StoreAddresses from '../common/StoreAddresses';
+import { PHONE_NUMBER } from '../../constants/contacts';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -42,8 +43,8 @@ const Footer: React.FC = () => {
 
           <section className="footer__section">
             <h3 className="footer__title">Связаться с нами</h3>
-            <a href="tel:+79087740015" className="footer__contact-item">
-              +7 (908) 774-00-15
+            <a href={`tel:${PHONE_NUMBER}`} className="footer__contact-item">
+              {PHONE_NUMBER}
             </a>
             <SocialLinks className="footer__social" />
           </section>

@@ -1,19 +1,15 @@
+import { STORES } from '../../constants/contacts';
+
 interface StoreAddressesProps {
   className?: string;
 }
 
 const StoreAddresses = ({ className = '' }: StoreAddressesProps) => {
-  const addresses = [
-    'Иркутск, Маршала Жукова (пр) 15А',
-    'Иркутск, Байкальская 180/2',
-    'Иркутск, Николая Гаврилова 4'
-  ];
-  
   return (
     <div className={`store-addresses ${className}`}>
-      {addresses.map((address, index) => (
-        <address key={index} className="store-addresses__item">
-          {address}
+      {STORES.map((store) => (
+        <address key={store.id} className="store-addresses__item">
+          {store.address}
         </address>
       ))}
     </div>

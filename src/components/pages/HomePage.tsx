@@ -12,6 +12,7 @@ import { Product, products } from '../../mocks/products';
 import { specialOffers } from '../../mocks/special-offers';
 import SocialLinks from '@components/common/SocialLinks';
 import StoresModal from '../map/StoresModal';
+import { PHONE_NUMBER, STORES } from '../../constants/contacts';
 
 const HomePage: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -103,7 +104,7 @@ const HomePage: React.FC = () => {
         <div className="container">
           <div className="hero__info">
             <div className="hero__stores">
-              <p className="hero__stores-text">3 магазина в Иркутске – есть самовывоз</p>
+              <p className="hero__stores-text">{STORES.length} магазина в Иркутске – есть самовывоз</p>
               <button 
                 className="hero__stores-button button--underline" 
                 onClick={() => setIsStoresModalOpen(true)}
@@ -112,7 +113,7 @@ const HomePage: React.FC = () => {
               </button>
             </div>
             <div className="hero__contacts">
-              <a href="tel:+79087740015" className="hero__phone">+7 (908) 774-00-15</a>
+              <a href={`tel:${PHONE_NUMBER}`} className="hero__phone">{PHONE_NUMBER}</a>
               <SocialLinks className="hero__social" />
             </div>
           </div>

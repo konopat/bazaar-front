@@ -9,6 +9,7 @@ import BazaarLogo from '../common/BazaarLogo';
 import Icon from '../common/Icon';
 import SocialLinks from '../common/SocialLinks';
 import StoreAddresses from '../common/StoreAddresses';
+import { PHONE_NUMBER } from '../../constants/contacts';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -119,7 +120,7 @@ const Header: React.FC = () => {
             <StoreAddresses className="mobile-menu__stores" />
             
             <div className="mobile-menu__contacts">
-              <a href="tel:+79087740015" className="mobile-menu__main-phone">+7 (908) 774-00-15</a>
+              <a href={`tel:${PHONE_NUMBER}`} className="mobile-menu__main-phone">{PHONE_NUMBER}</a>
               <SocialLinks className="mobile-menu__social" />
             </div>
           </div>
