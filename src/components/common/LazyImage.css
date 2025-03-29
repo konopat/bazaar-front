@@ -59,8 +59,19 @@
 .theme-dark .lazy-image__skeleton-animation {
   background: linear-gradient(
     90deg,
-    var(--color-skeleton-start, rgba(32, 32, 32, 0.8)),
-    var(--color-skeleton-end, rgba(48, 48, 48, 0.8)),
-    var(--color-skeleton-start, rgba(32, 32, 32, 0.8))
+    rgba(32, 32, 32, 0.9),
+    rgba(70, 60, 50, 0.6),
+    rgba(32, 32, 32, 0.9)
   );
+  background-size: 200% 100%;
+  animation: skeleton-loading-dark 1.5s infinite;
+}
+
+@keyframes skeleton-loading-dark {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 } 
