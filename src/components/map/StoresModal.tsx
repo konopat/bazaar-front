@@ -91,41 +91,47 @@ const StoresModal = ({ isOpen, onClose }: StoresModalProps) => {
       isLoading={false}
     >
       <div className="stores-modal-content">
-        <h3 className="stores-section-title">Выберите магазин:</h3>
-        
-        {/* Используем компонент списка магазинов */}
-        <StoresList
-          stores={STORES}
-          selectedStoreId={selectedStoreId}
-          onStoreSelect={handleSelectStore}
-        />
-        
-        <h3 className="stores-section-title">Карта:</h3>
-        
-        {/* Контейнер карты со скелетоном */}
-        <div className="stores-map__container">
-          {isMapLoading && (
-            <div className="stores-map__skeleton-container">
-              <Skeleton height={300} width="100%" />
+        <div className="stores-modal-layout">
+          {/* Левая колонка с картой */}
+          <div className="stores-modal-map-column">
+            {/* Контейнер карты со скелетоном */}
+            <div className="stores-map__container">
+              {isMapLoading && (
+                <div className="stores-map__skeleton-container">
+                  <Skeleton height={300} width="100%" />
+                </div>
+              )}
+              
+              {/* Карта появится здесь с плавной анимацией opacity через CSS */}
+              {showMap && (
+                <div style={{ 
+                  opacity: isMapLoading ? 0 : 1, 
+                  transition: 'opacity 0.3s ease-in-out',
+                  height: '100%'
+                }}>
+                  <StoresMap
+                    stores={STORES}
+                    selectedStoreId={selectedStoreId}
+                    onStoreSelect={handleSelectStore}
+                    onMapReady={handleMapReady}
+                    hideStoresList={true}
+                  />
+                </div>
+              )}
             </div>
-          )}
+          </div>
           
-          {/* Карта появится здесь с плавной анимацией opacity через CSS */}
-          {showMap && (
-            <div style={{ 
-              opacity: isMapLoading ? 0 : 1, 
-              transition: 'opacity 0.3s ease-in-out',
-              height: '100%'
-            }}>
-              <StoresMap
-                stores={STORES}
-                selectedStoreId={selectedStoreId}
-                onStoreSelect={handleSelectStore}
-                onMapReady={handleMapReady}
-                hideStoresList={true}
-              />
-            </div>
-          )}
+          {/* Правая колонка со списком магазинов */}
+          <div className="stores-modal-list-column">
+            <h3 className="stores-section-title">Выберите магазин:</h3>
+            
+            {/* Используем компонент списка магазинов */}
+            <StoresList
+              stores={STORES}
+              selectedStoreId={selectedStoreId}
+              onStoreSelect={handleSelectStore}
+            />
+          </div>
         </div>
       </div>
     </Modal>

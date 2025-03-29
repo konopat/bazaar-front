@@ -399,4 +399,59 @@ body[data-theme="dark"] .stores-map__skeleton {
 
 [data-theme="dark"] .stores-section-title {
   color: #F4E8DD;
+}
+
+/* Стили для модального окна с двухколоночным лэйаутом */
+.stores-modal-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+.stores-modal-map-column {
+  flex: 1;
+  min-height: 350px;
+}
+
+.stores-modal-list-column {
+  flex: 1;
+}
+
+.stores-modal-list-column .stores-map__list {
+  max-height: 300px;
+  overflow-y: auto;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.stores-modal-list-column .stores-map__store-button {
+  width: 100%;
+  min-width: auto;
+}
+
+/* Стили для планшетов и десктопов */
+@media (min-width: 768px) {
+  .stores-modal-layout {
+    flex-direction: row;
+    align-items: stretch;
+    height: 500px;
+  }
+  
+  .stores-modal-map-column {
+    flex: 3;
+    min-height: 100%;
+  }
+  
+  .stores-modal-list-column {
+    flex: 2;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stores-modal-list-column .stores-map__list {
+    flex: 1;
+    max-height: none;
+  }
 } 
