@@ -1,20 +1,27 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store/store';
-import type { MouseEvent } from 'react';
-import Navigation from './Navigation';
-import useTheme from '@hooks/useTheme';
-import BazaarLogo from '../common/BazaarLogo';
 import Icon from '../common/Icon';
+import BazaarLogo from '../common/BazaarLogo';
 import SideMenu from './SideMenu';
+import '../../styles/components/header.css';
+import Navigation from './Navigation';
+
 
 const Header: React.FC = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [isHeaderSticky, setIsHeaderSticky] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const itemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const { theme, toggleTheme } = useTheme();
+  
+  // Установка темной/светлой темы (заглушка)
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.body.className = newTheme === 'dark' ? 'theme-dark' : '';
+  };
 
   // Обработчик скролла для прилипающего хедера
   useEffect(() => {
@@ -58,7 +65,59 @@ const Header: React.FC = () => {
     };
   }, [isSideMenuOpen]);
 
-  const toggleSideMenu = (e: MouseEvent) => {
+  // Проверяем, можно ли установить PWA
+  const [showInstallButton, setShowInstallButton] = useState(false);
+  useEffect(() => {
+    if ('deferredPrompt' in window) {
+      const checkInstallable = () => {
+        if (window.deferredPrompt) {
+          setShowInstallButton(true);
+        } else {
+          setShowInstallButton(false);
+        }
+      };
+
+      // Проверяем при монтировании
+      checkInstallable();
+
+      // Слушаем событие beforeinstallprompt
+      const handleBeforeInstallPrompt = () => {
+        checkInstallable();
+      };
+
+      // Слушаем событие appinstalled
+      const handleAppInstalled = () => {
+        setShowInstallButton(false);
+      };
+
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.addEventListener('appinstalled', handleAppInstalled);
+
+      return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        window.removeEventListener('appinstalled', handleAppInstalled);
+      };
+    }
+  }, []);
+
+  // Обработчик установки PWA
+  const handleInstallPWA = () => {
+    if (window.deferredPrompt) {
+      window.deferredPrompt.prompt();
+      
+      window.deferredPrompt.userChoice.then((choiceResult: { outcome: string }) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('Пользователь установил приложение');
+        } else {
+          console.log('Пользователь отказался от установки');
+        }
+        window.deferredPrompt = null;
+        setShowInstallButton(false);
+      });
+    }
+  };
+
+  const toggleSideMenu = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsSideMenuOpen(!isSideMenuOpen);
   };
@@ -95,6 +154,17 @@ const Header: React.FC = () => {
               <Icon name={theme === 'light' ? 'sun' : 'moon'} />
             </button>
 
+            {showInstallButton && (
+              <button
+                id="install-button"
+                className="theme-toggle"
+                onClick={handleInstallPWA}
+                aria-label="Установить приложение"
+              >
+                <Icon name="download" />
+              </button>
+            )}
+
             <Link to="/profile" className="profile-button" aria-label="Профиль">
               <Icon name="profile" />
             </Link>
@@ -115,7 +185,6 @@ const Header: React.FC = () => {
 
       <SideMenu 
         isOpen={isSideMenuOpen} 
-        onLinkClick={toggleSideMenu} 
         onClose={closeSideMenu}
       />
     </>

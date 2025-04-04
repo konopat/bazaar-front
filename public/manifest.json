@@ -2,10 +2,15 @@
   "name": "BAZAAR - Онлайн-магазин букетов",
   "short_name": "BAZAAR",
   "description": "Красивые букеты с доставкой",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#D4A977",
+  "prefer_related_applications": false,
+  "scope": "/",
+  "id": "/",
+  "categories": ["shopping", "lifestyle"],
   "icons": [
     {
       "src": "/icons/icon-192x192.png",
@@ -16,12 +21,52 @@
     {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/icons/apple-touch-icon.png",
       "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/favicon-32x32.png",
+      "sizes": "32x32",
       "type": "image/png"
+    },
+    {
+      "src": "/icons/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshot1.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/images/screenshot2.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Каталог",
+      "short_name": "Каталог",
+      "description": "Просмотр каталога букетов",
+      "url": "/catalog",
+      "icons": [{ "src": "/icons/catalog-icon.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Корзина",
+      "short_name": "Корзина",
+      "description": "Перейти в корзину",
+      "url": "/cart",
+      "icons": [{ "src": "/icons/cart-icon.png", "sizes": "96x96" }]
     }
   ]
 } 

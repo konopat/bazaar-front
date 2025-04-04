@@ -5,6 +5,12 @@ import { store } from '@store/store';
 import App from '@components/App';
 import '@styles/main.css';
 
+// Типы для PWA
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
 // Регистрация Service Worker для PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -15,6 +21,55 @@ if ('serviceWorker' in navigator) {
       .catch(error => {
         console.log('Ошибка регистрации SW:', error);
       });
+
+    // Добавляем обработчики для установки PWA
+    window.addEventListener('beforeinstallprompt', (e: Event) => {
+      // Предотвращаем стандартный prompt браузера
+      e.preventDefault();
+      // Сохраняем событие, чтобы вызвать его позже
+      window.deferredPrompt = e as BeforeInstallPromptEvent;
+      
+      // Можно показать свою кнопку установки приложения
+      const installButton = document.getElementById('install-button');
+      if (installButton) {
+        installButton.style.display = 'block';
+        installButton.addEventListener('click', installApp);
+      }
+    });
+
+    // Функция для установки приложения
+    function installApp() {
+      const promptEvent = window.deferredPrompt;
+      if (!promptEvent) {
+        return;
+      }
+      
+      // Показываем диалог установки приложения
+      promptEvent.prompt();
+      
+      // Ждем результата от пользователя
+      promptEvent.userChoice.then((result: { outcome: 'accepted' | 'dismissed' }) => {
+        console.log('Результат установки PWA:', result.outcome);
+        // Обнуляем отложенный prompt, он может быть использован только один раз
+        window.deferredPrompt = null;
+        
+        // Скрываем кнопку установки
+        const installButton = document.getElementById('install-button');
+        if (installButton) {
+          installButton.style.display = 'none';
+        }
+      });
+    }
+
+    // Отслеживаем, когда приложение установлено
+    window.addEventListener('appinstalled', (evt) => {
+      console.log('PWA успешно установлено');
+      // Скрываем кнопку установки
+      const installButton = document.getElementById('install-button');
+      if (installButton) {
+        installButton.style.display = 'none';
+      }
+    });
   });
 }
 
@@ -63,5 +118,6 @@ if (appElement.innerHTML.trim().length > 0) {
 declare global {
   interface Window {
     __INITIAL_STATE__?: any;
+    deferredPrompt?: BeforeInstallPromptEvent | null;
   }
 }

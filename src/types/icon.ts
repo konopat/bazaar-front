@@ -20,7 +20,8 @@ export type IconName =
   | 'diamond' 
   | 'heart' 
   | 'handshake' 
-  | 'search';
+  | 'search'
+  | 'download';
 
 /**
  * Интерфейс пропсов компонента Icon
