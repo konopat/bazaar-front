@@ -1,14 +1,11 @@
 import React from 'react';
+import { ColorFilterProps } from '../../types/catalog';
 
+// Используем внутренний тип для опций цвета, он не должен быть экспортирован, так как специфичен только для этого компонента
 interface ColorOption {
   id: string;
   name: string;
   color: string;
-}
-
-interface ColorFilterProps {
-  selectedColor: string | null;
-  onColorSelect: (color: string | null) => void;
 }
 
 const colorOptions: ColorOption[] = [

@@ -2,17 +2,9 @@ import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToCart } from '../../store/cartSlice';
+import { ProductDetailProps } from '../../types';
 import LazyImage from '../common/LazyImage';
 import Icon from '../common/Icon';
-
-interface ProductDetailProps {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  description?: string;
-  color?: string;
-}
 
 const ProductDetail = ({
   id,

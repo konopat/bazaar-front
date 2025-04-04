@@ -1,8 +1,5 @@
 import { STORES } from '../../constants/contacts';
-
-interface StoreAddressesProps {
-  className?: string;
-}
+import { StoreAddressesProps } from '../../types/common';
 
 const StoreAddresses = ({ className = '' }: StoreAddressesProps) => {
   return (

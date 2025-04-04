@@ -1,11 +1,5 @@
 import { memo } from 'react';
-import { Store } from '../../hooks/useMap';
-
-interface StoresListProps {
-  stores: Store[];
-  selectedStoreId?: string;
-  onStoreSelect: (storeId: string) => void;
-}
+import { StoresListProps } from '../../types/map';
 
 const StoresList = ({ stores, selectedStoreId, onStoreSelect }: StoresListProps) => {
   return (

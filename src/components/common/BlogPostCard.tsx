@@ -1,10 +1,7 @@
 import { Link } from 'react-router-dom';
 import LazyImage from './LazyImage';
 import { BlogPost } from '../../mocks/blog';
-
-interface BlogPostCardProps {
-  post: BlogPost;
-}
+import { BlogPostCardProps } from '../../types/common';
 
 const BlogPostCard = ({ post }: BlogPostCardProps) => {
   const { id, title, excerpt, image, category, slug } = post;

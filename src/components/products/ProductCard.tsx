@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ProductCardProps as BaseProductCardProps } from '../../types';
 import LazyImage from '../common/LazyImage';
 
 interface ProductCardProps {

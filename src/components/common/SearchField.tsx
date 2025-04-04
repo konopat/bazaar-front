@@ -1,14 +1,8 @@
 import React from 'react';
 import Icon from './Icon';
+import { SearchFieldProps } from '../../types/common';
 
 import '../../styles/components/search-field.css';
-
-interface SearchFieldProps {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  className?: string;
-}
 
 const SearchField: React.FC<SearchFieldProps> = ({
   value,

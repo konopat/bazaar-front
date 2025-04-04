@@ -2,37 +2,11 @@ import { useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../store/cartSlice';
+import { ProductCardProps } from '../../types';
 import LazyImage from './LazyImage';
 import Modal from './Modal';
 import ProductDetail from '../catalog/ProductDetail';
 import AddToCartAnimation from '../catalog/AddToCartAnimation';
-
-interface ProductCardProps {
-  // Общие свойства
-  id: string | number;
-  price: number;
-  image: string;
-  description?: string;
-  color?: string;
-  
-  // Свойства для каталога (названия как в каталоге)
-  title?: string;
-  
-  // Свойства для корзины (названия как в корзине)
-  name?: string;
-  
-  // Дополнительные свойства для разных контекстов
-  oldPrice?: number;
-  category?: string;
-  isNew?: boolean;
-  isBestseller?: boolean;
-  isSpecialOffer?: boolean;
-  isHot?: boolean;
-  inCart?: boolean; // Флаг, показывающий что карточка отображается в корзине
-  
-  // Колбэки
-  onClick?: () => void;
-}
 
 const ProductCard = ({
   id,

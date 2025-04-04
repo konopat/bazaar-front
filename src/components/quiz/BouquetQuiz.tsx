@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-
-interface QuizStep {
-  id: number;
-  title: string;
-}
+import { QuizStep } from '../../types/quiz';
 
 const steps: QuizStep[] = [
   { id: 1, title: 'Бюджет' },

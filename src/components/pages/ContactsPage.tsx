@@ -8,13 +8,7 @@ import {
 import StoresModal from '../map/StoresModal';
 import Icon from '../common/Icon';
 import LazyImage from '@components/common/LazyImage';
-
-interface ContactFormData {
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-}
+import { ContactFormData } from '../../types/payment';
 
 const ContactsPage: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({

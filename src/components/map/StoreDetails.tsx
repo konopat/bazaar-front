@@ -1,12 +1,8 @@
 import { memo } from 'react';
-import { Store } from '../../hooks/useMap';
 import { useStoreStatus } from '../../hooks/useStoreStatus';
 import LazyImage from '../common/LazyImage';
 import Icon from '../common/Icon';
-
-interface StoreDetailsProps {
-  store?: Store;
-}
+import { StoreDetailsProps } from '../../types/map';
 
 const StoreDetails = ({ store }: StoreDetailsProps) => {
   // Получаем статус работы магазина (безопасно, даже если store undefined)

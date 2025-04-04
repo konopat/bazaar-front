@@ -1,6 +1,4 @@
-interface BazaarLogoProps {
-  className?: string;
-}
+import { BazaarLogoProps } from '../../types/common';
 
 const BazaarLogo: React.FC<BazaarLogoProps> = ({ className }) => {
   return (

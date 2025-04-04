@@ -1,9 +1,6 @@
 import Icon from './Icon';
 import { SOCIAL_NETWORKS } from '../../constants/contacts';
-
-interface SocialLinksProps {
-  className?: string;
-}
+import { SocialLinksProps } from '../../types/common';
 
 const SocialLinks = ({ className = '' }: SocialLinksProps) => {
   return (

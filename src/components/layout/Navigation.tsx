@@ -1,10 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import type { MouseEvent } from 'react';
-
-interface NavigationProps {
-  className?: string;
-  onLinkClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
-}
+import { NavigationProps } from '../../types/layout';
 
 const navigationItems = [
   { path: '/', label: 'Главная' },
@@ -15,7 +10,7 @@ const navigationItems = [
   { path: '/blog', label: 'Блог' }
 ];
 
-const Navigation: React.FC<NavigationProps> = ({ className = '', onLinkClick }) => {
+const Navigation: React.FC<NavigationProps> = ({ className = '', onItemClick }) => {
   const location = useLocation();
 
   return (
@@ -25,7 +20,7 @@ const Navigation: React.FC<NavigationProps> = ({ className = '', onLinkClick }) 
           key={item.path}
           to={item.path}
           className={`nav__link ${location.pathname === item.path ? 'nav__link--active' : ''}`}
-          onClick={onLinkClick}
+          onClick={(e) => onItemClick && onItemClick({ name: item.label, href: item.path })}
         >
           {item.label}
         </Link>

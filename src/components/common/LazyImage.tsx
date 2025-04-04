@@ -1,21 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import Skeleton from './Skeleton';
+import { LazyImageProps } from '../../types';
 import '../../styles/components/LazyImage.css';
 
-interface LazyImageProps {
-  src: string;
-  alt: string;
-  fallbackSrc?: string;
-  className?: string;
-  containerClassName?: string;
-  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down';
-  width?: string;
-  height?: string;
-  aspectRatio?: number;
-}
-
 /**
- * Компонент для отображения изображений со скелетоном загрузки
+ * Компонент для отображения изображений со скелетоном загрузки.
+ * Предотвращает сдвиги макета и обеспечивает плавную загрузку.
+ * 
+ * @param {LazyImageProps} props - Пропсы компонента
+ * @returns {React.ReactElement} LazyImage компонент
  */
 const LazyImage = ({
   src,
@@ -26,13 +19,14 @@ const LazyImage = ({
   objectFit = 'contain',
   width = '100%',
   height = '100%',
-  aspectRatio
+  aspectRatio,
+  caption
 }: LazyImageProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   
-  // Важно! Сбрасываем состояние загрузки при изменении источника изображения
+  // Сбрасываем состояние загрузки при изменении источника изображения
   useEffect(() => {
     setLoading(true);
     setError(false);
@@ -43,53 +37,96 @@ const LazyImage = ({
     }
   }, [src]);
   
+  /**
+   * Обработчик успешной загрузки изображения
+   */
   const handleLoad = () => {
     setLoading(false);
   };
   
+  /**
+   * Обработчик ошибки загрузки изображения
+   */
   const handleError = () => {
     setLoading(false);
     setError(true);
   };
 
-  // Вычисляем стили контейнера с учетом соотношения сторон
-  const containerStyle: React.CSSProperties = aspectRatio
-    ? {
-        position: 'relative',
-        width,
-        height: 0,
-        paddingBottom: `${(1 / aspectRatio) * 100}%`
-      }
-    : { width, height };
-
-  // Вычисляем стили для изображения
-  const imageStyle: React.CSSProperties = {
-    objectFit,
-    ...(aspectRatio
-      ? {
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%'
-        }
-      : {})
+  // Базовые стили контейнера (сбрасываем стандартные отступы)
+  const baseContainerStyle: React.CSSProperties = {
+    margin: 0, // Сбрасываем margins для figure
+    width, 
+    height
   };
 
+  // Дополнительные стили для контейнера с соотношением сторон
+  const aspectRatioContainerStyle: React.CSSProperties = aspectRatio
+    ? {
+        ...baseContainerStyle,
+        position: 'relative',
+        height: 0,
+        // paddingBlockEnd работает не везде для аспектного соотношения, поэтому дублируем свойства
+        paddingBlockEnd: `${(1 / aspectRatio) * 100}%`,
+        paddingBottom: `${(1 / aspectRatio) * 100}%` // Для старых браузеров
+      }
+    : baseContainerStyle;
+
+  // Стили для изображения
+  const imageStyle: React.CSSProperties = aspectRatio
+    ? {
+        objectFit,
+        position: 'absolute',
+        // Используем логические и физические свойства для максимальной совместимости
+        insetBlockStart: 0,
+        insetBlockEnd: 0,
+        insetInlineStart: 0,
+        insetInlineEnd: 0,
+        inset: 0, // Сокращенное свойство для поддерживающих браузеров
+        width: '100%',
+        height: '100%'
+      }
+    : {
+        objectFit,
+        width: '100%',
+        height: '100%'
+      };
+
+  // Стили для контейнера скелетона
+  const skeletonContainerStyle: React.CSSProperties = aspectRatio
+    ? {
+        position: 'absolute',
+        // Логические свойства позиционирования
+        insetBlockStart: 0,
+        insetBlockEnd: 0,
+        insetInlineStart: 0,
+        insetInlineEnd: 0,
+        inset: 0, // Сокращенное свойство для поддерживающих браузеров
+        width: '100%',
+        height: '100%'
+      }
+    : {
+        width: '100%',
+        height: '100%'
+      };
+
   return (
-    <div 
+    <figure 
       className={`lazy-image__container ${containerClassName}`} 
-      style={containerStyle}
+      style={aspectRatioContainerStyle}
     >
-      {/* Скелетон всегда находится в том же контейнере, что и изображение */}
+      {/* Скелетон-загрузчик */}
       {loading && (
-        <div className="lazy-image__skeleton" style={aspectRatio ? { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' } : {}}>
+        <span 
+          className="lazy-image__skeleton" 
+          style={skeletonContainerStyle}
+          role="presentation"
+        >
           <Skeleton
             width="100%"
             height="100%"
             className="lazy-image__skeleton-animation"
           />
-        </div>
+        </span>
       )}
       
       <img
@@ -100,8 +137,12 @@ const LazyImage = ({
         onLoad={handleLoad}
         onError={handleError}
         style={imageStyle}
+        loading="lazy" // Встроенная ленивая загрузка для современных браузеров
       />
-    </div>
+      
+      {/* Подпись к изображению для лучшей семантики */}
+      {caption && <figcaption className="lazy-image__caption">{caption}</figcaption>}
+    </figure>
   );
 };
 

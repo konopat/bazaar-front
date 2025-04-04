@@ -1,20 +1,20 @@
 import React from 'react';
-import type { MouseEvent } from 'react';
 import Navigation from './Navigation';
 import SocialLinks from '../common/SocialLinks';
 import StoreAddresses from '../common/StoreAddresses';
 import { PHONE_NUMBER } from '../../constants/contacts';
+import { SideMenuProps } from '../../types/layout';
 
-interface SideMenuProps {
-  isOpen: boolean;
-  onLinkClick: (e: MouseEvent<HTMLElement>) => void;
-}
+const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
+  const handleNavItemClick = (item: { name: string; href: string }) => {
+    // Закрываем меню при клике на пункт меню
+    onClose();
+  };
 
-const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onLinkClick }) => {
   return (
     <div className={`side-menu ${isOpen ? 'side-menu--open' : ''}`}>
       <div className="side-menu__content">
-        <Navigation className="side-menu__nav" onLinkClick={onLinkClick} />
+        <Navigation className="side-menu__nav" onItemClick={handleNavItemClick} />
         
         <div className="side-menu__info">
           <h3 className="side-menu__subtitle">Наши магазины</h3>

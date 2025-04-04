@@ -1,16 +1,9 @@
 import { memo } from 'react';
-import { useMap, Store } from '../../hooks/useMap';
+import { useMap } from '../../hooks/useMap';
 import StoresList from './StoresList';
+import { StoresMapProps } from '../../types/map';
 import 'ol/ol.css';
 import '../../styles/components/StoresMap.css';
-
-interface StoresMapProps {
-  stores: Store[];
-  selectedStoreId?: string;
-  onStoreSelect?: (storeId: string) => void;
-  onMapReady?: () => void;
-  hideStoresList?: boolean;
-}
 
 // Иконка для ошибки
 const ERROR_ICON = () => (

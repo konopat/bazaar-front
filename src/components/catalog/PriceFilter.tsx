@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
+import { PriceFilterProps } from '../../types/catalog';
 
+// Внутренний тип для опций цены
 interface PriceOption {
   id: string;
   label: string;
   min: number;
   max: number | null;
-}
-
-interface PriceFilterProps {
-  selectedPrice: { min: number; max: number | null } | null;
-  onPriceSelect: (price: { min: number; max: number | null } | null) => void;
 }
 
 const priceOptions: PriceOption[] = [

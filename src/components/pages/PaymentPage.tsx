@@ -1,11 +1,5 @@
 import React from 'react';
-
-interface PaymentMethod {
-  id: number;
-  name: string;
-  description: string;
-  icon: string;
-}
+import { PaymentMethod } from '../../types/payment';
 
 const PAYMENT_METHODS: PaymentMethod[] = [
   {

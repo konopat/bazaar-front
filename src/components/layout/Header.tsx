@@ -58,10 +58,14 @@ const Header: React.FC = () => {
     };
   }, [isSideMenuOpen]);
 
-  const toggleSideMenu = useCallback((e: MouseEvent) => {
-    e.stopPropagation();
-    setIsSideMenuOpen(prev => !prev);
-  }, []);
+  const toggleSideMenu = (e: MouseEvent) => {
+    e.preventDefault();
+    setIsSideMenuOpen(!isSideMenuOpen);
+  };
+
+  const closeSideMenu = () => {
+    setIsSideMenuOpen(false);
+  };
 
   return (
     <>
@@ -112,6 +116,7 @@ const Header: React.FC = () => {
       <SideMenu 
         isOpen={isSideMenuOpen} 
         onLinkClick={toggleSideMenu} 
+        onClose={closeSideMenu}
       />
     </>
   );

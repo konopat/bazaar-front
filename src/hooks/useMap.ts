@@ -10,30 +10,13 @@ import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { Style, Icon } from 'ol/style';
 import { defaults as defaultControls } from 'ol/control';
+import { Store } from '../types/map';
 
 // Base64-encoded маркер SVG (гарантированно доступен)
 const MARKER_ICON = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCAzMiA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEM3LjE2NCAwIDAgNy4xNjQgMCAxNkMwIDI0IDE2IDQ4IDE2IDQ4QzE2IDQ4IDMyIDI0IDMyIDE2QzMyIDcuMTY0IDI0LjgzNiAwIDE2IDBaIiBmaWxsPSIjRDRBOTc3Ii8+PHBhdGggZD0iTTE2IDBDNy4xNjQgMCAwIDcuMTY0IDAgMTZDMCAyNCAxNiA0OCAxNiA0OEMxNiA0OCAzMiAyNCAzMiAxNkMzMiA3LjE2NCAyNC44MzYgMCAxNiAwWk0xNiAyMkMxMi42ODYgMjIgMTAgMTkuMzE0IDEwIDE2QzEwIDEyLjY4NiAxMi42ODYgMTAgMTYgMTBDMTkuMzE0IDEwIDIyIDEyLjY4NiAyMiAxNkMyMiAxOS4zMTQgMTkuMzE0IDIyIDE2IDIyWiIgZmlsbD0iIzRBNDMzQiIgZmlsbC1vcGFjaXR5PSIxIi8+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI0I4OUY3QSIvPjwvc3ZnPg==`;
 
 // Маркер для выбранного магазина
 const SELECTED_MARKER_ICON = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCAzMiA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEM3LjE2NCAwIDAgNy4xNjQgMCAxNkMwIDI0IDE2IDQ4IDE2IDQ4QzE2IDQ4IDMyIDI0IDMyIDE2QzMyIDcuMTY0IDI0LjgzNiAwIDE2IDBaIiBmaWxsPSIjQjg5RjdBIi8+PHBhdGggZD0iTTE2IDBDNy4xNjQgMCAwIDcuMTY0IDAgMTZDMCAyNCAxNiA0OCAxNiA0OEMxNiA0OCAzMiAyNCAzMiAxNkMzMiA3LjE2NCAyNC44MzYgMCAxNiAwWk0xNiAyMkMxMi42ODYgMjIgMTAgMTkuMzE0IDEwIDE2QzEwIDEyLjY4NiAxMi42ODYgMTAgMTYgMTBDMTkuMzE0IDEwIDIyIDEyLjY4NiAyMiAxNkMyMiAxOS4zMTQgMTkuMzE0IDIyIDE2IDIyWiIgZmlsbD0iIzRBNDMzQiIgZmlsbC1vcGFjaXR5PSIxIi8+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iOCIgZmlsbD0iI0Q0QTk3NyIvPjwvc3ZnPg==`;
-
-export interface Store {
-  id: string;
-  name: string;
-  address: string;
-  coordinates: [number, number];
-  phone?: string;
-  workSchedule?: {
-    monday: { open: string; close: string; dayOff: boolean };
-    tuesday: { open: string; close: string; dayOff: boolean };
-    wednesday: { open: string; close: string; dayOff: boolean };
-    thursday: { open: string; close: string; dayOff: boolean };
-    friday: { open: string; close: string; dayOff: boolean };
-    saturday: { open: string; close: string; dayOff: boolean };
-    sunday: { open: string; close: string; dayOff: boolean };
-  };
-  photo?: string;
-}
 
 interface UseMapOptions {
   onMapReady?: () => void;

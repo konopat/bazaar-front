@@ -5,11 +5,7 @@ import StoresList from './StoresList';
 import StoreDetails from './StoreDetails';
 import Skeleton from '../common/Skeleton';
 import { STORES } from '../../constants/contacts';
-
-interface StoresModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { StoresModalProps } from '../../types/map';
 
 // Типы действий для reducer
 type ActionType = 
