@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { BLOG_POSTS } from '../../constants/blog';
+import { useParams, useNavigate } from 'react-router-dom';
+import { BLOG_POSTS } from '../../mocks/blog';
 import BlogPostCard from '../common/BlogPostCard';
 import SocialLinks from '../common/SocialLinks';
 import LazyImage from '../common/LazyImage';
@@ -100,7 +100,7 @@ const BlogPostPage = () => {
             </button>
             <h1 className="section-title blog-post__title" style={headerTextStyles}>{currentPost.title}</h1>
             <div className="blog-post__meta">
-              <span className="blog-post__category" style={headerTextStyles}>{currentPost.category}</span>
+              <span className="blog-post__category" style={headerTextStyles}>{currentPost.category.name}</span>
             </div>
           </div>
         </div>
@@ -109,57 +109,7 @@ const BlogPostPage = () => {
       <div className="container">
         <div className="blog-post__content">
           {currentPost.content ? (
-            <>
-              {currentPost.content.intro && (
-                <div className="blog-post__intro">
-                  <p>{currentPost.content.intro}</p>
-                </div>
-              )}
-              
-              <div className="blog-post__sections">
-                {currentPost.content.sections.map((section, index) => (
-                  <section key={index} className="blog-post__section">
-                    <h2 className="section-title">{section.title}</h2>
-                    
-                    <div className="blog-post__section-content">
-                      {section.text.split('\n\n').map((paragraph, i) => (
-                        <p key={i} className="blog-post__paragraph">
-                          {paragraph.startsWith('•') ? (
-                            <ul className="blog-post__list">
-                              {paragraph.split('\n').map((item, j) => (
-                                <li key={j}>{item.replace('• ', '')}</li>
-                              ))}
-                            </ul>
-                          ) : (
-                            paragraph
-                          )}
-                        </p>
-                      ))}
-                    </div>
-                    
-                    {section.image && (
-                      <div className="framed-image blog-post__image-wrapper">
-                        <LazyImage 
-                          src={section.image} 
-                          alt={section.title} 
-                          className="blog-post__image"
-                          aspectRatio={16/9}
-                          objectFit="cover"
-                          fallbackSrc="/images/blog-placeholder.jpg"
-                        />
-                      </div>
-                    )}
-                  </section>
-                ))}
-              </div>
-              
-              {currentPost.content.conclusion && (
-                <div className="blog-post__conclusion">
-                  <h2 className="section-title">Заключение</h2>
-                  <p>{currentPost.content.conclusion}</p>
-                </div>
-              )}
-            </>
+            <div className="blog-post__text" dangerouslySetInnerHTML={{ __html: currentPost.content }} />
           ) : (
             <div className="blog-post__excerpt">
               <p>{currentPost.excerpt}</p>

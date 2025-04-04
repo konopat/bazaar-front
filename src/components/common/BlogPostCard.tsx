@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import LazyImage from './LazyImage';
-import { BlogPost } from '../../constants/blog';
+import { BlogPost } from '../../mocks/blog';
 
 interface BlogPostCardProps {
   post: BlogPost;
@@ -23,7 +23,7 @@ const BlogPostCard = ({ post }: BlogPostCardProps) => {
             key={`blog-image-${id}`}
             objectFit="cover"
           />
-          <span className="blog-card__category">{category}</span>
+          <span className="blog-card__category">{category.name}</span>
         </div>
         
         <div className="blog-card__content">

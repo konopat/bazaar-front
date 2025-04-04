@@ -17,11 +17,13 @@ export interface Category {
 }
 
 export const CATEGORIES: Category[] = [
-  { id: 1, name: 'Уход за цветами', slug: 'care' },
-  { id: 2, name: 'Свадебная флористика', slug: 'wedding' },
-  { id: 3, name: 'Сезонные советы', slug: 'seasonal' },
-  { id: 4, name: 'Мастер-классы', slug: 'workshops' },
-  { id: 5, name: 'Новости', slug: 'news' }
+  { id: 1, name: 'Все', slug: 'all' },
+  { id: 2, name: 'Советы', slug: 'tips' },
+  { id: 3, name: 'Тренды', slug: 'trends' },
+  { id: 4, name: 'История', slug: 'history' },
+  { id: 5, name: 'Свадьба', slug: 'wedding' },
+  { id: 6, name: 'Комнатные растения', slug: 'indoor-plants' },
+  { id: 7, name: 'Сезонные цветы', slug: 'seasonal-flowers' }
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -105,3 +107,5 @@ export const BLOG_POSTS: BlogPost[] = [
     relatedPosts: [7, 9]
   }
 ]; 
+
+export const POSTS_PER_PAGE = 4; 

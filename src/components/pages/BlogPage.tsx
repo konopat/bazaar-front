@@ -1,8 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
-import Icon from '../../components/common/Icon';
 import BlogPostCard from '../common/BlogPostCard';
 import SearchField from '../common/SearchField';
-import { BLOG_POSTS, CATEGORIES, POSTS_PER_PAGE } from '../../constants/blog';
+import { BLOG_POSTS, CATEGORIES, POSTS_PER_PAGE } from '../../mocks/blog';
 
 import '../../styles/pages/blog.css';
 
@@ -20,7 +19,7 @@ const BlogPage = () => {
     
     // Проверяем соответствие категории
     const matchesCategory = selectedCategory === 'all' || 
-                           (categoryItem && post.category === categoryItem.name);
+                           (categoryItem && post.category.name === categoryItem.name);
     
     // Проверяем поисковый запрос
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 

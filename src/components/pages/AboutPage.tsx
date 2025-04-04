@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { STORES } from '../../constants/contacts';
 import { 
-  TEAM_MEMBERS, 
   COMPANY_VALUES, 
   HISTORY_MILESTONES, 
   ABOUT_COMPANY_TEXT 
@@ -9,22 +8,7 @@ import {
 import StoresModal from '../map/StoresModal';
 import Icon from '../common/Icon';
 import LazyImage from '@components/common/LazyImage';
-
-// Функция для сопоставления эмодзи с именами иконок
-const getIconNameForValue = (emoji: string) => {
-  switch (emoji) {
-    case '🌱':
-      return 'leaf';
-    case '💎':
-      return 'diamond';
-    case '❤️':
-      return 'heart';
-    case '🤝':
-      return 'handshake';
-    default:
-      return 'leaf'; // Иконка по умолчанию
-  }
-};
+import { TEAM_MEMBERS } from '../../mocks/about';
 
 const AboutPage: React.FC = () => {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -109,13 +93,13 @@ const AboutPage: React.FC = () => {
               <div key={value.id} className="value-card">
                 <div className="value-card__icon">
                   <Icon 
-                    name={getIconNameForValue(value.icon)} 
+                    name={value.iconName as "heart" | "diamond" | "leaf" | "handshake" | "lightning" | "truck"} 
                     size={18} 
                     color="currentColor" 
                   />
                 </div>
                 <h3 className="value-card__title">{value.title}</h3>
-                <p className="value-card__text">{value.text}</p>
+                <p className="value-card__text">{value.description}</p>
               </div>
             ))}
           </div>
