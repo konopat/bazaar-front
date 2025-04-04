@@ -56,7 +56,7 @@ const ProductPage = () => {
   
   // Настройка SEO метатегов для страницы продукта
   useSEO({
-    title: product ? `${product.title} | BAZAAR` : 'Загрузка...',
+    title: product ? `${product.title} | BAZAAR Иркутск` : 'Загрузка...',
     description: product ? `${product.description.slice(0, 150)}... Купите ${product.title} с доставкой по Иркутску.` : '',
     keywords: product ? `${product.title}, букет, цветы, доставка, ${product.color}` : '',
     ogTitle: product ? product.title : '',

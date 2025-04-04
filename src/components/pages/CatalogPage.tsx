@@ -6,10 +6,19 @@ import ColorFilter from '../catalog/ColorFilter';
 import PriceFilter from '../catalog/PriceFilter';
 import SearchField from '../common/SearchField';
 import useScrollToTop from '../../hooks/useScrollToTop';
+import { useSEO } from '@hooks/useSEO';
 
 const CatalogPage: React.FC = () => {
   useScrollToTop();
   
+  useSEO({
+    title: 'Каталог цветов | BAZAAR букеты Иркутск',
+    description: 'Каталог букетов с ценами и описанием. Купите букет на любой случай.',
+    keywords: 'букеты, цветы, доставка, цветы на заказ, цветы для свадьбы',
+    ogTitle: 'Каталог букетов | BAZAAR Иркутск',
+    ogDescription: 'Каталог букетов с ценами и описанием. Купите букет на любой случай.'
+  });
+
   const [searchParams] = useSearchParams();
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedPrice, setSelectedPrice] = useState<{ min: number; max: number | null } | null>(null);
