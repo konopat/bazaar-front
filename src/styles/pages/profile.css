@@ -1,0 +1,721 @@
+/* 
+* Страница: Профиль пользователя
+* Описание: Стили для страницы профиля
+*/
+
+.profile-page {
+  padding: var(--spacing-2xl) 0;
+}
+
+.profile-page__content {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+
+/* Боковая навигация */
+.profile-page__sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + var(--spacing-xl));
+  align-self: flex-start;
+}
+
+.profile-nav {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-card-background);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.profile-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: var(--color-text);
+  text-align: left;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+.profile-nav__item:hover {
+  background-color: var(--color-background-light);
+  color: var(--color-primary);
+}
+
+.profile-nav__item--active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.profile-nav__item--active:hover {
+  color: white;
+}
+
+/* Основной контент */
+.profile-page__main {
+  background-color: var(--color-card-background);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+  min-height: 500px;
+  border: 1px solid var(--color-border);
+}
+
+/* Информация профиля */
+.profile-info__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.profile-card {
+  display: flex;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+}
+
+.profile-card__avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--color-background-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.profile-card__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-card__avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+}
+
+.profile-card__details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.profile-card__field {
+  margin-bottom: var(--spacing-sm);
+}
+
+.profile-card__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-xs);
+}
+
+.profile-card__value {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+}
+
+.profile-info__additional {
+  margin-top: var(--spacing-xl);
+}
+
+/* История заказов */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.order-card {
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.order-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--color-background-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-card__id {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.order-card__date {
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
+}
+
+.order-card__status {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  font-weight: 500;
+}
+
+.order-card__status--pending {
+  background-color: var(--color-warning);
+  color: #665e00;
+}
+
+.order-card__status--delivered {
+  background-color: var(--color-success);
+  color: #2c5f2d;
+}
+
+.order-card__status--cancelled {
+  background-color: var(--color-error);
+  color: #5f2d2d;
+}
+
+.order-card__body {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.order-card__items {
+  display: flex;
+  align-items: center;
+}
+
+.order-card__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.order-card__item-image {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.order-card__item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.order-card__item-title {
+  font-weight: 500;
+}
+
+.order-card__more {
+  margin-left: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background-color: var(--color-background-alt);
+  border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+}
+
+.order-card__total {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.order-card__total-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.order-card__total-value {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.order-card__footer {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Детали заказа */
+.order-details {
+  margin-top: var(--spacing-md);
+}
+
+.order-details__back {
+  background: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  cursor: pointer;
+  padding: var(--spacing-sm) 0;
+  margin-bottom: var(--spacing-md);
+  transition: color var(--transition-normal);
+}
+
+.order-details__back:hover {
+  color: var(--color-primary-dark);
+}
+
+.order-details__content {
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+}
+
+.order-details__header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.order-details__meta {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-sm);
+}
+
+.order-details__date {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
+}
+
+.order-details__status {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  font-weight: 500;
+}
+
+.order-details__status--pending {
+  background-color: var(--color-warning);
+  color: #665e00;
+}
+
+.order-details__status--delivered {
+  background-color: var(--color-success);
+  color: #2c5f2d;
+}
+
+.order-details__status--cancelled {
+  background-color: var(--color-error);
+  color: #5f2d2d;
+}
+
+.order-details__subtitle {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.order-details__items {
+  margin-bottom: var(--spacing-lg);
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-item__image {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.order-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.order-item__info {
+  flex-grow: 1;
+}
+
+.order-item__title {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+}
+
+.order-item__price {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.order-item__total {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.order-details__summary {
+  background-color: var(--color-background-alt);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  margin-top: var(--spacing-lg);
+}
+
+.order-details__summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+}
+
+.order-details__summary-row:last-child {
+  margin-bottom: 0;
+}
+
+.order-details__summary-label {
+  color: var(--color-text-light);
+}
+
+.order-details__summary-value {
+  font-weight: 500;
+}
+
+.order-details__summary-row--total {
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  margin-top: var(--spacing-md);
+}
+
+.order-details__actions {
+  margin-top: var(--spacing-lg);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Пустое состояние для заказов */
+.orders-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) 0;
+  text-align: center;
+}
+
+.orders-empty__icon {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-light);
+}
+
+.orders-empty__text {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-light);
+  font-size: var(--font-size-lg);
+}
+
+/* Адреса доставки */
+.profile-addresses__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.addresses-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.address-card {
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.address-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.address-card__title {
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.address-card__default {
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: var(--border-radius-sm);
+}
+
+.address-card__address {
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
+}
+
+.address-card__actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.address-card__edit,
+.address-card__delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-normal);
+}
+
+.address-card__edit {
+  color: var(--color-primary);
+}
+
+.address-card__edit:hover {
+  color: var(--color-primary-dark);
+}
+
+.address-card__delete {
+  color: var(--color-text-light);
+}
+
+.address-card__delete:hover {
+  color: var(--color-error);
+}
+
+/* Пустое состояние для адресов */
+.addresses-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) 0;
+  text-align: center;
+}
+
+.addresses-empty__icon {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-light);
+}
+
+.addresses-empty__text {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-light);
+  font-size: var(--font-size-lg);
+}
+
+/* Избранное */
+.favorites-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) 0;
+  text-align: center;
+}
+
+.favorites-empty__icon {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-light);
+}
+
+.favorites-empty__text {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-light);
+  font-size: var(--font-size-lg);
+}
+
+/* Модальные окна */
+.profile-edit {
+  padding: var(--spacing-md) 0;
+}
+
+.profile-edit__field {
+  margin-bottom: var(--spacing-lg);
+}
+
+.profile-edit__label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.profile-edit__input {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-md);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.profile-edit__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+}
+
+.profile-edit__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.address-edit {
+  padding: var(--spacing-md) 0;
+}
+
+.address-edit__field {
+  margin-bottom: var(--spacing-lg);
+}
+
+.address-edit__field--checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.address-edit__label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.address-edit__input {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-md);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.address-edit__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+}
+
+.address-edit__checkbox-label {
+  cursor: pointer;
+}
+
+.address-edit__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+/* Медиа запросы */
+@media (max-width: 1024px) {
+  .profile-page__content {
+    grid-template-columns: 200px 1fr;
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-page__content {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-page__sidebar {
+    position: relative;
+    top: 0;
+  }
+  
+  .profile-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: var(--spacing-sm) 0;
+  }
+  
+  .profile-nav__item {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm);
+    white-space: nowrap;
+  }
+  
+  .profile-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .profile-card__details {
+    align-items: center;
+  }
+  
+  .order-card__body {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .order-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+  
+  .order-details__meta {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+} 

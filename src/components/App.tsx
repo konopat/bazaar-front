@@ -18,6 +18,7 @@ const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const VacanciesPage = lazy(() => import('./pages/VacanciesPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const ProductPage = lazy(() => import('./pages/ProductPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
               <Route path="/contacts" element={<ContactsPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/products/:id" element={<ProductPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </Suspense>
         </main>
