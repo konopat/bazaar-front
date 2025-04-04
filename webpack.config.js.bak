@@ -9,7 +9,7 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
   
-  const config = {
+  return {
     entry: './src/index.tsx',
     output: {
       path: path.resolve(__dirname, 'dist'),
@@ -57,7 +57,7 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './public/index.html',
-        minify: isProduction ? {
+        minify: {
           removeComments: true,
           collapseWhitespace: true,
           removeRedundantAttributes: true,
@@ -68,7 +68,7 @@ module.exports = (env, argv) => {
           minifyJS: true,
           minifyCSS: true,
           minifyURLs: true,
-        } : false,
+        },
       }),
       // Копирование статических файлов
       new CopyPlugin({
@@ -76,9 +76,18 @@ module.exports = (env, argv) => {
           { from: 'public/manifest.json', to: '' },
           { from: 'public/offline.html', to: '' },
           // Иконки для PWA будем добавлять в реальном проекте
-          { from: 'public/icons', to: 'icons', noErrorOnMissing: true },
+          // { from: 'public/icons', to: 'icons' },
         ],
       }),
+      // Сжатие файлов
+      new CompressionPlugin({
+        algorithm: 'gzip',
+        test: /\.(js|css|html|svg)$/,
+        threshold: 10240,
+        minRatio: 0.8,
+      }),
+      // Анализ бандла в режиме анализа
+      ...(process.env.ANALYZE ? [new BundleAnalyzerPlugin()] : []),
     ],
     optimization: {
       minimize: isProduction,
@@ -102,42 +111,17 @@ module.exports = (env, argv) => {
       historyApiFallback: true,
       port: 3000,
       hot: true,
-      // Настройка для PWA в режиме разработки
-      setupMiddlewares: (middlewares, devServer) => {
-        // Обработка запросов к service worker
-        devServer.app.get('/service-worker.js', (req, res) => {
-          res.sendFile(path.resolve(__dirname, 'src/dev-worker.js'));
-        });
-        return middlewares;
-      },
     },
   };
+};
 
-  // Добавляем компрессию только в продакшене
-  if (isProduction) {
-    config.plugins.push(
-      new CompressionPlugin({
-        algorithm: 'gzip',
-        test: /\.(js|css|html|svg)$/,
-        threshold: 10240,
-        minRatio: 0.8,
-      })
-    );
-    
-    // Анализ бандла если включен ANALYZE
-    if (process.env.ANALYZE) {
-      config.plugins.push(new BundleAnalyzerPlugin());
-    }
-    
-    // Используем настоящий Service Worker в продакшене
-    config.plugins.push(
-      new InjectManifest({
-        swSrc: './src/service-worker.js',
-        swDest: 'service-worker.js',
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
-      })
-    );
-  }
-  
-  return config;
-}; 
+// В конце сборки в режиме production добавляем Service Worker
+if (process.env.NODE_ENV === 'production') {
+  module.exports.plugins.push(
+    new InjectManifest({
+      swSrc: './src/service-worker.js',
+      swDest: 'service-worker.js',
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
+    })
+  );
+} 

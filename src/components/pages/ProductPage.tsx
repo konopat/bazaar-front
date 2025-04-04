@@ -8,6 +8,7 @@ import { Product, products } from '../../mocks/products';
 import ProductCard from '../common/ProductCard';
 import AddToCartAnimation from '../catalog/AddToCartAnimation';
 import Skeleton from '../common/Skeleton';
+import { useSEO } from '@hooks/useSEO';
 import '../../styles/pages/product.css';
 // Импортируем CSS для компонента ProductDetail
 import '../../styles/components/product-detail.css';
@@ -52,6 +53,16 @@ const ProductPage = () => {
     
     return () => clearTimeout(timer);
   }, [id]);
+  
+  // Настройка SEO метатегов для страницы продукта
+  useSEO({
+    title: product ? `${product.title} | BAZAAR` : 'Загрузка...',
+    description: product ? `${product.description.slice(0, 150)}... Купите ${product.title} с доставкой по Иркутску.` : '',
+    keywords: product ? `${product.title}, букет, цветы, доставка, ${product.color}` : '',
+    ogTitle: product ? product.title : '',
+    ogDescription: product ? product.description.slice(0, 150) : '',
+    ogImage: product ? product.image : ''
+  });
   
   // Форматирование цены
   const formatPrice = (price: number) => {

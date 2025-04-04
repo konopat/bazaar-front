@@ -12,8 +12,19 @@ import SocialLinks from '@components/common/SocialLinks';
 import StoresModal from '../map/StoresModal';
 import { PHONE_NUMBER, STORES } from '../../constants/contacts';
 import LazyImage from '@components/common/LazyImage';
+import { useSEO } from '@hooks/useSEO';
 
 const HomePage: React.FC = () => {
+  // Устанавливаем SEO метатеги для главной страницы
+  useSEO({
+    title: 'BAZAAR - Изысканные букеты с доставкой в Иркутске',
+    description: 'Большой выбор свежих цветов и букетов с доставкой. Специальные предложения и акции. Закажите букет от 1500 рублей!',
+    keywords: 'цветы, букеты, доставка цветов, Иркутск, флористика, заказать букет',
+    ogTitle: 'BAZAAR - Доставка цветов в Иркутске',
+    ogDescription: 'Свежие цветы и стильные букеты с доставкой по Иркутску',
+    ogImage: '/images/og-image.jpg'
+  });
+
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedPrice, setSelectedPrice] = useState<{ min: number; max: number | null } | null>(null);
   const [isCardSticky, setIsCardSticky] = useState(false);
