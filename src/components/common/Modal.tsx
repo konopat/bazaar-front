@@ -4,6 +4,32 @@ import { ModalProps } from '../../types';
 import '../../styles/components/Modal.css';
 import Skeleton from './Skeleton';
 
+// Функция для вычисления ширины скроллбара
+const getScrollbarWidth = () => {
+  // Создаем элемент с прокруткой
+  const outer = document.createElement('div');
+  outer.style.visibility = 'hidden';
+  outer.style.overflow = 'scroll';
+  document.body.appendChild(outer);
+  
+  // Создаем внутренний элемент
+  const inner = document.createElement('div');
+  outer.appendChild(inner);
+  
+  // Вычисляем ширину скроллбара
+  const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+  
+  // Удаляем временные элементы
+  outer.parentNode?.removeChild(outer);
+  
+  return scrollbarWidth;
+};
+
+// Устанавливаем CSS-переменную при загрузке
+if (typeof document !== 'undefined') {
+  document.documentElement.style.setProperty('--scrollbar-width', `${getScrollbarWidth()}px`);
+}
+
 /**
  * Компонент модального окна с анимацией и поддержкой доступности.
  * Создаётся через React Portal и поддерживает темную/светлую тему.
@@ -82,15 +108,31 @@ const Modal = ({
 
     // Сохраняем активный элемент, чтобы вернуть фокус после закрытия
     const activeElement = document.activeElement as HTMLElement;
+    
+    // Сохраняем текущую позицию скролла
+    const scrollY = window.scrollY;
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
+      
+      // Блокируем скролл с сохранением текущей позиции
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = '';
+      
+      // Восстанавливаем скролл при закрытии
+      if (document.body.style.position === 'fixed') {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      }
       
       // Возвращаем фокус при закрытии модального окна
       if (!isOpen && activeElement) {

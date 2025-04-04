@@ -196,4 +196,15 @@ body[data-theme="dark"] .modal__skeleton-container .skeleton-loader {
     max-height: 100%;
     border-radius: 0;
   }
+}
+
+/* Дополнительные стили для модального окна, когда скролл страницы заблокирован */
+body[style*="position: fixed"] {
+  /* Компенсируем ширину полосы прокрутки */
+  padding-right: var(--scrollbar-width, 15px);
+}
+
+/* Устанавливаем переменную для ширины скроллбара при загрузке страницы */
+:root {
+  --scrollbar-width: 0px;
 } 
