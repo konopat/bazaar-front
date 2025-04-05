@@ -31,6 +31,12 @@ const useTheme = () => {
     // Применяем класс к body
     document.body.classList.remove('theme-light', 'theme-dark');
     document.body.classList.add(`theme-${theme}`);
+    
+    // Обновляем цвет темы в meta теге
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute('content', theme === 'dark' ? '#121212' : '#F9F5EF');
+    }
   }, [theme]);
 
   // Слушаем изменения системных предпочтений

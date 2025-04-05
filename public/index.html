@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="Bazaar - магазин цветочных букетов">
-    <meta name="theme-color" content="#D4A977">
+    <meta name="theme-color" id="theme-color" content="#F9F5EF">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="BAZAAR">
@@ -80,6 +80,53 @@
         border-radius: 4px;
       }
     </style>
+    <script>
+      // Установка цвета темы в зависимости от предпочтений пользователя
+      (function() {
+        // Проверка сохраненной темы
+        const savedTheme = localStorage.getItem('theme');
+        
+        // Проверка системных предпочтений
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Проверка времени суток (темная тема с 20:00 до 6:00)
+        const currentHour = new Date().getHours();
+        const isNightTime = currentHour >= 20 || currentHour < 6;
+        
+        // Определение темы
+        let theme = 'light';
+        if (savedTheme) {
+          theme = savedTheme;
+        } else if (prefersDark) {
+          theme = 'dark';
+        } else if (isNightTime) {
+          theme = 'dark';
+        }
+        
+        // Установка цвета темы в мета-теге
+        const themeColorMeta = document.getElementById('theme-color');
+        if (themeColorMeta) {
+          themeColorMeta.setAttribute('content', theme === 'dark' ? '#121212' : '#F9F5EF');
+        }
+        
+        // Обновление класса body
+        if (theme === 'dark') {
+          document.documentElement.classList.add('theme-dark');
+        }
+        
+        // Наблюдение за изменениями предпочтений цветовой схемы
+        if (window.matchMedia) {
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+              const newTheme = e.matches ? 'dark' : 'light';
+              if (themeColorMeta) {
+                themeColorMeta.setAttribute('content', newTheme === 'dark' ? '#121212' : '#F9F5EF');
+              }
+            }
+          });
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

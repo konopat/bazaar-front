@@ -5,6 +5,7 @@ import { RootState } from '@store/store';
 import Icon from '../common/Icon';
 import BazaarLogo from '../common/BazaarLogo';
 import SideMenu from './SideMenu';
+import useTheme from '../../hooks/useTheme';
 import '../../styles/components/header.css';
 import Navigation from './Navigation';
 
@@ -15,13 +16,8 @@ const Header: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const itemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   
-  // Установка темной/светлой темы (заглушка)
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.body.className = newTheme === 'dark' ? 'theme-dark' : '';
-  };
+  // Использование хука для управления темой
+  const { theme, toggleTheme } = useTheme();
 
   // Обработчик скролла для прилипающего хедера
   useEffect(() => {
