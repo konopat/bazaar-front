@@ -338,28 +338,68 @@ a.profile-button {
 
 /* Переключатель темы */
 .theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  padding: var(--spacing-xs);
-  color: var(--color-text);
-  transition: all var(--transition-normal);
+}
+
+.theme-toggle--active {
+  background-color: var(--color-accent-light);
+}
+
+.theme-dark .theme-toggle--active {
+  background-color: var(--color-accent-dark);
 }
 
 .theme-toggle:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.theme-toggle svg {
+  color: var(--color-text);
+  transition: color 0.2s, transform 0.3s;
+}
+
+.theme-toggle--active {
   color: var(--color-primary);
-  transform: rotate(30deg);
 }
 
-.theme-dark .theme-toggle {
-  color: var(--color-text-dark);
+.theme-toggle--auto {
+  color: var(--color-primary);
+  position: relative;
 }
 
-.theme-dark .theme-toggle:hover {
+.theme-toggle--auto::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  bottom: -2px;
+  right: -2px;
+}
+
+.theme-dark .theme-toggle--active {
   color: var(--color-primary-dark-theme);
+}
+
+.theme-dark .theme-toggle--auto {
+  color: var(--color-primary-dark-theme);
+}
+
+.theme-dark .theme-toggle--auto::after {
+  background-color: var(--color-primary-dark-theme);
+}
+
+.theme-toggle:hover {
+  color: var(--color-primary-hover);
 }
 
 /* Нижняя строка - прокручивается с контентом */
@@ -369,6 +409,24 @@ a.profile-button {
   background: var(--color-background);
   border-bottom: 1px solid var(--color-border);
   z-index: 100; /* Меньше, чем у header__top */
+}
+
+/* Скрываем header__bottom в PWA режиме */
+@media all and (display-mode: standalone) {
+  .header__bottom {
+    display: none !important;
+  }
+  
+  /* Добавляем отступ для основного контента, чтобы он не перекрывался прилипшим хедером */
+  .main {
+    padding-top: var(--header-height) !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Дополнительные отступы для контентных блоков */
+  .container, .catalog-section, .section, .product-detail {
+    padding-top: var(--spacing-md) !important;
+  }
 }
 
 @media (min-width: 1025px) {

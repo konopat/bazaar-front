@@ -59,7 +59,19 @@
           overflow-y: auto;
           -webkit-overflow-scrolling: touch;
           height: calc(100vh - 60px);
+          padding-top: var(--header-height, 60px) !important; /* Добавляем отступ сверху равный высоте хедера */
+          margin-top: 0 !important; /* Сбрасываем возможные маргины */
           /* Вычитаем высоту header и footer */
+        }
+        
+        /* Скрываем header__bottom в PWA режиме */
+        .header__bottom {
+          display: none !important;
+        }
+        
+        /* Дополнительные отступы для контента */
+        .container, .catalog-section, .section, .product-detail {
+          padding-top: var(--spacing-md, 1rem) !important;
         }
         
         /* Скрываем индикаторы браузера */
@@ -83,24 +95,33 @@
     <script>
       // Установка цвета темы в зависимости от предпочтений пользователя
       (function() {
-        // Проверка сохраненной темы
-        const savedTheme = localStorage.getItem('theme');
+        // Ключ для хранения настройки "следовать системным предпочтениям"
+        const FOLLOW_SYSTEM_KEY = 'theme_follow_system';
         
-        // Проверка системных предпочтений
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Проверяем, нужно ли следовать системным предпочтениям
+        const followSystem = localStorage.getItem(FOLLOW_SYSTEM_KEY);
+        const shouldFollowSystem = followSystem === 'true' || followSystem === null; // По умолчанию - да
         
-        // Проверка времени суток (темная тема с 20:00 до 6:00)
-        const currentHour = new Date().getHours();
-        const isNightTime = currentHour >= 20 || currentHour < 6;
-        
-        // Определение темы
+        // Определяем тему
         let theme = 'light';
-        if (savedTheme) {
-          theme = savedTheme;
-        } else if (prefersDark) {
-          theme = 'dark';
-        } else if (isNightTime) {
-          theme = 'dark';
+        
+        if (shouldFollowSystem) {
+          // Проверка системных предпочтений
+          const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          // Проверка времени суток (темная тема с 20:00 до 6:00)
+          const currentHour = new Date().getHours();
+          const isNightTime = currentHour >= 20 || currentHour < 6;
+          
+          if (prefersDark || isNightTime) {
+            theme = 'dark';
+          }
+        } else {
+          // Проверка сохраненной темы, если не следуем системным предпочтениям
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme === 'dark' || savedTheme === 'light') {
+            theme = savedTheme;
+          }
         }
         
         // Установка цвета темы в мета-теге
@@ -109,20 +130,91 @@
           themeColorMeta.setAttribute('content', theme === 'dark' ? '#121212' : '#F9F5EF');
         }
         
-        // Обновление класса body
+        // Обновление класса на html и body
         if (theme === 'dark') {
           document.documentElement.classList.add('theme-dark');
+          document.body.classList.add('theme-dark');
+        } else {
+          document.documentElement.classList.remove('theme-dark');
+          document.body.classList.remove('theme-dark');
+          document.documentElement.classList.add('theme-light');
+          document.body.classList.add('theme-light');
         }
         
         // Наблюдение за изменениями предпочтений цветовой схемы
-        if (window.matchMedia) {
+        if (window.matchMedia && shouldFollowSystem) {
           window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-              const newTheme = e.matches ? 'dark' : 'light';
-              if (themeColorMeta) {
-                themeColorMeta.setAttribute('content', newTheme === 'dark' ? '#121212' : '#F9F5EF');
-              }
+            const newTheme = e.matches ? 'dark' : 'light';
+            
+            // Обновляем цвет темы
+            if (themeColorMeta) {
+              themeColorMeta.setAttribute('content', newTheme === 'dark' ? '#121212' : '#F9F5EF');
             }
+            
+            // Обновляем классы тем
+            if (newTheme === 'dark') {
+              document.documentElement.classList.remove('theme-light');
+              document.body.classList.remove('theme-light');
+              document.documentElement.classList.add('theme-dark');
+              document.body.classList.add('theme-dark');
+            } else {
+              document.documentElement.classList.remove('theme-dark');
+              document.body.classList.remove('theme-dark');
+              document.documentElement.classList.add('theme-light');
+              document.body.classList.add('theme-light');
+            }
+          });
+        }
+      })();
+    </script>
+    <script>
+      // Проверка PWA режима и скрытие header__bottom
+      (function() {
+        // Проверяем, запущено ли приложение в режиме PWA
+        const isStandalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches || 
+                          (window.navigator.standalone === true);
+        
+        if (isStandalone) {
+          // Создаем стиль, который скрывает header__bottom и корректирует отступы
+          const style = document.createElement('style');
+          style.textContent = `
+            .header__bottom {
+              display: none !important;
+            }
+            
+            .main {
+              padding-top: var(--header-height, 60px) !important;
+              margin-top: 0 !important;
+            }
+            
+            /* Дополнительные отступы для контентных блоков */
+            .container, .catalog-section, .section, .product-detail {
+              padding-top: var(--spacing-md, 1rem) !important;
+            }
+          `;
+          document.head.appendChild(style);
+          
+          // Скрипт, который скрывает header__bottom и корректирует отступы
+          document.addEventListener('DOMContentLoaded', function() {
+            // Применяем нужные отступы к main
+            setTimeout(function adjustContent() {
+              const main = document.querySelector('.main');
+              const headerBottom = document.querySelector('.header__bottom');
+              
+              if (headerBottom) {
+                headerBottom.style.display = 'none';
+              }
+              
+              if (main) {
+                main.style.paddingTop = 'var(--header-height, 60px)';
+                main.style.marginTop = '0';
+              }
+              
+              // Если еще не нашли элементы, пробуем еще раз через короткое время
+              if (!main || !headerBottom) {
+                setTimeout(adjustContent, 500);
+              }
+            }, 100);
           });
         }
       })();

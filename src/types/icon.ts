@@ -21,7 +21,8 @@ export type IconName =
   | 'heart' 
   | 'handshake' 
   | 'search'
-  | 'download';
+  | 'download'
+  | 'auto';
 
 /**
  * Интерфейс пропсов компонента Icon

@@ -8,6 +8,7 @@ import SideMenu from './SideMenu';
 import useTheme from '../../hooks/useTheme';
 import '../../styles/components/header.css';
 import Navigation from './Navigation';
+import { IconName } from '../../types/icon';
 
 
 const Header: React.FC = () => {
@@ -17,7 +18,7 @@ const Header: React.FC = () => {
   const itemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   
   // Использование хука для управления темой
-  const { theme, toggleTheme } = useTheme();
+  const { theme, themeMode, cycleThemeMode } = useTheme();
 
   // Обработчик скролла для прилипающего хедера
   useEffect(() => {
@@ -121,6 +122,30 @@ const Header: React.FC = () => {
   const closeSideMenu = () => {
     setIsSideMenuOpen(false);
   };
+  
+  // Определяем иконку и подсказку для кнопки темы
+  const getThemeButtonProps = () => {
+    switch (themeMode) {
+      case 'light':
+        return {
+          icon: 'sun' as IconName,
+          label: 'Переключить на темную тему'
+        };
+      case 'dark':
+        return {
+          icon: 'moon' as IconName,
+          label: 'Переключить на автоматический режим'
+        };
+      case 'auto':
+        // В автоматическом режиме показываем иконку в зависимости от текущей темы
+        return {
+          icon: theme === 'light' ? 'sun' as IconName : 'moon' as IconName,
+          label: 'Переключить на светлую тему'
+        };
+    }
+  };
+  
+  const themeButtonProps = getThemeButtonProps();
 
   return (
     <>
@@ -143,11 +168,12 @@ const Header: React.FC = () => {
 
           <div className="header__actions">
             <button 
-              className="theme-toggle"
-              onClick={toggleTheme}
-              aria-label={`Включить ${theme === 'light' ? 'темную' : 'светлую'} тему`}
+              className={`theme-toggle ${themeMode === 'auto' ? 'theme-toggle--auto' : ''}`}
+              onClick={cycleThemeMode}
+              aria-label={themeButtonProps.label}
+              title={themeButtonProps.label}
             >
-              <Icon name={theme === 'light' ? 'sun' : 'moon'} />
+              <Icon name={themeButtonProps.icon} />
             </button>
 
             {showInstallButton && (
