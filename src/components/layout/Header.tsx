@@ -187,11 +187,11 @@ const Header: React.FC = () => {
               </button>
             )}
 
-            <Link to="/profile" className="profile-button" aria-label="Профиль">
+            <Link to="/profile" className="profile-button desktop-only" aria-label="Профиль">
               <Icon name="profile" />
             </Link>
 
-            <Link to="/cart" className="cart-button" aria-label="Корзина">
+            <Link to="/cart" className="cart-button desktop-only" aria-label="Корзина">
               <Icon name="cart" />
               {itemsCount > 0 && <span className="cart-button__count">{itemsCount}</span>}
             </Link>

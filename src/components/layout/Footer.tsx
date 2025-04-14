@@ -3,9 +3,14 @@ import SocialLinks from '@components/common/SocialLinks';
 import { Link } from 'react-router-dom';
 import StoreAddresses from '../common/StoreAddresses';
 import { PHONE_NUMBER } from '../../constants/contacts';
+import Icon from '@components/common/Icon';
+import { useSelector } from 'react-redux';
+import { RootState } from '@store/store';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const itemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   
   return (
     <footer className="footer">
@@ -57,7 +62,25 @@ const Footer: React.FC = () => {
       </div>
       
       <div className="mobile-footer">
-       
+        <nav className="mobile-nav">
+          <Link to="/" className="mobile-nav__item">
+            <Icon name="store" />
+            <span className="mobile-nav__label">Главная</span>
+          </Link>
+          <Link to="/catalog" className="mobile-nav__item">
+            <Icon name="search" />
+            <span className="mobile-nav__label">Каталог</span>
+          </Link>
+          <Link to="/profile" className="mobile-nav__item">
+            <Icon name="profile" />
+            <span className="mobile-nav__label">Профиль</span>
+          </Link>
+          <Link to="/cart" className="mobile-nav__item">
+            <Icon name="cart" />
+            {itemsCount > 0 && <span className="mobile-nav__badge">{itemsCount}</span>}
+            <span className="mobile-nav__label">Корзина</span>
+          </Link>
+        </nav>
       </div>
     </footer>
   );

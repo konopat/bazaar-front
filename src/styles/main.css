@@ -51,6 +51,13 @@
   flex: 1 0 auto;
 }
 
+/* Добавляю отступы для мобильных устройств */
+@media (max-width: 767px) {
+  .main {
+    padding-bottom: 70px; /* Отступ для мобильной навигации снизу */
+  }
+}
+
 /* Заголовки секций */
 .section-title {
   font-family: var(--font-family-secondary);
