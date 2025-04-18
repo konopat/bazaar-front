@@ -10,6 +10,12 @@
   margin-bottom: 3rem;
 }
 
+/* Контролируем размер логотипа в футере */
+.footer__logo svg {
+  height: 30px;
+  width: auto;
+}
+
 .footer__container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -67,6 +73,7 @@
   left: 0;
   right: 0;
   z-index: 100;
+  padding: 0.5rem 0 1.5rem 0;
   background-color: var(--color-background);
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -74,7 +81,9 @@
 .mobile-nav {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   height: 60px;
+  padding-bottom: env(safe-area-inset-bottom, 0); /* Для iPhone с выемкой */
 }
 
 .mobile-nav__item {
@@ -103,7 +112,7 @@
 
 .mobile-nav__badge {
   position: absolute;
-  top: 4px;
+  top: 0;
   right: calc(50% - 16px);
   background-color: var(--color-accent);
   color: white;
@@ -132,6 +141,10 @@
   .footer__container {
     grid-template-columns: 1fr;
   }
+
+  .footer__section {
+    margin-bottom: 1.5rem;
+  }
   
   .footer__bottom {
     flex-direction: column;
@@ -142,18 +155,33 @@
   .mobile-footer {
     display: block;
   }
-  
-  /* Добавляем класс desktop-only для элементов, которые нужно скрыть на мобильных */
-  .desktop-only {
-    display: none;
-  }
 }
 
 /* Темная тема */
 .theme-dark .footer {
-  background: var(--color-background-darker);
+  background-color: var(--color-background-darker);
 }
 
 .theme-dark .footer__nav-link:hover {
   color: var(--color-primary);
+}
+
+.theme-dark .mobile-footer {
+  background-color: var(--color-background-dark);
+  border-top: 1px solid var(--color-border-dark);
+}
+
+.theme-dark .mobile-nav__item {
+  color: var(--color-text-muted-dark);
+}
+
+.theme-dark .mobile-nav__item:hover,
+.theme-dark .mobile-nav__item:focus,
+.theme-dark .mobile-nav__item.active {
+  color: var(--color-primary-dark-theme);
+}
+
+.theme-dark .mobile-nav__badge {
+  background-color: var(--color-primary-dark-theme);
+  color: var(--color-background-dark);
 } 
