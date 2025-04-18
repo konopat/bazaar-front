@@ -57,8 +57,12 @@ const AppContent = () => {
 const App = () => {
   // На клиенте используем BrowserRouter, на сервере - ничего (роутер придет снаружи)
   if (!isServer) {
+    // Определяем, находимся ли в production режиме для GitHub Pages
+    const isProduction = process.env.NODE_ENV === 'production';
+    const basename = isProduction ? '/bazaar-front' : '/';
+    
     return (
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <Router basename={basename} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <ScrollToTop />
         <AppContent />
       </Router>

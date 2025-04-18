@@ -2,6 +2,7 @@
   "name": "bazaar-front",
   "version": "1.0.0",
   "description": "Flower bouquet online store",
+  "homepage": "https://konopat.github.io/bazaar-front",
   "main": "index.js",
   "scripts": {
     "start:dev:client": "webpack serve --mode development --open",
@@ -13,7 +14,9 @@
     "start": "cd server && npm run start:prod",
     "analyze": "ANALYZE=true webpack --mode production",
     "test": "jest",
-    "lint": "eslint src --ext .ts,.tsx"
+    "lint": "eslint src --ext .ts,.tsx",
+    "predeploy": "NODE_ENV=production webpack --mode production",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.7",
@@ -60,6 +63,7 @@
     "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^6.3.0",
     "html-webpack-plugin": "^5.5.3",
     "jsdom": "^26.0.0",
     "nodemon": "^3.1.0",

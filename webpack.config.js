@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'dist'),
       filename: '[name].[contenthash].js',
       chunkFilename: '[name].[contenthash].chunk.js',
-      publicPath: '/',
+      publicPath: isProduction ? '/bazaar-front/' : '/',
       clean: true,
     },
     resolve: {
