@@ -7,6 +7,7 @@ import LazyImage from './LazyImage';
 import Modal from './Modal';
 import ProductDetail from '../catalog/ProductDetail';
 import AddToCartAnimation from '../catalog/AddToCartAnimation';
+import { getAssetPath } from '../../utils/paths';
 
 const ProductCard = ({
   id,
@@ -115,7 +116,7 @@ const ProductCard = ({
               <LazyImage
                 src={image}
                 alt={productName}
-                fallbackSrc="/images/product-placeholder.jpg"
+                fallbackSrc={getAssetPath('/images/product-placeholder.jpg')}
                 containerClassName="product-card__image-wrapper"
                 className="product-card__image"
                 aspectRatio={1}
@@ -167,7 +168,7 @@ const ProductCard = ({
           <LazyImage
             src={image}
             alt={productName}
-            fallbackSrc="/images/product-placeholder.jpg"
+            fallbackSrc={getAssetPath('/images/product-placeholder.jpg')}
             className="product-card__image-content"
             containerClassName="product-card__image-wrapper"
             objectFit="cover"

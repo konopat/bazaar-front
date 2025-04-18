@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Skeleton from './Skeleton';
 import { LazyImageProps } from '../../types';
+import { getAssetPath } from '../../utils/paths';
 import '../../styles/components/LazyImage.css';
 
 /**
@@ -13,7 +14,7 @@ import '../../styles/components/LazyImage.css';
 const LazyImage = ({
   src,
   alt,
-  fallbackSrc = '/images/placeholder.png',
+  fallbackSrc = getAssetPath('/images/placeholder.png'),
   className = '',
   containerClassName = '',
   objectFit = 'contain',
@@ -26,6 +27,9 @@ const LazyImage = ({
   const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   
+  // Применяем getAssetPath к src, если путь начинается с /
+  const processedSrc = src.startsWith('/') ? getAssetPath(src) : src;
+  
   // Сбрасываем состояние загрузки при изменении источника изображения
   useEffect(() => {
     setLoading(true);
@@ -35,7 +39,7 @@ const LazyImage = ({
     if (imgRef.current && imgRef.current.complete) {
       setLoading(false);
     }
-  }, [src]);
+  }, [processedSrc]);
   
   /**
    * Обработчик успешной загрузки изображения
@@ -132,7 +136,7 @@ const LazyImage = ({
       <img
         ref={imgRef}
         className={`lazy-image__img ${className} ${loading ? 'lazy-image__img--hidden' : ''}`}
-        src={error ? fallbackSrc : src}
+        src={error ? fallbackSrc : processedSrc}
         alt={alt}
         onLoad={handleLoad}
         onError={handleError}

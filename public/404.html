@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>BAZAAR - Перенаправление</title>
+  <script>
+    // Скрипт для перенаправления SPA на GitHub Pages
+    var pathSegmentsToKeep = 1; // Сохраняем только 'bazaar-front' сегмент URL
+    
+    var l = window.location;
+    var location = l.href.replace(l.origin, '') // Получаем путь без домена
+      .slice(1) // Удаляем первый слеш
+      .split('/') // Разбиваем путь по слешам
+      .slice(pathSegmentsToKeep) // Оставляем только часть после pathSegmentsToKeep
+      .join('/'); // Соединяем обратно
+      
+    var newUrl = l.origin + l.pathname.split('/').slice(0, pathSegmentsToKeep + 1).join('/') + '/?/' + location;
+    
+    if (l.search) {
+      newUrl += l.search; // Добавляем параметры запроса если они есть
+    }
+    
+    if (l.hash) {
+      newUrl += l.hash; // Добавляем хэш если он есть
+    }
+    
+    window.location.replace(newUrl);
+  </script>
+</head>
+<body>
+  <h1>Перенаправление...</h1>
+  <p>Если вы не были перенаправлены автоматически, пожалуйста, перейдите на <a href="https://konopat.github.io/bazaar-front/">главную страницу</a>.</p>
+</body>
+</html> 

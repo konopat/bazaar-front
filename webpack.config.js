@@ -75,6 +75,7 @@ module.exports = (env, argv) => {
         patterns: [
           { from: 'public/manifest.json', to: '' },
           { from: 'public/offline.html', to: '' },
+          { from: 'public/404.html', to: '' },
           // Иконки для PWA будем добавлять в реальном проекте
           { from: 'public/icons', to: 'icons', noErrorOnMissing: true },
           // Добавляем копирование папки с изображениями
