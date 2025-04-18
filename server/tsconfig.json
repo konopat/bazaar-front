@@ -10,6 +10,10 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@components/*": ["../src/components/*"],
+      "@store/*": ["../src/store/*"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -20,6 +24,6 @@
     "esModuleInterop": true,
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../src/components/**/*", "../src/store/**/*"],
   "exclude": ["node_modules", "dist"]
 } 

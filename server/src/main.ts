@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as compression from 'compression';
+import compression from 'compression';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,8 +22,8 @@ async function bootstrap() {
     next();
   });
   
-  await app.listen(3000);
-  console.log('Сервер запущен на порту 3000');
+  await app.listen(3001);
+  console.log('Сервер запущен на порту 3001');
 }
 
 bootstrap(); 
