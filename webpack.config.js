@@ -77,6 +77,10 @@ module.exports = (env, argv) => {
           { from: 'public/offline.html', to: '' },
           // Иконки для PWA будем добавлять в реальном проекте
           { from: 'public/icons', to: 'icons', noErrorOnMissing: true },
+          // Добавляем копирование папки с изображениями
+          { from: 'src/images', to: 'images' },
+          // Добавляем копирование изображений из директории public
+          { from: 'public/images', to: 'images' },
         ],
       }),
     ],
