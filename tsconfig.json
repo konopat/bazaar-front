@@ -21,7 +21,10 @@
       "@store/*": ["store/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
-      "@hooks/*": ["hooks/*"]
+      "@hooks/*": ["hooks/*"],
+      "@types/*": ["types/*"],
+      "@mocks/*": ["mocks/*"],
+      "@constants/*": ["constants/*"]
     }
   },
   "include": ["src"],

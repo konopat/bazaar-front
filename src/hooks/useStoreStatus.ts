@@ -129,7 +129,7 @@ export function useStoreStatus(workSchedule?: WorkSchedule): StoreStatus {
       if (nextWorkDay && workSchedule[nextWorkDay].open) {
         // Названия дней недели на русском
         const dayNames = ['завтра', 'послезавтра'];
-        let dayText = daysAhead <= 2 ? dayNames[daysAhead - 1] : `через ${daysAhead} дня`;
+        const dayText = daysAhead <= 2 ? dayNames[daysAhead - 1] : `через ${daysAhead} дня`;
         
         return {
           isOpen: false,

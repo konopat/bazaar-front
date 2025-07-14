@@ -25,7 +25,10 @@ module.exports = (env, argv) => {
         '@store': path.resolve(__dirname, 'src/store'),
         '@styles': path.resolve(__dirname, 'src/styles'),
         '@utils': path.resolve(__dirname, 'src/utils'),
-        '@hooks': path.resolve(__dirname, 'src/hooks')
+        '@hooks': path.resolve(__dirname, 'src/hooks'),
+        '@types': path.resolve(__dirname, 'src/types'),
+        '@mocks': path.resolve(__dirname, 'src/mocks'),
+        '@constants': path.resolve(__dirname, 'src/constants')
       },
     },
     module: {
@@ -76,11 +79,10 @@ module.exports = (env, argv) => {
           { from: 'public/manifest.json', to: '' },
           { from: 'public/offline.html', to: '' },
           { from: 'public/404.html', to: '' },
-          // Иконки для PWA будем добавлять в реальном проекте
-          { from: 'public/icons', to: 'icons', noErrorOnMissing: true },
-          // Добавляем копирование папки с изображениями
-          { from: 'src/images', to: 'images' },
-          // Добавляем копирование изображений из директории public
+          { from: 'public/robots.txt', to: '' },
+          { from: 'public/sitemap.xml', to: '' },
+          { from: 'public/icons', to: 'icons' },
+          { from: 'src/images', to: 'images', noErrorOnMissing: true },
           { from: 'public/images', to: 'images' },
         ],
       }),
@@ -107,9 +109,9 @@ module.exports = (env, argv) => {
       historyApiFallback: true,
       port: 3000,
       hot: true,
-      // Настройка для PWA в режиме разработки
+      open: true,
+      // Обработка service worker в режиме разработки
       setupMiddlewares: (middlewares, devServer) => {
-        // Обработка запросов к service worker
         devServer.app.get('/service-worker.js', (req, res) => {
           res.sendFile(path.resolve(__dirname, 'src/dev-worker.js'));
         });
@@ -118,7 +120,7 @@ module.exports = (env, argv) => {
     },
   };
 
-  // Добавляем компрессию только в продакшене
+  // Продакшн оптимизации
   if (isProduction) {
     config.plugins.push(
       new CompressionPlugin({
@@ -134,7 +136,7 @@ module.exports = (env, argv) => {
       config.plugins.push(new BundleAnalyzerPlugin());
     }
     
-    // Используем настоящий Service Worker в продакшене
+    // Service Worker для PWA
     config.plugins.push(
       new InjectManifest({
         swSrc: './src/service-worker.js',

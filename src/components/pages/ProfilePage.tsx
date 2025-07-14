@@ -1,9 +1,9 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../common/Icon';
 import Modal from '../common/Modal';
 import '../../styles/pages/profile.css';
-import { UserProfile, DeliveryAddress, Order, mockProfile, mockAddresses, mockOrders } from '../../mocks/user';
+import { DeliveryAddress, mockAddresses, mockOrders, mockProfile, Order, UserProfile } from '../../mocks/user';
 
 const ProfilePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'addresses' | 'favorites'>('profile');

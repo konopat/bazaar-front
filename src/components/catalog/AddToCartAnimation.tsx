@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import '../../styles/components/add-to-cart-animation.css';
 
@@ -136,7 +136,7 @@ const AddToCartAnimation: React.FC<AddToCartAnimationProps> = ({
             const newDot = {
               id: Date.now() + Math.random(),
               style: {
-                position: 'fixed' as 'fixed',
+                position: 'fixed' as const,
                 top: `${point.y}px`,
                 left: `${point.x}px`,
                 width: `16px`,

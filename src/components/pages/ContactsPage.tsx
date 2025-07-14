@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { 
-  STORES, 
-  SOCIAL_NETWORKS, 
+  CONTACT_FORM_FIELDS, 
   PHONE_NUMBER, 
-  CONTACT_FORM_FIELDS 
+  SOCIAL_NETWORKS, 
+  STORES 
 } from '../../constants/contacts';
 import StoresModal from '../map/StoresModal';
 import Icon from '../common/Icon';

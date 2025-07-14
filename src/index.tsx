@@ -1,5 +1,5 @@
 import React from 'react';
-import { hydrateRoot, createRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from '@store/store';
 import App from '@components/App';
@@ -76,43 +76,20 @@ if ('serviceWorker' in navigator) {
 // Получение предзагруженного состояния с сервера
 const preloadedState = window.__INITIAL_STATE__;
 
-// Обновление состояния хранилища, если оно есть
-let appStore = store;
-if (preloadedState) {
-  // Создаем новый store с предзагруженным состоянием
-  const { configureStore } = require('@reduxjs/toolkit');
-  const rootReducer = require('@store/store').rootReducer;
-  
-  appStore = configureStore({
-    reducer: rootReducer,
-    preloadedState
-  });
-}
+// Frontend-only mode - no SSR preloaded state
+const appStore = store;
 
 const appElement = document.getElementById('root') as HTMLElement;
 
-// Используем гидратацию для SSR или обычный рендеринг
-if (appElement.innerHTML.trim().length > 0) {
-  // Гидратация для SSR
-  hydrateRoot(
-    appElement,
-    <React.StrictMode>
-      <Provider store={appStore}>
-        <App />
-      </Provider>
-    </React.StrictMode>
-  );
-} else {
-  // Обычный рендеринг без SSR (резервный вариант)
-  const root = createRoot(appElement);
-  root.render(
-    <React.StrictMode>
-      <Provider store={appStore}>
-        <App />
-      </Provider>
-    </React.StrictMode>
-  );
-}
+// Frontend-only mode - always use createRoot
+const root = createRoot(appElement);
+root.render(
+  <React.StrictMode>
+    <Provider store={appStore}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);
 
 // Добавляем типы для TypeScript
 declare global {

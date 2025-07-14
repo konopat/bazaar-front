@@ -1,10 +1,10 @@
 import React from 'react';
 import { 
-  DELIVERY_ZONES, 
-  DELIVERY_METHODS, 
   DELIVERY_INFO, 
+  DELIVERY_METHODS, 
   DELIVERY_STEPS, 
-  DELIVERY_TIPS 
+  DELIVERY_TIPS, 
+  DELIVERY_ZONES 
 } from '../../constants/delivery';
 import Icon from '../common/Icon';
 

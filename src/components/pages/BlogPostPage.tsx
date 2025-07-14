@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BLOG_POSTS } from '../../mocks/blog';
 import BlogPostCard from '../common/BlogPostCard';
 import SocialLinks from '../common/SocialLinks';

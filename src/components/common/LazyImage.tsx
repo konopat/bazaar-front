@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Skeleton from './Skeleton';
 import { LazyImageProps } from '../../types';
 import { getAssetPath } from '../../utils/paths';

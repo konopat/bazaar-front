@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Vacancy, VACANCIES } from '../../mocks/vacancies';
+import { VACANCIES, Vacancy } from '../../mocks/vacancies';
 import '../../styles/pages/vacancies.css';
 
 const VacanciesPage: React.FC = () => {

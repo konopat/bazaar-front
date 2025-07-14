@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { STORES } from '../../constants/contacts';
 import { 
+  ABOUT_COMPANY_TEXT, 
   COMPANY_VALUES, 
-  HISTORY_MILESTONES, 
-  ABOUT_COMPANY_TEXT 
+  HISTORY_MILESTONES 
 } from '../../constants/about';
 import StoresModal from '../map/StoresModal';
 import Icon from '../common/Icon';

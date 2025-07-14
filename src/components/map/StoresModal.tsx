@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useReducer } from 'react';
 import Modal from '../common/Modal';
 import StoresMap from './StoresMap';
 import StoresList from './StoresList';

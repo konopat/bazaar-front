@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import BlogPostCard from '../common/BlogPostCard';
 import SearchField from '../common/SearchField';
 import { BLOG_POSTS, CATEGORIES, POSTS_PER_PAGE } from '../../mocks/blog';

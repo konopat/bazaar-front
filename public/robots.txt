@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+
+# GitHub Pages sitemap
+Sitemap: https://konopat.github.io/bazaar-front/sitemap.xml
+
+# Основные страницы для индексации
+Allow: /catalog
+Allow: /products/
+Allow: /delivery
+Allow: /about
+Allow: /contacts
+Allow: /blog/
+
+# Запрет для служебных страниц
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /service-worker.js
+
+# Crawl-delay для вежливости
+Crawl-delay: 1 
