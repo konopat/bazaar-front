@@ -60,6 +60,9 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './public/index.html',
+        templateParameters: {
+          PUBLIC_URL: isProduction ? '/bazaar-front/' : '/'
+        },
         minify: isProduction ? {
           removeComments: true,
           collapseWhitespace: true,
