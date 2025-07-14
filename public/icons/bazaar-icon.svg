@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+    <!-- Темный фон -->
+    <rect width="32" height="32" fill="#2D2D2D" rx="6" />
+    
+    <!-- Фирменная золотая буква "B" от BAZAAR -->
+    <text x="16" y="22" text-anchor="middle" font-family="serif" font-size="20" font-weight="bold" fill="#D4A977">B</text>
+    
+    <!-- Маленький декоративный элемент в золотом цвете -->
+    <circle cx="24" cy="8" r="2" fill="#D4A977" opacity="0.6" />
+</svg>
