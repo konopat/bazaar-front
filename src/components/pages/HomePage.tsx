@@ -132,7 +132,7 @@ const HomePage: React.FC = () => {
           </div>
 
           <h1 className="hero__title">Доставка цветов в&nbsp;Иркутске</h1>
-          <p className="hero__subtitle">Купите букет от&nbsp;1&nbsp;500 рублей</p>
+          <p className="hero__subtitle">Купите букет от&nbsp;1&nbsp;499 рублей</p>
           <Link to="/catalog" className="button button--primary hero__button">
             Открыть каталог
           </Link>
